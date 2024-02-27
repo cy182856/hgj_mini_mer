@@ -1,0 +1,209 @@
+{
+  "pages": [
+    "pages/home/home",
+    "subpages/acmanager/acConnect",
+    "sdk/testDev",
+    "pages/manager/manager",
+    "pages/index/index",
+    "pages/commingsoon/commingsoon",
+    "pages/logs/logs",
+    "pages/mine/accountDetailInfo",
+    "pages/home/ownerManage/ownerManage",
+    "pages/mine/mineComment",
+    "pages/home/family/memberList",
+    "pages/staffs/staffList",
+    "pages/home/ownerManage/houseInfo",
+    "pages/common/error/error",
+    "pages/home/family/memberDetail",
+    "pages/home/techSupport/techSup",
+    "pages/home/propHouseInfo/propHouseShow",
+    "pages/home/propHouseInfo/propBriefDesc",
+    "pages/home/propHouseInfo/propHouseShowDetail",
+    "subpages/acmanager/searchDev",
+    "subpages/acmanager/acQRCode",
+    "subpages/acmanager/acDevList",
+    "subpages/acmanager/acDevice",
+    "subpages/acmanager/inAndOutRecords",
+    "subpages/acmanager/acFirmware",
+    "subpages/acmanager/acRecordList"
+  ],
+  "subpackages": [
+    {
+      "root": "subpages/mine",
+      "pages": [
+        "pages/mine/mine"
+      ]
+    },
+    {
+      "root": "subpages/manager",
+      "pages": [
+        "pages/default/default"
+      ]
+    },
+    {
+      "root": "subpages/appt",
+      "pages": [
+        "appt_timeDtl_query",
+        "appt_ordDtl_query",
+        "appt_timeDtl_detail"
+      ]
+    },
+    {
+      "root": "subpages/visit",
+      "pages": [
+        "visitInfo/visitInfo",
+        "visitInoutInfo/visitInoutInfo",
+        "visitInoutLogs/visitInoutLogs",
+        "visitInoutLogDetail/visitInoutLogDetail"
+      ]
+    },
+    {
+      "root": "subpages/repair",
+      "name": "repair",
+      "pages": [
+        "pages/repairQuery/repairQuery",
+        "pages/repairApply/repairApply",
+        "pages/repairDetail/repairDetail",
+        "pages/repairDetailPage/repairDetailPage",
+        "pages/repairHouseSelected/repairHouseSelected",
+        "pages/repairCostDetailPage/repairCostDetailPage",
+        "pages/orders/orders",
+        "pages/dispatch/dispatch",
+        "pages/myrepair/myrepair",
+        "pages/queryRepair/queryRepair",
+        "pages/updAmt/updAmt"
+      ]
+    },
+    {
+      "root": "subpages/serviceBuild",
+      "name": "serviceBuild",
+      "pages": [
+        "pages/buildQuery/buildQuery"  
+      ]
+    },
+    {
+      "root": "subpages/humsg",
+      "pages": [
+        "masssendhumsg/massSendHuMsg",
+        "humsgloglist/huMsgLogList",
+        "humsglog/huMsgLog"
+      ]
+    },
+    {
+      "root": "subpages/humsgspecified",
+      "pages": [
+        "masssendhumsg/massSendHuMsg",
+        "humsgloglist/huMsgLogList",
+        "humsglog/huMsgLog"
+      ]
+    },
+    {
+      "root": "subpages/heo",
+      "pages": [
+        "heoaudit/heoinfo",
+        "heodetail/heodetail",
+        "choosetype/choosetype",
+        "heopost/heopost",
+        "mineRelease/mineRelease",
+        "heorelease/heorelease",
+        "heopraislist/heopraislist"
+      ]
+    },
+    {
+      "root": "subpages/checkcode",
+      "pages": [
+        "checkcode/checkcode"
+      ]
+    },
+    {
+      "root": "subpages/advice",
+      "name": "advice",
+      "pages": [
+        "queryAdviceList/queryAdviceList",
+        "adviceDetail/myDetail",
+        "adviceDetail/otherDetail"
+      ]
+    },
+    {
+      "root": "subpages/charge",
+      "name": "charge",
+      "pages": [
+        "chargeManager/chargeManager",
+        "chargedetail/chargedetail"
+      ]
+    },
+    {
+      "root": "subpages/remotedoor",
+      "name": "remotedoor",
+      "pages": [
+        "doorList/doorList",
+        "qrCode/qrCode"
+      ]
+    },
+    {
+      "root": "subpages/registerToast",
+      "name": "registerToast",
+      "pages": [
+        "registerToast"
+      ]
+    }
+  
+  ],
+  "plugins": {
+    "calendar": {
+      "version": "1.1.0",
+      "provider": "wxa3eebcbd5f0cd759"
+    },
+    "contactPlugin": {
+      "version": "2.1.1",
+      "provider": "wx5917c8c26f85c588"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "智慧管家",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-row": "@vant/weapp/row",
+    "van-col": "@vant/weapp/col",
+    "van-image": "@vant/weapp/image/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group",
+    "van-rate": "@vant/weapp/rate",
+    "van-field": "@vant/weapp/field",
+    "van-switch": "@vant/weapp/switch",
+    "van-button": "@vant/weapp/button",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu",
+    "van-dropdown-item": "@vant/weapp/dropdown-item",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-loading": "@vant/weapp/loading",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-collapse": "@vant/weapp/collapse/index",
+    "van-collapse-item": "@vant/weapp/collapse-item/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-tabbar": "@vant/weapp/tabbar",
+    "van-tabbar-item": "@vant/weapp/tabbar-item",
+    "van-overlay": "@vant/weapp/overlay/index",
+    "calendar": "plugin://calendar/calendar",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-panel": "@vant/weapp/panel/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-skeleton": "@vant/weapp/skeleton/index"
+  }
+}

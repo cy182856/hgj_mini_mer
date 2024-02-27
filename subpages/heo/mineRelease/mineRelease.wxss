@@ -1,0 +1,19 @@
+page{
+  height: 100%;
+}
+
+.heoinfo-view {
+  height: auto;
+  flex-direction: column;
+  width: 100%;
+}
+.empty-view{
+  height: 100%;
+  margin-top: 10rpx;
+  background-color: #fff;
+}
+
+.van-grid-item-text{
+  margin-top: 30rpx !important;
+  font-size: 24rpx !important;
+}

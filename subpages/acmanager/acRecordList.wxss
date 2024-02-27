@@ -1,0 +1,82 @@
+/* subpages/acmanager/acRecordList.wxss */
+@import "./acDevList.wxss";
+.scroll-height {
+  position: fixed;
+  top: 180rpx;
+  display:flex;
+  flex-direction: column;
+  height: calc(100% - 216rpx);
+  width: calc(100% - 60rpx);
+  margin: 0rpx;
+  padding: 0rpx;
+  background-color: white;
+}
+.titleFixed {
+  position: fixed;
+  width: calc(100% - 60rpx);
+  height: 80rpx;
+  border-top-left-radius:16rpx;
+  border-top-right-radius: 16rpx;
+  top: 100rpx;
+  background-color: white;
+}
+.content-list{
+  width: 100%;
+  background-color: white;
+  height: 60rpx;
+}
+.text-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60rpx;
+  
+  font-size: 28rpx;
+  text-align: center;
+  color: #3c3c3c;
+  
+}
+.queryBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+.dia-body{
+  padding-top: 60rpx;
+  margin-bottom: 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dia-content{
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+.van-button--info {
+  font-size: 24rpx !important;
+
+  padding-left: 10rpx !important;
+  padding-right: 10rpx !important;
+  width:200rpx !important;
+  height: 60rpx !important;
+}
+.queryButton {
+  margin-left: 60rpx;
+  border-radius: 28rpx;
+  height: 56rpx;
+  width: 240rpx;
+  color: white;
+  background-color: #169aff;
+  text-align: center;
+  line-height:  56rpx;
+  font-size: 24rpx;
+}

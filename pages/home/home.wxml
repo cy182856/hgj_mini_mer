@@ -1,0 +1,145 @@
+<import src="../../templates/func-card/func-card.wxml"/>
+<import src="../../component/loading/loading.wxml"></import>
+<import src="../../component/toast/toast.wxml"></import>
+<template is="toast" data="{{..._toast_}}"></template>
+<template is="loading" data="{{..._loading_}}"></template>
+<van-dialog id="van-dialog" confirm-button-color ="#189AFE"/>
+<view class="page content-position"> 
+    <block wx:if="{{active == 0}}"  >
+        <block wx:for="{{functionShow}}" wx:for-item="item"  wx:key='topic' >
+            <template is="func-card"  data="{{item}}"></template>     
+        </block>
+        <view style="height:90px"></view>
+    </block>
+    <block wx:else>
+        <view>
+            <van-row custom-class="vanRow">
+                <!-- WeChat logo -->
+                <van-col span="5" offset="1" custom-class="logo">
+                    <!-- <van-image round width="4rem" height="4rem">
+                        <open-data type="userAvatarUrl"></open-data>
+                    </van-image> -->
+                    <view class="avatar">
+                        <!-- <open-data  type="userAvatarUrl"></open-data> -->
+                        <button class="touxiang" open-type="chooseAvatar" bindchooseavatar="bindchooseavatar">
+                            <van-image round width="100%" height="100%" src="{{userAvatarUrl}}"/> 
+                        </button>
+                    </view>
+                </van-col>
+                <!-- 个人描述 -->
+                <van-col span="18">
+                    <van-cell
+                            center
+                            title-class="nickName"
+                            label-class="houseInfo"
+                            custom-class="logo-desc-view"
+                            use-label-slot="{{true}}"
+                            clickable="{{true}}"
+                            bind:click=""
+                            border="{{false}}"
+                            >
+                            <view slot="title" bind:click="house">
+                                <!-- <view class="van-cell-text"><open-data type="userNickName"></open-data></view> -->
+                                <!-- <view class="van-cell-text-name ellipsis_view">{{userName == null ? ' ' : userName}}</view> -->
+                                <van-col span="22" >
+                                <!-- <text>{{userNickName}}</text> -->
+                                <text class="user_name">{{userName}}</text>
+                            </van-col>     
+                            </view>
+                            <!-- 住房信息 -->
+                            <view slot="label">
+                                <view >
+                                <view class="van-cell-text ellipsis_view">
+                                    {{userInfo.SHORTNAME == null ? ' ' : userInfo.SHORTNAME}}    {{userInfo.DEPTNAME == null ? ' ' : userInfo.DEPTNAME}}
+                                </view>
+                                <!-- <view class="user-title">{{userInfo.DEPTNAME == null ? ' ' : userInfo.DEPTNAME}}</view> -->
+                                </view>
+                            </view>
+                    </van-cell>
+                </van-col>
+            </van-row>
+            </view>
+            <view style="height:24px;"></view>
+            <!-- 功能列表 -->
+            <view class="me_font">
+                <!-- <van-cell title="账户信息管理" is-link link-type="navigateTo" url="" bind:click="onAccountDetailInfo">
+                    <van-icon slot="icon" name="/images/icon_accountInfo.png" size="25" />
+                </van-cell> -->
+                <!-- <van-cell title="我的评价" is-link link-type="navigateTo" url="" bind:click="onMyComment">
+                    <van-icon slot="icon" name="/images/icon_myEvaluate.png" size="25" />
+                </van-cell> -->
+                <!-- <van-cell title="我的维修" is-link link-type="navigateTo" url="/subpages/repair/pages/myrepair/myrepair">
+                    <van-icon slot="icon" name="/images/icon_myRepair.png" size="25" />
+                </van-cell> -->
+
+                <block wx:for="{{authList}}" wx:for-item="item"  wx:key='topic' >
+                    <view wx:if="{{item.id == 16}}">
+                        <van-cell title="报修查看" is-link link-type="navigateTo" url="/subpages/repair/pages/repairQuery/repairQuery">
+                        <van-icon slot="icon" name="/images/icon_myRepair.png" size="25" />
+                        </van-cell>
+                    </view>
+                </block>
+                <view>
+                    <van-cell title="服务楼栋" is-link link-type="navigateTo" url="/subpages/serviceBuild/pages/buildQuery/buildQuery">
+                    <van-icon slot="icon" name="/images/home1.png" size="25" />
+                    </van-cell>
+                </view>
+                <!-- <van-cell title="技术支持" border="{{ false }}" is-link link-type="navigateTo" url="/pages/home/techSupport/techSup">
+                    <van-icon slot="icon" name="/images/icon_techSup.png" size="25" />
+                </van-cell> -->
+            </view>
+    </block>
+</view>
+<van-tabbar
+    active="{{ active }}"
+    data-key="active"    
+    safe-area-inset-bottom="{{ true }}"
+    bind:change="onTabBarChange"
+    active-color="#999999"
+    inactive-color="#999999"
+>
+    <block  wx:for="{{tablist}}"
+    wx:key="text"
+    wx:for-item ="tabItem">
+    <van-tabbar-item >
+    <image
+        slot="icon"
+        src="{{tabItem.iconPath }}"
+        mode="aspectFit"
+        style="width: 30px; height: 18px;"
+    />
+    <image
+        slot="icon-active"
+        src="{{tabItem.selectedIconPath}}"
+        mode="aspectFit"
+        style="width: 30px; height: 18px;"
+    />
+    {{tabItem.text}}
+    </van-tabbar-item>
+    </block>
+
+</van-tabbar>
+
+<view class="popup-view" wx:if="{{showChooseType}}" bindtap="hidePopup" catchtouchmove='preventTouchMove'>
+    <image class='popup-bg'  src='/images/home-bak.png'></image>
+    <view class="choose-type-view" style="width:{{panel_width}}" catchtap="notHide">
+        <view style="margin-top:20rpx;">
+            <view class="heo-popup-title">
+                {{popupTitle}}
+            </view>
+            <van-grid column-num="{{column_num}}"  border="{{false}}" custom-class="van-grid-class">
+                <block wx:for="{{types}}" wx:for-item="item" wx:for-index="index" wk:key="id">
+                    <van-grid-item text="{{item.typeDesc}}" custom-class="van-grid-item-view" text-class="{{item.typeDesc == '不显示' ? 'van-grid-hide-text' : 'van-grid-item-text'}}" bind:click="{{item.event}}" link-type="navigateTo" url="{{item.url}}">
+                        <van-icon
+                            slot="icon"
+                            name="{{item.image}}"
+                            size="40"
+                        />
+                    </van-grid-item>
+                </block>
+            </van-grid>
+            <view style="height: 60rpx;"></view>
+        </view>
+    </view>
+</view>
+

@@ -1,0 +1,117 @@
+
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<page>
+  <view class="heo-realease-view">
+    <view class="heo-realease-cell">
+      <van-cell-group border="{{false}}">
+        <van-field readonly label="主题" 
+        bindtap="showCheckNeedOrGive" value="{{nOrGs[nOrgIndex].name}}" placeholder="请选择主题" is-link/> 
+        <van-field   readonly label="分类"  disabled = "{{heoTypeDisable}}"
+        bindtap="showCheckHeoType" value="{{heoTypeList[heoTypeIndex].heoTypeDesc}}" placeholder="请选择分类" is-link/>
+        <van-field border="{{false}}" clearable value="{{heoTitle}}" bind:input="inputHeoTitle" focus="{{focus}}"   label="标题" maxlength="30" placeholder="请输入标题" />
+        <view class="text_area">
+          <van-field
+            border="{{false}}"
+            value="{{heoDesc}}"
+            image-fit = "aspectFill"
+            clearable
+            type="textarea"
+            focus="{{focus}}"
+            bind:input="inputHeoDesc"
+            placeholder="请输入描述"
+            autosize="{{textArea}}"
+            maxlength="150"
+            show-word-limit="{{true}}"
+          />
+        </view>
+        <view class="upload">
+          <van-uploader   file-list="{{ fileList }}" 
+                          bind:after-read="afterRead" 
+                          bind:delete="delete"	
+                          multiple="{{true}}"
+                          max-count="{{imgUse}}"
+                          upload-text="{{imgCnt}}/{{imgUse}}"/>
+        </view>
+     </van-cell-group>
+    </view>
+  </view>
+  <view style="display: flex;">
+    <view class="standard-view" bindtap="showHeoStandard">
+      <text class="iconfont jia-tishi1"></text>
+      <text style="color: #b2b8c2;font-size: 28rpx;margin-left:10rpx;">请遵守<text class="under-line-view">发帖规范</text>，文明社区共同维护。</text>
+    </view>
+  </view>
+  <view style="margin:20rpx;text-align:center;">
+    <van-button bindtap="heoInfoRelease" custom-class="vant-btn-class" type="info">发布</van-button>
+  </view>
+</page>
+<van-popup show="{{ showCheckHeoType }}" position="bottom"  bind:close="onClose">
+  <van-picker columns="{{ heoTypeList }}" 
+    show-toolbar
+    title=""
+    default-index = "{{heoTypeIndex}}"
+    bind:cancel="onCancel"
+    bind:confirm="onConfirm"
+    value-key="heoTypeDesc" />
+</van-popup>
+<van-popup show="{{ showCheckNeedOrGive }}" position="bottom"  bind:close="onCloseCheckNorG">
+  <van-picker columns="{{ nOrGs }}" 
+    show-toolbar
+    title=""
+    default-index = "{{nOrgIndex}}"
+    bind:cancel="onCancelCheckNorG"
+    bind:confirm="onConfirmCheckNorG"
+    value-key="name" />
+</van-popup>
+
+<van-dialog id="van-dialog"  overlay-style ="z-index:6666 !important;"  confirm-button-color ="#189AFE" />
+
+<van-popup show="{{ isShowDialog }}" bind:click-overlay="closeInstru" custom-style="width: 88%;height:850rpx; border-radius: 20rpx !important">
+  <view catchtouchmove='preventTouchMove'>
+    <view class="obj_title">发帖留言规范</view>
+    <view class="deadline"></view>
+    <scroll-view class="obj_intru_list" scroll-y="true">
+      <view class="obj_intru">
+        <view style="display: flex;width: 100%;">1.<view>用户的言行不得违反《计算机信息网络国际联网安全保护管理办法》、《互联网信息服务管理办法》、《互联网电子公告服务管理规定》等相关法律规定。</view></view>
+      </view>
+      <view class="obj_intru">
+        <view style="display: flex;width: 100%;">2.<view>不得发表含有猥亵、色情、人身攻击等非法或侵权言论的信息。</view></view>
+      </view>
+      <view class="obj_intru">
+        <view style="display: flex;width: 100%;">3.<view>不得发表反政府言论等非法或侵权言论的信息。</view></view>
+      </view>
+      <view class="obj_intru">
+        <view style="display: flex;width: 100%;">4.<view>不得发布、传播或以其它方式传送含有下列内容之一的信息：</view></view>
+        <view style="display: flex;margin-left: 1rem;">1)<view>反对宪法所确定的基本原则的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">2)<view>危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">3)<view>损害国家荣誉和利益的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">4)<view>煽动民族仇恨、民族歧视、破坏民族团结的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">5)<view>破坏国家宗教政策，宣扬邪教和封建迷信的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">6)<view>散布谣言，扰乱社会秩序，破坏社会稳定的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">7)<view>散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">8)<view>侮辱或者诽谤他人，侵害他人合法权利的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">9)<view>煽动非法集会、结社、游行、示威、聚众扰乱社会秩序的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">10)<view>以非法民间组织名义活动的。</view></view>
+        <view style="display: flex;margin-left: 1rem;">11)<view>含有虚假、有害、胁迫、侵害他人隐私、骚扰、侵害、中伤、粗俗、猥亵、或其它道德上令人反感的内容。</view></view>
+        <view style="display: flex;margin-left: 1rem;">12)<view>含有中国法律、法规、规章、条例以及任何具有法律效力之规范所限制或禁止的其它内容的。</view></view>
+      </view>
+    </scroll-view>
+    <view class="deadline"></view>
+    <view class="obj_instru_close">
+      <view class="obj_instru_close_btn" bindtap="closeInstru">
+        <text>关闭</text>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<canvas canvas-id="canvas0" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-18000px;top:-18000px;">
+</canvas>
+<canvas canvas-id="canvas1" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-20000px;top:-20000px;">
+</canvas>
+<canvas canvas-id="canvas2" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+</canvas>

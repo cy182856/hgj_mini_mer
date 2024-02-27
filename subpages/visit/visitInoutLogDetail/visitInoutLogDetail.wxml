@@ -1,0 +1,57 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<view class="root" style="padding-bottom:40rpx;">
+  <view class="card-body">
+    <view class="fun-card">
+      <block wx:if="{{visitInfo && visitInfo!= null}}">
+        <view class="visit-info-view">
+          <view class="title-view-noradius"> 
+            <text class="text-title">访客信息</text>
+          </view>
+          <van-cell-group custom-class ="van-cell-group-class" border="{{ false }}">
+            <van-cell custom-class="van-cell-class" title="访问地址" value="{{visitInfo.houseName}}" border="{{false}}" />
+            <block wx:if="{{visitInfo.visitName != '匿名'}}">
+              <van-cell custom-class="van-cell-class" title="访客姓名" value="{{visitInfo.visitName}}" border="{{ false }}" />
+              <van-cell custom-class="van-cell-class" title="车牌号" value="{{visitInfo.carNum && visitInfo.carNum != '' ? visitInfo.carNum : '无'}}" border="{{ false }}"/>
+              <van-cell custom-class="van-cell-class" title="已用/剩余可用次数" value="{{visitInfo.avlCnt == -1 ? '无限制' : visitInfo.perCent}}" border="{{ false }}" />
+            </block>
+            <van-cell custom-class="van-cell-class" title="失效时间" value="{{visitInfo.expTimeDesc}}" border="{{false}}" />
+            <van-cell custom-class="van-cell-class" title="状态" value="{{visitInfo.statDesc}}" border="{{false}}" />
+          </van-cell-group>
+        </view>
+      </block>
+    </view>
+  </view>
+  <block wx:if="{{visitInoutLogs.length > 0}}">
+    <van-collapse border="{{ false }}" custom-class="van-collapse-class" value="{{ activeNames }}" bind:change="onChange">
+      <van-collapse-item  custom-class = "" content-class ="van-collapse-content-class" title="出入记录" name="1">
+        <van-cell-group border="{{ false }}" custom-class="border-round-class">
+          <view class="item-list-view">
+              <view class="item-flex-left">
+                访问时间
+              </view>
+              <view class="item-flex-center">
+                放行物管
+              </view>
+              <view class="item-flex-right">
+                动作
+              </view>
+            </view>
+          <block wx:for="{{visitInoutLogs}}" wx:for-item="item" >
+            <view class="item-list-view">
+              <view class="item-flex-left">
+                {{item.actTimeDesc}}
+              </view>
+              <view class="item-flex-center">
+                <text class="ellipsis_view">{{item.poName}}</text>
+              </view>
+              <view class="item-flex-right">
+                {{item.visitType == 'I' ? '入场' : '离场'}}
+              </view>
+            </view>
+          </block>
+        </van-cell-group>
+      </van-collapse-item>
+    </van-collapse>
+  </block>
+</view>

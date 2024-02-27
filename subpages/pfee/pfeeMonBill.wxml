@@ -1,0 +1,143 @@
+<!--subpages/pfee/pfeeMonBill.wxml-->
+<import src="/component/empty/empty.wxml"></import>
+
+<van-popup
+  show="{{ showPopup }}"
+  position="top"
+  custom-style="height: 100%;margin-top:88rpx"
+  bind:close="onClose"
+	overlay="{{false}}"
+>
+	<view class="line"></view>
+	<van-cell-group border="{{false}}">
+		<view class="cellRow0" wx:if="{{showArea}}">
+				<text>区域</text>
+				<view class="right-container">
+					<van-dropdown-menu style="display:{{showArea ? 'block' : 'none'}};">
+						<van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+							<van-cell-group>
+								<block wx:for='{{areaList}}' wx:key='areaId'>
+									<van-cell title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+										<van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>
+			</view>
+			<view class="cellRow0">
+				<text>楼号</text>
+	<van-dropdown-menu>
+						<van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+							<van-cell-group>
+								<block wx:for='{{buildingList}}' wx:key='buildingId'>
+									<van-cell title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+										<van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>	
+			<view class="cellRow0">
+				<text>门牌号</text>
+				<view class="right-container">
+						<van-dropdown-menu>
+						<van-dropdown-item id="room" title="{{selectRoom.houseNo}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+							<van-cell-group>
+								<block wx:for='{{roomList}}' wx:key='houseSeqId'>
+									<van-cell title-class="{{item.houseNo == selectRoom.houseNo ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+										<van-icon wx:if="{{item.houseNo == selectRoom.houseNo}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>
+			</view>
+
+			<view class="cellRow0" bindtap="showYearMon">
+				<text>账单月份</text>
+				<view class="right-container">
+					{{selectYearMonDesc}}
+				</view>
+			</view>
+
+				<view class="cellRow0">
+					<text>状态</text>
+					<view class="right-container">
+						<view wx:for="{{statList}}" wx:key="text" class="stat-row">
+							<view class='{{item.checked?"checked_button":"normal_button"}}' data-bindex='{{index}}' bindtap="ontapStatChange"> {{item.text}}</view>
+						</view>
+					</view>
+				</view>
+			<view class="line"></view>
+			<view class="cellRow2">
+				<button class="queryButton"  bindtap="queryPfeeBillMon" disabled="{{isLoading}}">查询</button>
+			</view>
+		</van-cell-group>
+</van-popup>
+
+<van-popup show="{{ billMonShow }}" position="bottom"   bind:close="onClose" >
+	<van-picker columns="{{ yearCols }}" 
+	show-toolbar
+						default-index="{{ dafaultYearIndex }}" 
+						bind:cancel="onClose"
+						bind:confirm="onConfirm" 
+						/>
+</van-popup>
+
+
+
+<view  bindtap="closedPopup">
+	<view class="topfixed">
+			<van-cell value="{{queryConid}} " catchtap='ontapShowPopup' value-class="topValue-text" border="{{false}}">
+					<van-icon  slot="right-icon" name="{{showPopup?'arrow-down':'arrow-up'}}" color='gray' size="32rpx" />
+			</van-cell>
+
+<view wx:if="{{pfeeMonBills.length < 1}}" style="z-index:1">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无记录'}}"></template>
+</view> 
+
+
+	<view class="fun-card" wx:if="{{pfeeMonBills.length > 0 && dropMenuShow == false}}">
+		
+		<view class="titleFixed">
+			
+			<view class="title-view">
+				<view class="title-layout">
+					<text class="text-title">房屋信息</text>
+					<text class="text-title" >房屋状态</text>
+				</view>
+    	</view>
+		</view>
+		<scroll-view class="scroll-height" scroll-y='true'>
+			<block wx:for="{{pfeeMonBills}}" wx:key="houseSeqId">
+				<van-cell title="{{ tools.getShowName(item) }}" is-link data-index="{{index}}" bind:click="onClickHouse">
+					<view slot="">
+						<text style="color:{{tools.getTextColor(item.statDesc)}}">{{ item.statDesc }}</text>
+					</view>
+				</van-cell>
+			</block>
+			<!-- 点击加载更多 tools.getShowStat(item)-->
+			<block wx:if="{{more}}">
+				<view wx:if="{{loading}}" class="loading-container">
+					<van-loading type="spinner" size="26rpx" text-size="22rpx">加载中...</van-loading>
+				</view>
+				<view wx:else class="loading-container" bindtap="onLoadMore">点击加载更多...</view>
+			</block>
+			<block wx:else>
+				<view class="loading-container" bindtap="">暂无更多记录</view>
+			</block>
+			<view wx:if="{{iphoneX}}" style="height:68rpx"> </view>
+
+		</scroll-view>
+</view>
+</view>
+</view>
+
+
+
+
+

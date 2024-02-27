@@ -1,0 +1,161 @@
+<import src="../../component/empty/empty.wxml"></import>
+<import src="../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<view style="min-height:100%;padding-bottom: {{btuBottom}};">
+  <view class="appt_obj">
+    <view class="position-top" >
+      <view>
+        <van-row>
+          <van-col class="ellipsis_view"  span="18">
+            <view bindtap="showCondition">
+              <van-cell custom-class="apptQueryCondition">
+                <van-col class="ellipsis_view"  span="21">
+                  <view>{{apptQueryDesc}}</view>
+                </van-col>
+                <van-col span="2">
+                  <text class="iconfont {{iconName}}"></text>
+                </van-col>
+                <van-col span="1">
+                </van-col>
+              </van-cell>
+            </view>
+          </van-col>
+          <van-col span="6">
+            <view class="ordQueryBtn">
+               <view class="ordQuery" bindtap="ordQuery">订单查询</view>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{APPTTIMEDTLDTOS.length==0&&!isLoading}}">
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无预约标的记录'}}"></template>
+  </view>
+  <view wx:else>
+    <view class="appt_timeDtl">
+      <view class="appt_timeDtl_content">
+        <view class="appt_time_point">
+          <view  wx:for="{{APPTOBJDTLDTOS}}" wx:for-item="value"  wx:for-index="dtlIndex" class="appt_timeDtl_content_left" style="{{dtlIndex==0?'margin-top:150rpx;border-top: 1px solid #E5E5E5;':''}}">
+            <view>{{value.BEGINTIMEDESC}}</view>
+                <view>~</view>
+                <view>{{value.ENDTIMEDESC}}</view>
+          </view>
+        </view>
+        <view class="col_appt">
+          <view wx:for="{{APPTDATES}}" wx:for-item="apptDates" wx:for-index="dateIndex">
+            <view class="appt_time_date_instu">
+              <view class="appt_time_date_instu_weekDesc">{{apptDates.WEEKDESC}}
+                <van-icon name="warning" color="red" wx:if="{{apptDates.ISDIFF=='Y'}}" custom-style="margin-left: 10rpx;margin-top: -30rpx;margin-left: -2rpx;"/>
+              </view>
+              <view class="appt_time_date_instu_monthDay" style="">{{apptDates.APPTMONTHDAY}}</view>
+            </view> 
+            <block wx:for="{{APPTTIMEDTLDTOS}}" wx:for-item="value1">
+              <view  wx:if="{{value1.APPTDATE==apptDates.APPTDATE}}" class="appt_timeDtl_detail" style="{{value1.ISGREATERTHANLAST=='Y'?'  border-left: 1px solid #E5E5E5;margin-left: -1px;':''}}">
+                  <!-- <view wx:if="{{value1.BEGINTIME<currentTime&&apptDates.APPTDATE<=currentDate}}">
+                    <view class="appt_timeDtl_detail_content_over">
+                        <view style="line-height:150rpx;">--</view>
+                    </view>
+                  </view>
+                  <view wx:elif="{{value1.EARLYAPPTTIME>currentDateTime}}"> 
+                    <view class="appt_timeDtl_detail_content_over">
+                        <view style="line-height:150rpx;">--</view>
+                    </view>
+                  </view> -->
+                  <view wx:if="{{value1.STAT=='C'}}">
+                      <view class="appt_timeDtl_detail_content_over">
+                        <view style="line-height:150rpx;" data-apptDate="{{value1.APPTDATE}}"  data-apptTimeId="{{value1.APPTTIMEID}}" data-apptTimeDesc="{{value1.BEGINTIMEDESC}}~{{value1.ENDTIMEDESC}}" bindtap="queryApptTimeOrdInfo">关闭</view>
+                      </view>
+                  </view>
+                  <view wx:elif="{{value1.AVLCNT<1}}">
+                      <view class="appt_timeDtl_detail_content_over">
+                        <view style="line-height:150rpx;" data-apptDate="{{value1.APPTDATE}}"  data-apptTimeId="{{value1.APPTTIMEID}}" data-apptTimeDesc="{{value1.BEGINTIMEDESC}}~{{value1.ENDTIMEDESC}}" bindtap="queryApptTimeOrdInfo">已约满</view>
+                      </view>
+                  </view>
+                  <view wx:else>        
+                    <view class="appt_timeDtl_detail_content" data-apptDate="{{value1.APPTDATE}}"  data-apptTimeId="{{value1.APPTTIMEID}}" data-apptTimeDesc="{{value1.BEGINTIMEDESC}}~{{value1.ENDTIMEDESC}}" bindtap="queryApptTimeOrdInfo">
+                        <view style="line-height:75rpx;">￥{{value1.APPTPRICE}}</view>
+                        <view style="line-height:75rpx;">余{{value1.AVLCNT}}</view>
+                    </view>
+                    </view>
+                  </view>
+                 
+            </block> 
+          </view>
+        </view>
+      </view>
+      <!-- <view class="appt_time_dtl_btn" bindtap="queryApptTimeDtlBtn"> 
+         <text>预约记录查询</text>
+      </view> -->
+    </view>
+  </view>
+</view>
+<van-popup show="{{ IS_SHOW_CHOOSE_AREA }}" position="bottom" z-index="666" 
+ bind:click-overlay="hideDateOverLay" overlay="{{isShowOverlay}}">
+  <calendar 
+      year="{{curYear}}"
+      month="{{curMonth}}" 
+      day="{{today}}" 
+      
+      header="{{header}}" 
+      next="{{next}}" 
+      prev="{{prev}}"
+      
+      
+      weeks="{{week_title}}"
+      weeks-type="{{title_type}}" 
+      show-more-days="{{more}}" 
+      showOtherDesc = false
+      selectType = "multiple"
+
+      cell-size="{{cellSize}}"    
+      
+      days-color="{{style}}"
+      active-type="{{activeType}}"
+      next-month='hi'
+      bindnextMonth='nextMonth'                
+      bindprevMonth='prevMonth'
+      binddateChange='dateChange'
+      binddayClick='dayClick'
+      bindconfirmDate = "confirmDate"
+      calendar-style="calendar-style" 
+      header-style="header-style" 
+      board-style="board-style" 
+      weeks-style="weeks-style"
+      month-btn-style ="month-btn-style"
+      confirm-btn-style = "confirm-btn-style"
+      calendar-days-style = "calendar-days-style"
+      calendar-day = "calendar-day"
+      showBtn = "{{true}}"
+      selStartDate = "{{selStartDate}}"
+      selEndDate = "{{selEndDate}}"
+  />
+</van-popup>
+<view style="{{isShowCondition?'display:block;':'display:none;'}}margin-top:100rpx;" class="overlay">
+  <view class="deadline"></view>
+  <view class="chooseObjCondition">
+    <van-row>
+      <van-col span="8"><view style="margin-left:30rpx;line-height:100rpx;">预约标的<text style="color:red;">*</text></view></van-col>
+      <van-col span="16">  
+        <van-dropdown-menu>
+          <van-dropdown-item value="{{CHOOSED_OBJID}}" options="{{ OBJINFOS }}"  bind:change="chooseObj" id="objItem"/>
+        </van-dropdown-menu>
+      </van-col>
+    </van-row>
+    <view class="deadline"></view>
+    <van-row>
+      <van-col span="8"><view style="margin-left:30rpx;line-height:100rpx;">日期区间<text style="color:red;">*</text></view></van-col>
+      <van-col span="16">  
+        <van-dropdown-menu>
+          <van-dropdown-item id="item" title="{{ CHOOSED_TIME_AREA }}" bind:open="chooseTimeArea">
+          </van-dropdown-item>
+        </van-dropdown-menu>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="deadline"></view>
+  <view class="cellRow2">
+    <view class="queryButton" bindtap="onQueryApptInfo">查询</view>
+  </view>
+  <view bindtap="showCondition" style="height:100%;"></view>
+</view>

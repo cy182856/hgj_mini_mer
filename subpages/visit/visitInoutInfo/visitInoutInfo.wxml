@@ -1,0 +1,32 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+<block wx:if="{{visitInoutLogs && visitInoutLogs.length >0}}">
+  <view class="visitinout-info-view">
+    <view class="item-list-view show-border-bottom">
+      <view class="item-flex-left blod-text">
+        时间
+      </view>
+      <view class="item-flex-right blod-text" >
+        动作
+      </view>
+    </view>
+    <van-cell-group border="{{ false }}" custom-class="border-round-class">
+      <block wx:for="{{visitInoutLogs}}" wx:for-item="item" >
+        <view class="item-list-view">
+          <view class="item-flex-left">
+            {{item.actTimeDesc}}
+          </view>
+          <view class="item-flex-right">
+            {{item.visitType == 'I' ? '入场' : '离场'}}
+          </view>
+        </view>
+      </block>
+    </van-cell-group>
+  </view>
+</block>
+<block wx:else>
+  <view class="empty-view">
+    <template is="empty" data="{{width:232,text: '暂无访客出入记录'}}"></template>
+  </view>
+</block>

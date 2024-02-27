@@ -1,0 +1,64 @@
+<import src="../../component/empty/empty.wxml"></import>
+<import src="../../component/loading/loading.wxml"></import>
+<view style="min-height:100%;width: 100%;position: absolute;background-color: {{bgColor}};">
+<template is="loading" data="{{..._loading_}}"></template>
+ <view wx:if="{{APPTORDLOGDTOS.length==0&&!isLoading}}">
+    <view class="deadline"></view>
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无预约明细订单记录'}}"></template>
+  </view>
+<view wx:else style="margin-bottom: 30rpx;">
+  <view wx:for="{{APPTORDLOGDTOS}}" wx:for-item="value" wx:for-index="ordIndex" wx:if="{{ordIndex==0}}">
+    <view>
+        <view class="appt_ord_detail_Obj">
+          <text>{{value.OBJNAME}}</text>
+        </view>
+    </view>
+    <view class="apptOrd_success_bgImg">
+      <view class="apptDetail_ord">
+        <van-row>
+          <van-col span="8">预约时间段</van-col>
+          <van-col span="16">
+            <view class="apptDetail_ord_time">
+              <text>{{apptLongDate}} {{apptTimeDesc}}</text>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
+      <view>
+          <image style="height:50rpx;width:100%; background-color: #F3F5F5;" src="../../images/appt/appt_middle.png" />
+      </view>
+      <view class="apptDetail_ord_apptPo"><text>已约业主</text></view>
+      <view class="deadline"></view>
+      <view class="apptDetail_ord_content">
+          <view class="apptDetail_ord_content_title">
+              <van-row>
+                <van-col span="14">户室</van-col>
+                <van-col span="5" style="text-align:center;">状态</van-col>
+                <van-col span="5" style="text-align:center;">数量</van-col>
+              </van-row>
+          </view>
+          <view wx:for="{{APPTOBJDTLDOMAINS}}" wx:for-item="apptOrd" >
+            <view class="apptDetail_ord_content_detail">
+                <van-row>
+                  <van-col span="14">{{apptOrd.HOUSEINFO}}</van-col>
+                  <van-col span="5" style="text-align:center;">
+                    <view wx:if="{{apptOrd.STAT=='S'}}">已付款</view>
+                    <view wx:if="{{apptOrd.STAT=='P'}}">部分退款</view>
+                    <view wx:if="{{apptOrd.STAT=='O'}}">退款中</view>
+                    <view wx:if="{{apptOrd.STAT=='I'}}">未付款</view>
+                  </van-col>
+                  <van-col span="5" style="text-align:center;">{{apptOrd.OBJCNT}}</van-col>
+                </van-row>
+            </view>        
+          </view>
+      </view>
+      <view style="background-color: #F3F5F5;">
+        <image style="height:66rpx;width:100%; " src="../../images/appt/appt_bottom.png" />
+      </view>
+    </view>
+  </view>
+  <view style="display: flex;justify-content: center;margin-top: 80rpx;margin-top: 30rpx;" wx:if="{{!isLoading}}">
+      <view class="ord_return_btn"  bindtap="returnLastPage">返回</view>
+  </view>
+</view>
+</view>

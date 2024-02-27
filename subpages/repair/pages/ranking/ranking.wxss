@@ -1,0 +1,96 @@
+/* subpages/repair/pages/ranking/ranking.wxss */
+page {
+  background-color: #EFD99F;
+}
+.head{
+  text-align: center;
+  padding-top: 370rpx;
+}
+.condition{
+  padding: 10rpx 20rpx;
+}
+.last-month{
+  font-family: Microsoft YaHei Regular;
+  color: #282828;
+  text-align: left;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+}
+.curr-month{
+  text-align: center;
+  background-color: #FBF5E8;
+  color: #EFD99F;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  /* border:1px solid #000; */
+  border-radius: 50rpx 50rpx 50rpx 50rpx;
+  opacity:0.9;
+}
+.next-month{
+  font-family: Microsoft YaHei Regular;
+  color: #282828;
+  text-align: right;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-right: 20rpx;
+}
+
+.image-class{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  z-index:-1;
+}
+
+
+.result{
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  background-color: white;
+  /* border:1px solid #000; */
+  border-radius: 30rpx 30rpx 30rpx 30rpx;
+  font-size: 28rpx;
+}
+.title{
+  text-align: center;
+  font-family: Microsoft YaHei Regular;
+  color: #777777;
+}
+
+.single{
+  background-color: #FFFFFF;
+  line-height: 100rpx;
+  border-radius: 30rpx 30rpx 30rpx 30rpx;
+}
+.even{
+  background-color: #F9F9F9;
+  line-height: 100rpx;
+}
+.xunzhang{
+  /* margin-top: 20rpx; */
+  padding-top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  /* border: 1rpx solid red; */
+}
+.body-first{
+  font-family: Source Han Sans CN Medium;
+  color: #8F8F8F;
+  text-align: center;
+}
+.body-second{
+  font-family: Microsoft YaHei Regular;
+  color: #3C3C3C;
+  text-align: center;
+}
+.body-third{
+  font-family: Microsoft YaHei Regular;
+  color: #FFAB0B;
+  text-align: center;
+} 
+
+.page{
+  text-align: center;
+  padding: 20rpx 0 20rpx 0;
+}

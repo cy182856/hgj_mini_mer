@@ -1,0 +1,65 @@
+
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<page>
+  <view class="smart-door-tip" bindtap="showTip">
+    <text class="iconfont jia-tishi1"></text>
+  </view>
+  <view class="smart-door-view">
+    <view class="smartdoor-header-view">
+      <view style="font-size:36rpx;">{{commanyShortName}}</view>
+      <view class="smartdoor-toast">扫码开门，智能通行</view>
+    </view>
+    <block wx:if="{{showCode == 'none'}}">
+      <view style="height:690rpx;background-color:#fff;border-radius:0em 0em 0.5em 0.5em;">
+      </view>
+    </block>
+    <view class="smartdoor-code-view" style="display:{{showCode}}">
+        <view class="qrcode">
+          <canvas canvas-id="qrcode" />
+        </view>
+        <view class="refresh-passcode-view" bindtap="refreshPassCode"><van-icon name="replay" />若二维码显示失败，请点击重新生成</view>
+      </view>
+      <view class="smartdoor-house-info">
+        <view class="houseinfo-flex-display">
+          <view style="flex:6;">
+            <view>
+              昵称：{{ btnName == 'jia-closeeye'?'***':usrName}}
+            </view>
+            <view>
+              地址：<text>{{shortName}}</text>
+            </view>
+          </view>
+          <view class="house-info-control" bindtap="controlHouseInfo">
+            <text class="iconfont {{btnName}}"></text>
+          </view>
+        </view>
+      </view>
+    <image class='smartdoor-detail-bg'  src='/images/home/back-img.png'></image>
+  </view>
+</page>
+<van-dialog
+  use-slot
+  use-title-slot
+  show="{{ showTip }}"
+  bind:confirm = "closeTip"
+  bind:close = "closeTip"
+  confirmButtonColor="#189AFE"
+  custom-style=""	
+>
+<view slot="title" style="font-size:32rpx;color:#666666;">
+    <view class="minx"><van-icon name="close" bind:click="closeTip"/></view>
+        说明
+    </view>
+    <view  class="gg" style="">
+        <view style="text-align:left;">
+          1. 请将二维码对准门禁设备的摄像头，扫码后请等待开门；
+        </view>
+        <view style="text-align:left;padding-top:20rpx;">
+          2. 如二维码生成失败，请点击下方刷新按钮重新生成;
+        </view>
+        <view style="text-align:left;padding-top:20rpx;">
+          3. 如反复尝试后仍不能打开，请使用门禁卡；
+        </view>
+    </view> 
+</van-dialog> 

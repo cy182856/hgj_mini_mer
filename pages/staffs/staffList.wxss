@@ -1,0 +1,93 @@
+/* pages/staffs/staffList.wxss */
+.rootpage{
+	height: 100%;
+} 
+.member-list{
+  margin-top: 1px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+.member_title{
+
+  text-align: left;
+  font-weight: 600;
+}
+.line{
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  background-color: lightgrey;
+  height: 2rpx;
+
+}
+
+.item-container{ 
+  height: 128rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-bottom: 1px  #F8F8F8 solid
+}
+.item-left{
+  height: 128rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+.member_name{ 
+  margin-bottom: 10rpx; 
+  font-weight: 500;
+  font-size: 28rpx;
+}
+.member_dept{
+font-size: 26rpx;
+font-weight: 500;
+color:gray;
+}
+.staff-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 40rpx;
+}
+.item-margin{
+  margin-right: 46rpx;
+  margin-left: 46rpx;
+  
+}
+.button-buttom-row{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  justify-content: flex-start;  
+  bottom: 0px; 
+  height:120rpx;
+  background: white;
+  width: 100%;
+  z-index: 101;    
+}
+.button-buttom-row-ipx{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  justify-content: flex-start;  
+  bottom: 0px; 
+  height: 188rpx;
+  background: white;
+  width: 100%;  
+  z-index: 101; 
+}
+.btn-row{ 
+  
+  display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items:flex-start; 
+    height: 100%;  
+    margin-top: 4rpx;
+   margin-right: 32rpx;
+  }

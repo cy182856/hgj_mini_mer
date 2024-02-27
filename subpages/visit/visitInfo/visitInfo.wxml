@@ -1,0 +1,255 @@
+<!--pages/home/ownerManage/ownerManage.wxml-->
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+<wxs module='tools'>
+  function getShowName(houseInfo) {
+    var areaName = ""
+    if (houseInfo.areaId != "000") {
+      areaName = houseInfo.areaName
+    }
+    return (areaName != "" ? areaName + "-" : "") + houseInfo.buildingName + "-" + houseInfo.houseNo
+  }
+  module.exports = {
+    getShowName: getShowName
+  }
+</wxs>
+  
+<view class="position-top" >
+  <view bindtap="showCondition">
+    <van-cell center border="{{defaultFalse}}" class="check-condition-cell">
+      <van-row>
+        <van-col class="ellipsis_view"  span="21">
+          <view class="house-info-view">{{selCondition}}</view>
+        </van-col>
+        <van-col span="2" offset="1">
+          <text class="iconfont {{iconName}}"></text>
+        </van-col>
+      </van-row>
+    </van-cell>
+  </view>
+</view>
+
+<view class="visit-list-view" >
+  <view class="weui-loadmore" wx:if="{{isRefreshing}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips" style="margin-top: 5px;">正在刷新...</view>
+  </view>
+  <block wx:if="{{visitLogs && visitLogs.length>0}}">
+    <view class="visit-srcoll-view" bindscrolltolower="onReachBottom" style="padding-bottom:40rpx;" scrollY>
+      <van-cell-group border="{{false}}">
+          <block wx:for="{{visitLogs}}" wx:for-item="visitLog">
+            <view class="visit-log-item">
+              <view class="visit-log-title">
+                <view wx:if="{{visitLog.visitName != null}}" class="visit-log-name">
+                  {{visitLog.visitName}}
+                </view>
+                <!-- <block wx:if="{{visitLog.stat == 'I'}}">
+                  <view class="visit-log-stat" data-visitlog = "{{visitLog}}" bindtap="checkVisitInoutLog">
+                    <text class="blue_color">未到访</text>
+                  </view>
+                </block>
+                <block wx:else>
+                  <view class="visit-log-stat" hover-class="visit-log-stat-hover" data-visitlog = "{{visitLog}}" bindtap="checkVisitInoutLog">
+                    <block wx:if="{{visitLog.stat == 'C' }}">
+                      <text class="grey_color">已关闭</text><text class="iconfont jia-arrow-right"></text>
+                    </block>
+                    <block wx:if="{{visitLog.stat == 'V' }}">
+                      <text class="green_color">到访中</text><text class="iconfont jia-arrow-right"></text>
+                    </block>
+                    <block wx:if="{{visitLog.stat == 'O' }}">
+                      <text class="grey_color">已离场</text><text class="iconfont jia-arrow-right"></text>
+                    </block>
+                    <block wx:if="{{visitLog.stat == 'E' }}">
+                      <text class="grey_color">已过期</text><text class="iconfont jia-arrow-right"></text>
+                    </block>
+                  </view>
+                </block> -->
+              </view>
+              <view style="padding-bottom:10rpx;">
+                <van-cell-group border = "{{ false }}">
+                  <block wx:if="{{visitLog.houseName != null}}">
+                    <van-cell custom-class="van-cell-class" title="访问地址" value="{{visitLog.houseName}}" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.carNum != null}}">
+                    <van-cell custom-class="van-cell-class" title="车牌号" value="{{visitLog.carNum}}" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.effectuateDate != null}}">
+                    <van-cell title-class="vant-cell-title-class" title="生效日期" value="{{visitLog.effectuateDate}}" border="{{ false }}" />
+                  </block>
+                  <block wx:if="{{visitLog.createTime != ''}}">
+                    <van-cell title-class="vant-cell-title-class" title="通行时间" value="{{visitLog.createTime}}" border="{{ false }}" />
+                  </block>
+                  <block wx:if="{{visitLog.passUrl != null}}">
+                    <van-cell title-class="vant-cell-title-class"  title="访客码" value="{{visitLog.passUrl}}" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.randNum != null}}">
+                    <van-cell title-class="vant-cell-title-class"  title="快速通行码" value="{{visitLog.randNum}}" border="{{ false }}" />  
+                  </block>
+                </van-cell-group>
+              </view>
+            </view>
+          </block>
+          <!-- 点击加载更多 -->
+          <block wx:if="{{more}}">
+            <view wx:if="{{loading}}" class="loading-container">
+              <van-loading type="spinner" size="26rpx" text-size="22rpx">正在加载更多...</van-loading>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="loading-container" bindtap="" >没有更多内容啦</view>
+          </block>
+        </van-cell-group>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-view">
+        <template is="empty" data="{{width:232,text: '暂无访客记录'}}"></template>
+      </view>
+    </block>
+</view>
+    
+<van-popup
+  position="top"
+  show="{{ showSelectCondition }}"
+  duration="200"
+  bind:click-overlay="hideOverLay" 
+  custom-style="margin-top:100rpx;height:100%;"
+>
+  <view class="page__bd" catchtouchmove='preventTouchMove' style="padding-bottom:0px;height:100%;">
+      <!-- <view style="margin-left:32rpx;font-size:32rpx;padding-top:20rpx;padding-bottom:20rpx;">
+        <text>房屋地址</text>
+      </view>
+      <view class="cellRow0" style="display:{{showArea ? 'block' : 'none'}};">
+        <text class="left-text">区域<text class="iconfont jia-xinghao markStar"></text></text>
+        <view class="right-container">
+          <van-dropdown-menu >
+            <van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+              <scroll-view scroll-y="true" style="max-height:{{select_height}}rpx;overflow:auto;z-index:999;">
+                <van-cell-group>
+                  <block wx:for='{{areaList}}' wx:key='areaId'>
+                    <van-cell  title-class="{{item.areaId == selectArea.areaId ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+                      <van-icon wx:if="{{item.areaId == selectArea.areaId}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </scroll-view>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </view> -->
+      <view class="cellRow0" style="display:{{showBuilding ? 'block' : 'none'}};">
+        <text class="left-text">楼号</text>
+        <view class="right-container">
+          <van-dropdown-menu>
+            <van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+              <scroll-view scroll-y="true" style="max-height:{{select_height}}rpx;overflow:auto;z-index:999;">
+                <van-cell-group>
+                  <block wx:for='{{buildingList}}' wx:key='buildingId'>
+                    <van-cell  title-class="{{item.buildingId == selectBuilding.buildingId ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+                      <van-icon wx:if="{{item.buildingId == selectBuilding.buildingId}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </scroll-view>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </view>
+      <view class="cellRow0" style="display:{{showRoom ? 'block' : 'none'}};">
+        <text class="left-text">房号</text>
+        <view class="right-container">
+          <van-dropdown-menu>
+            <van-dropdown-item id="room" title="{{selectRoom.houseNo}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+              <scroll-view scroll-y="true" style="max-height:{{select_height}}rpx;overflow:auto;z-index:999;">
+              <van-cell-group>
+                  <block wx:for='{{roomList}}' wx:key='houseSeqId'>
+                    <van-cell  title-class="{{item.houseSeqId == selectRoom.houseSeqId ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+                      <van-icon wx:if="{{item.houseSeqId == selectRoom.houseSeqId}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </scroll-view>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </view>
+      <view class="line"></view>
+    <view class="cellRow0" style="height:188rpx;">
+      <text class="left-text" style="margin-top:10rpx;">生成日期<text class="iconfont jia-xinghao markStar"></text></text>
+      <view class="check-date-view" >
+        <view class="button-sp-area">
+          <view class="{{checkBtnClass[0].class}}" data-id="last-week" bindtap="checkDateArea">上周</view>
+          <view class="{{checkBtnClass[1].class}}" data-id="current-week" bindtap="checkDateArea">本周</view>
+          <view class="{{checkBtnClass[2].class}}" data-id="last-month" bindtap="checkDateArea">上月</view>
+          <view class="{{checkBtnClass[3].class}}" data-id="current-month" bindtap="checkDateArea">本月</view>
+        </view>
+        <view style="padding-top:24rpx;padding-bottom:20rpx;">
+            <block wx:if="{{showCanlendarText}}">
+                <view class="not-check-btn" bindtap="calendarChange" style="width:180rpx;">按日历选择</view>
+            </block>
+            <block wx:else>
+              <view class="button-sp-area" bindtap="calendarChange" style="width:300rpx; border: 1px solid #f2f2f2;border-radius: 8rpx;padding-left: 5px;padding-right: 5px;">
+                <view class="start-date-view">{{showStartDate}}</view>
+                <view class="date-press-view">~</view>
+                <view class="end-date-view">{{showEndDate}}</view>
+              </view>
+            </block>
+          </view>
+      </view>
+    </view>
+      <view class="line"></view>
+      <view class="cellRow2">
+        <view class="queryButton" bindtap="onQueryVisitInfo">查询</view>
+      </view>
+      <view style="height:100%;background-color:rgba(0, 0, 0, 0.7); opacity:1;" catchtouchmove='preventTouchMove' bindtap="hideOverLay">
+      </view>
+  </view>
+</van-popup>
+
+<van-popup 
+  show="{{ selDateShow }}"
+  position="bottom"
+  z-index="666" 
+  bind:click-overlay="hideCheckDateOverLay">
+  <view catchtouchmove='preventTouchMove' style="height:100%;">
+    <calendar 
+      year="{{curYear}}"
+      month="{{curMonth}}" 
+      day="{{today}}" 
+      
+      header="{{header}}" 
+      next="{{next}}" 
+      prev="{{prev}}"
+      
+      
+      weeks="{{week_title}}"
+      weeks-type="{{title_type}}" 
+      show-more-days="{{more}}" 
+      showOtherDesc = false
+      selectType = "multiple"
+
+      cell-size="{{cellSize}}"    
+      
+      days-color="{{style}}"
+      active-type="{{activeType}}"
+      next-month='hi'
+      bindnextMonth='nextMonth'                
+      bindprevMonth='prevMonth'
+      binddateChange='dateChange'
+      binddayClick='dayClick'
+      bindconfirmDate = "confirmDate"
+      calendar-style="calendar-style" 
+      header-style="header-style" 
+      board-style="board-style" 
+      weeks-style="weeks-style"
+      month-btn-style ="month-btn-style"
+      confirm-btn-style = "confirm-btn-style"
+      calendar-days-style = "calendar-days-style"
+      calendar-day = "calendar-day"
+      showBtn = "{{true}}"
+      selStartDate = "{{selStartDate}}"
+      selEndDate = "{{selEndDate}}"
+  />
+  </view>
+</van-popup>

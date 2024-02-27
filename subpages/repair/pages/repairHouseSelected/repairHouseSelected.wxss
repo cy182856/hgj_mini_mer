@@ -1,0 +1,38 @@
+.titleStyle{
+	font-size: 20px;
+	margin-left: 3%;
+	margin-top: 5px;
+	background-color: rgba(255, 253, 253, 0.986);
+
+}
+
+.subTitleStyle{
+	font-size: 18px;
+	margin-left: 3%;
+	margin-top: 15px;
+}
+
+.rowStyle{
+	font-size: 16px;
+	margin-top: 10px;
+	margin-left: 5%;
+	margin-right: 2%;
+}
+
+.buttonClass{
+	margin-top: 5px;
+	font-size: 14px;
+	width: 120px;
+	height: 40px;
+	border: 1px solid rgba(200, 204, 203, 0.918);
+	background-color: white;
+}
+
+.buttonClassYes{
+	margin-top: 5px;
+	font-size: 14px;
+	width: 120px;
+	height: 40px;
+	border: 1px solid rgba(200, 204, 203, 0.918);
+	background-color: rgb(204, 227, 243);
+}

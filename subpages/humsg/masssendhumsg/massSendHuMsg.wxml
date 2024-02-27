@@ -1,0 +1,272 @@
+<!-- subpages/humsg/masssendhumsg/massSendHuMsg.wxml -->
+<view>
+  <van-cell-group custom-class="mt16">
+    <van-cell title="通知标题" required="{{true}}" >
+      <view class="modify-container" slot="">
+        <view class="button" bindtap="onNavigateToListPage">通知记录</view>
+      </view>
+    </van-cell>
+    
+    <van-field name="msgTitle" maxlength="20" show-word-limit="{{true}}"
+        value="" placeholder="请输入通知标题" border="{{ true }}"
+        custom-style="padding: 12rpx 32rpx;"
+        bind:change="onMsgTitleChange" />
+  </van-cell-group>
+
+  <van-cell-group custom-class="mt16">
+    <van-cell title="通知内容" required="{{true}}" ></van-cell>
+    
+    <block wx:if="{{show_textarea}}">
+      <van-field name="msgBody" maxlength="300" show-word-limit="{{true}}"
+        value="{{msgBody}}" placeholder="请输入通知内容" border="{{ true }}"
+        custom-style="padding: 12rpx 32rpx;" type="textarea" autosize="{{autosize}}"
+        bind:change="onMsgBodyChange" />
+    </block>
+    <block wx:else>
+      <view style="background-color:white; font-size:var(--cell-font-size,14px); line-height:1.2em; padding:20rpx 32rpx;">
+        <text>{{msgBody}}</text>
+      </view>
+    </block>
+  </van-cell-group>
+
+  <van-cell-group custom-class="mt16">
+    <van-cell title="通知范围" ></van-cell>
+<!--     
+    <view class="cellRow0">
+      <view class="right-container">
+        <van-dropdown-menu style="display:{{showArea ? 'block' : 'none'}};">
+          <van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+            <van-cell-group>
+              <block wx:for='{{areaList}}' wx:key='areaId'>
+                <van-cell  title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+                  <van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                </van-cell>
+              </block>
+            </van-cell-group>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+
+        <van-dropdown-menu>
+          <van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+            <van-cell-group>
+              <block wx:for='{{buildingList}}' wx:key='buildingId'>
+                <van-cell  title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+                  <van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                </van-cell>
+              </block>
+            </van-cell-group>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+
+        <van-dropdown-menu>
+          <van-dropdown-item id="room" title="{{selectRoom.houseNo}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+            <van-cell-group>
+              <block wx:for='{{roomList}}' wx:key='houseSeqId'>
+                <van-cell  title-class="{{item.houseNo == selectRoom.houseNo ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+                  <van-icon wx:if="{{item.houseNo == selectRoom.houseNo}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                </van-cell>
+              </block>
+            </van-cell-group>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+      </view>
+    </view>
+ -->
+    <view class="cellRow1" style="display:{{showArea ? 'block' : 'none'}};">
+      <van-row>
+        <van-col span="8">
+          <view style="color:#ABABAB; padding-left:16rpx;"><text>选择通知区域</text></view>
+        </van-col>
+        <van-col span="16">
+          <view class="" style="float:right;">
+            <van-dropdown-menu >
+              <van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+                <van-cell-group>
+                  <block wx:for='{{areaList}}' wx:key='areaId'>
+                    <van-cell  title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+                      <van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </van-dropdown-item>
+            </van-dropdown-menu>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+
+    <view class="cellRow1" style="display:{{showBuilding ? 'block' : 'none'}};">
+      <van-row>
+        <van-col span="8">
+          <view style="color:#ABABAB; padding-left:16rpx;"><text>选择通知楼号</text></view>
+        </van-col>
+        <van-col span="16">
+          <view class="" style="float:right;">
+            <van-dropdown-menu>
+              <van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+                <van-cell-group>
+                  <block wx:for='{{buildingList}}' wx:key='buildingId'>
+                    <van-cell  title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+                      <van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </van-dropdown-item>
+            </van-dropdown-menu>
+          </view>
+        </van-col>
+      </van-row>
+    </view>  
+
+    <view class="cellRow1" style="display:{{showRoom ? 'block' : 'none'}};">
+      <van-row>
+        <van-col span="8">
+          <view style="color:#ABABAB; padding-left:16rpx;"><text>选择通知室号</text></view>
+        </van-col>
+        <van-col span="16">
+          <view class="" style="float:right;">
+            <van-dropdown-menu>
+              <van-dropdown-item id="room" title="{{selectRoom.houseNo}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+                <van-cell-group>
+                  <block wx:for='{{roomList}}' wx:key='houseSeqId'>
+                    <van-cell  title-class="{{item.houseNo == selectRoom.houseNo ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+                      <van-icon wx:if="{{item.houseNo == selectRoom.houseNo}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </van-dropdown-item>
+            </van-dropdown-menu>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+  </van-cell-group>
+  
+  <van-cell-group custom-class="mt16">
+    <van-cell title="通知对象" ></van-cell>
+    
+    <van-cell>
+      <van-checkbox-group value="{{ huRoles }}" bind:change="onSendObjChange">
+        <van-row>
+          <van-col span="8">
+            <van-checkbox name="O" shape="square" icon-size="32rpx">
+              <block wx:if="{{propType && propType == 'R'}}">户主</block>
+              <block wx:else>管理员</block>
+            </van-checkbox>
+          </van-col>
+          <van-col span="8">
+            <van-checkbox name="M" shape="square" icon-size="32rpx">成员</van-checkbox>
+          </van-col>
+          <van-col span="8" wx:if="{{propType && propType == 'R'}}">
+            <van-checkbox name="T" shape="square" icon-size="32rpx">租客</van-checkbox>
+          </van-col>
+        </van-row>
+      </van-checkbox-group>
+    </van-cell>
+  </van-cell-group>
+
+  <van-cell-group custom-class="mt16">
+    <van-cell title="通知落款"></van-cell>
+    <block wx:if="{{poNoticeSigns==''}}">
+      <view class="cellRow1" style="text-align:center; color:#ABABAB;">
+        <van-icon name="warning-o" style="position:relative; top:2px" />请联系管理员设置签名落款
+      </view>
+    </block>
+    <block wx:else>
+      <view class="cellRow1">
+        <van-row>
+          <van-col span="8">
+            <view style="color:#ABABAB; padding-left:16rpx;"><text>选择落款签名</text></view>
+          </van-col>
+          <van-col span="16">
+            <view class="" style="float:right">
+              <van-dropdown-menu>
+                <van-dropdown-item id="sign" title="{{selectSign.signName}}" bind:open='onDropMenuOpen'
+                  bind:close='onDropMenuClose' bind:change=''>
+                  <van-cell-group>
+                    <block wx:for="{{poNoticeSigns}}" wx:key="signId">
+                      <van-cell wx:if="{{item.stat=='N'}}"
+                        title-class="{{item.signName == selectSign.signName ? 'cell_TitleTest_s' : 'cell_TitleTest'}}"
+                        title="{{item.signName}}" data-index="{{index}}" 
+                        bindtap="onSignChange">
+                      </van-cell>
+                    </block>
+                  </van-cell-group>
+                </van-dropdown-item>
+              </van-dropdown-menu>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
+    </block>
+  </van-cell-group>
+  
+  <van-cell-group custom-class="mt16">
+    <van-row>
+      <van-col span="12">
+        <view class="cellRow2">
+          <view class="queryButton" bindtap="showPreviewPopup">预览</view>
+        </view>
+      </van-col>
+      <van-col span="12">
+        <view class="cellRow2">
+          <view class="queryButton" bindtap="onMassSendHuMsg">发送</view>
+        </view>
+      </van-col>
+    </van-row>
+  </van-cell-group>
+
+</view>   
+
+<van-popup custom-style="width:88%; border-radius: 10rpx;" closeable show="{{ show }}" bind:close="onClose">
+  <view style="padding:32rpx 32rpx 0rpx 32rpx;">
+    <van-row class="previewC">
+      <van-col span="24">
+        通知预览
+      </van-col>
+    </van-row>
+  </view>
+  <view class="huMsgLogC">
+    <van-row class="mainTitleC">
+      <van-col span="24">
+        物业管理通知
+      </van-col>
+    </van-row>
+
+    <van-row class="firstC">
+      <van-col span="24">
+        物业通知
+      </van-col>
+    </van-row>
+
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        标题：
+      </van-col>
+      <van-col span="18" style="color:#474747;">
+        {{msgTitle}}
+      </van-col>
+    </van-row>
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        发布时间：
+      </van-col>
+      <van-col span="18" style="color:#474747;">
+        {{curDateTime}}
+      </van-col>
+    </van-row>
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        内容：
+      </van-col>
+      <van-col wx:if="{{signName==''}}" span="18" style="color:#474747;">
+        {{msgBody}}
+      </van-col>
+      <van-col wx:else span="18" style="color:#474747;">
+        {{msgBody+'【'+signName+'】'}}
+      </van-col>
+    </van-row>
+  </view>
+</van-popup>
+
+<van-dialog id="van-dialog" />

@@ -1,0 +1,198 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+<import src ="../../../templates/heoinfo-template/heoinfo-item-template.wxml"/>
+<view class="position-top" >
+  <view bindtap="showCondition">
+    <van-cell center border="{{false}}" class="check-condition-cell">
+      <van-row>
+        <van-col class="ellipsis_view"  span="21">
+          <view class="condition-view">{{conditionDesc}}</view>
+        </van-col>
+        <van-col span="2" offset="1">
+          <text class="iconfont {{iconName}}"></text>
+        </van-col>
+      </van-row>
+    </van-cell>
+  </view>
+</view>
+<view wx:if="{{heoInfos && heoInfos.length >0}}" class="heoinfo-view" style="padding-bottom:{{padding_bottom}}rpx;" scrollY>
+  <template is="heoInfoItem" data="{{heoInfos,hasMoreData,isLoadingMoreData,isRefreshing,queryType}}" />
+</view>
+<view class="empty-view"  wx:else>
+  <block wx:if="{{queryFinish}}">
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'还没有任何发布信息'}}"></template>
+  </block>
+  <block wx:else>
+    <view style="height: 180rpx;"></view>
+    <van-skeleton title avatar row="3" />
+    <van-skeleton title avatar row="3" />
+    <van-skeleton title avatar row="3" />
+    <van-skeleton title avatar row="3" />
+  </block>
+</view>
+<van-popup
+  position="top"
+  show="{{ showSelectCondition }}"
+  z-index = "66"
+  bind:click-overlay="hideConditionOverLay" 
+  custom-style="margin-top:120rpx;height:100%;"
+>
+<view class="page__bd" catchtouchmove='preventTouchMove' style="padding-bottom:0px;height:100%;">
+  <view class="cellRow0" >
+      <text class="left-text">分类</text>
+      <view class="right-container">
+        <van-dropdown-menu >
+          <van-dropdown-item id="heoType" title="{{selectTypeList.heoTypeDesc}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+            <scroll-view scroll-y="true" style="overflow:auto;z-index:999;">
+              <van-cell-group>
+                <block wx:for='{{heoTypeList}}' wx:for-item="item" wx:key='heoType'>
+                  <van-cell  title-class="{{item.heoType == selectTypeList.heoType ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.heoTypeDesc}}" data-index='{{index}}' bindtap='onHeoTypeListChange'>
+                    <van-icon wx:if="{{item.heoType == selectTypeList.heoType}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                  </van-cell>
+                </block>
+              </van-cell-group>
+            </scroll-view>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="cellRow0" >
+      <text class="left-text">状态</text>
+      <view class="right-container">
+        <van-dropdown-menu >
+          <van-dropdown-item id="heoStat" title="{{selectHeoStat.statDesc}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+            <scroll-view scroll-y="true" style="overflow:auto;z-index:999;">
+              <van-cell-group>
+                <block wx:for='{{heoStatList}}' wx:for-item="item" wx:key='stat'>
+                  <van-cell  title-class="{{item.stat == selectHeoStat.stat ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.statDesc}}" data-index='{{index}}' bindtap='onHeoStatChange'>
+                    <van-icon wx:if="{{item.stat == selectHeoStat.stat}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                  </van-cell>
+                </block>
+              </van-cell-group>
+            </scroll-view>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="cellRow0" >
+      <text class="left-text">是否置顶</text>
+      <view class="right-container" style="align-items:center;">
+        <view class="check-date-view" style="margin-top:0rpx;">
+          <view class="button-sp-area">
+            <view class="{{isTopClass[0].class}}" data-id="isTop" bindtap="checkIsTop">是</view>
+            <view class="{{isTopClass[1].class}}" data-id="isNotTop" bindtap="checkIsTop">否</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="cellRow0" style="height:188rpx;">
+      <text class="left-text">发布日期<text class="iconfont jia-xinghao markStar"></text></text>
+      <view class="check-date-view" >
+        <view class="button-sp-area">
+          <view class="{{checkBtnClass[0].class}}" data-id="last-week" bindtap="checkDateArea">上周</view>
+          <view class="{{checkBtnClass[1].class}}" data-id="current-week" bindtap="checkDateArea">本周</view>
+          <view class="{{checkBtnClass[2].class}}" data-id="last-month" bindtap="checkDateArea">上月</view>
+          <view class="{{checkBtnClass[3].class}}" data-id="current-month" bindtap="checkDateArea">本月</view>
+        </view>
+        <view style="padding-top:24rpx;padding-bottom:20rpx;">
+            <block wx:if="{{showCanlendarText}}">
+                <view class="not-check-btn" bindtap="calendarChange" style="width:180rpx;">按日历选择</view>
+            </block>
+            <block wx:else>
+              <view class="button-sp-area" bindtap="calendarChange" style="width:300rpx; border: 1px solid #f2f2f2;border-radius: 8rpx;padding-left: 5px;padding-right: 5px;">
+                <view class="start-date-view">{{showStartDate}}</view>
+                <view class="date-press-view">~</view>
+                <view class="end-date-view">{{showEndDate}}</view>
+              </view>
+            </block>
+          </view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="cellRow2">
+      <view class="queryButton" bindtap="onQueryHeoInfos">查询</view>
+    </view>
+    <view class="click-hide-view" catchtouchmove='preventTouchMove' bindtap="hideConditionOverLay">
+    </view>
+  </view>
+</van-popup>
+
+<van-popup 
+  show="{{ selDateShow }}"
+  position="bottom"
+  z-index="666" 
+  bind:click-overlay="hideOverLay">
+  <view catchtouchmove='preventTouchMove' style="height:100%;">
+    <calendar 
+      year="{{curYear}}"
+      month="{{curMonth}}" 
+      day="{{today}}" 
+      
+      header="{{header}}" 
+      next="{{next}}" 
+      prev="{{prev}}"
+      
+      
+      weeks="{{week_title}}"
+      weeks-type="{{title_type}}" 
+      show-more-days="{{more}}" 
+      showOtherDesc = false
+      selectType = "multiple"
+
+      cell-size="{{cellSize}}"    
+      
+      days-color="{{style}}"
+      active-type="{{activeType}}"
+      next-month='hi'
+      bindnextMonth='nextMonth'                
+      bindprevMonth='prevMonth'
+      binddateChange='dateChange'
+      binddayClick='dayClick'
+      bindconfirmDate = "confirmDate"
+      calendar-style="calendar-style" 
+      header-style="header-style" 
+      board-style="board-style" 
+      weeks-style="weeks-style"
+      month-btn-style ="month-btn-style"
+      confirm-btn-style = "confirm-btn-style"
+      calendar-days-style = "calendar-days-style"
+      calendar-day = "calendar-day"
+      showBtn = "{{true}}"
+      selStartDate = "{{selStartDate}}"
+      selEndDate = "{{selEndDate}}"
+  />
+  </view>
+</van-popup>
+<van-popup 
+  show="{{ showRefuseDescInput }}"
+  position="center"
+  round
+  closeable
+  close-icon = "close"
+  z-index="666" 
+  bind:close = "onClickHide"
+  custom-style="width:320px;height:auto; top:{{popupTop}};"
+  bind:click-overlay="onClickHide">
+    <view catchtouchmove='preventTouchMove'>
+      <view class="refusedesc-title" style="text-align:center;font-size:28rpx;margin:24rpx;">
+        请输入拒绝原因
+      </view>
+      <view  class="fun-card">  
+        <view class="input-margin-bottom">
+            <textarea class="textArea-work-desc" maxlength='80' bindfocus="setRefuseDescFocus" focus='{{refuseDescFocus}}' placeholder="" value="{{refuseDesc}}" bindinput="inputRefuseDesc" bindblur="bindRefuseDescBlur"/>
+        </view>
+        <view class="picker-row item-title-margin" bindtap="setRefuseDescFocus">     
+          <view class="text-number" style="{{inputLength>=80?'color:red':'color:#999999'}}">{{inputLength}}/80</view> 
+        </view> 
+      </view>
+      <view class="refuse-bar">
+        <view class="refuse-cancel-btn" bindtap="onClickHide">取消</view>
+        <view class="refuse-confirm-btn" bindtap="refuseHeoInfo">确定</view>
+      </view>
+    </view>
+</van-popup>
+<van-dialog id="van-dialog" overlay-style ="z-index:6666 !important;"  confirm-button-color ="#189AFE" />

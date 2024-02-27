@@ -1,0 +1,87 @@
+.body{
+  background-color: #ffffff;
+  width: 100%;
+
+}
+.contain{
+  width: 690rpx;
+  padding: 20rpx 30rpx 0rpx 30rpx;
+  margin-top: 10rpx;
+}
+
+.list_title{
+  font-size: 28rpx;
+  color: #363F4D;
+  line-height: 40rpx;
+  padding-right: 10rpx;
+}
+.list_desc{
+  font-size: 24rpx;
+  color: #A9A9A9;
+  line-height: 34rpx;
+  width: 100%;
+  padding: 18rpx 0rpx;
+}
+.list_desc_left{
+  text-align: left;
+  width: 300rpx;
+}
+.list_desc_right{
+  text-align: left;
+  padding-left: 10rpx;
+}
+
+.proc_stat_desc{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  padding-top: 20rpx;
+  text-align: right;
+}
+.proc_stat_desc_color_01{
+  color: #A2A2A2;
+}
+.proc_stat_desc_color_03{
+  color: #20C75D;
+}
+.proc_stat_desc_color_07{
+  color: #1B9BFE;
+}
+.proc_stat_desc_color_09{
+  color: #FE0C01;
+}
+.proc_stat_desc_color_11{
+  color: #FC8F25;
+}
+.proc_stat_desc_color_19{
+  color: #A2A2A2;
+}
+
+.divider{
+  width: 650rpx;
+  margin-left: 100rpx;
+  border-bottom: 2rpx solid #F2F2F2;
+}
+
+/* 超出内容自动点点隐藏 */
+.txt{
+  text-overflow:ellipsis;
+  /* z-index: -1; */
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+ }
+
+ /* vant dialog弹窗的确定按钮统一改为 */
+.dialog-index--van-dialog__confirm{
+  color: #189AFE !important;
+}
+
+.loadMore{
+  color:  #A2A2A2;
+  text-align: center;
+  font-size: 22rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}

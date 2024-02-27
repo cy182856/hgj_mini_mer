@@ -1,0 +1,225 @@
+<!-- 引用 -->
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog"/>
+<!-- 报修详情模块 -->
+<view class="view_detail">
+  <!-- 报修详情 -->
+  <view class="view_title_desc" style="padding-top:13rpx;">
+    <van-cell title-class="txt"  title="{{obj.adviceDesc}}" border="{{false}}"/>
+  </view>
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/>
+  <!-- 图片 -->
+  <view wx:if="{{obj.imgUrlList.length > 0}}" class="view_img">
+    <van-uploader   file-list="{{ obj.imgUrlList }}" 
+                    max-count="{{obj.imgUrlList.length}}" 
+                    upload-text="图片加载中"
+                    deletable="{{false}}"/>
+  </view>
+  <view style="padding-button:10rpx;">
+    <van-row>
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="反馈时间" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <van-cell custom-class="view_time "  title="{{obj.dateTimeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title"  title="反馈地址" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <van-cell custom-class="view_time"  border="{{false}}">
+          <view slot="title">
+            <view class="van-cell-text">
+              {{obj.address}}
+            </view>
+          </view>
+        </van-cell>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="反馈人" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <van-cell custom-class="view_time"  title="{{obj.usrName}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="反馈单号" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <van-cell custom-class="view_time"  title="{{obj.adviceSeqId}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.poName && obj.corpId}}">
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="受理人" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <!-- <van-cell custom-class="view_time"  title="" border="{{false}}"/> -->
+        <view class="view_po_name">
+          <ww-open-data corpid="{{obj.corpId}}" openid="{{obj.poName}}" type="userName"/>
+        </view>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.itemBtypeDesc}}">
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="反馈类型" border="{{false}}"/>
+      </van-col>
+      <van-col span="11">
+        <van-cell custom-class="view_time"  title="{{obj.itemBtypeDesc}}" border="{{false}}"/>
+      </van-col>
+      <van-col span="6" wx:if="{{!updItem}}">
+        <view class="view_upd_item">
+          <van-button color="#189AFE" type="primary" size="mini" bind:click="choseItemType">修改</van-button>
+        </view>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.itemStypeDesc}}">
+      <van-col span="7">
+        <van-cell custom-class="view_time detail_title" title="" border="{{false}}"/>
+      </van-col>
+      <van-col span="17">
+        <van-cell custom-class="view_time"  title="{{obj.itemStypeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <!-- 选择反馈类别 -->
+    <block wx:if="{{updItem}}">
+      <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 5rpx 0rpx;"/>
+      <view class="view_chose_type">
+        <van-cell title="请选择反馈类型" is-link value="立即分类" border="{{false}}" bind:click="choseItemType"/>
+      </view>
+    </block>
+  </view>
+
+    <!-- <view wx:if="{{obj.procStat == '07'}}" class="view_finish_btn" bindtap="finishAdvice">
+      <view class="finish_btn">确认反馈完成</view>
+    </view> -->
+</view>
+
+  <!-- 留言 -->
+<van-collapse  value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item title="反馈过程" name="1">
+
+      <!--备注-->
+      <block wx:if="{{obj.procStat !=='19'}}">
+        <van-row>
+          <van-col span="2">
+            <van-icon name="/images/niming/wuye.png" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <!-- 留言输入 -->
+            <!--<van-cell-group>-->
+            <van-field
+                    value="{{ addMsgBody }}"
+                    type="textarea"
+                    placeholder="请输入处理备注？"
+                    autosize
+                    border="{{ true }}"
+                    bind:change="addMsgBody"
+                    maxlength="{{'46'}}"
+            />
+            <!--</van-cell-group>-->
+          </van-col>
+        </van-row>
+        <view style="height:15rpx"></view>
+        <van-row>
+          <van-col span="18">
+            <view>
+              <text decode="true">&nbsp;</text>
+            </view>
+          </van-col>
+          <van-col span="6">
+            <van-button type="info" size="small" bind:tap="submitAddMsgBody">确定</van-button>
+          </van-col>
+        </van-row>
+      </block>
+
+      <view wx:for="{{obj.msgDtlDtoList}}" wx:key="*this">
+        <van-row>
+          <van-col span="2">
+            <van-icon name="/images/niming/{{item.iconName}}.png" size="2em"custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <van-cell wx:if="{{item.imgUrlList.length > 0}}"
+               title="{{item.msgBody}}"  border="{{false}}"/>
+            <van-cell wx:else
+               title="{{item.msgBody}}"  label="{{item.dateTimeDesc}}" border="{{false}}"/>
+          </van-col>
+        </van-row>           
+        <view wx:if="{{item.imgCnt > 0}}" class="view_img">
+            <van-col span="2">
+              <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+            </van-col>
+            <van-col wx:if="{{item.imgUrlList != null && item.imgUrlList.length > 0}}" span="22">
+              <van-uploader   file-list="{{ item.imgUrlList }}" 
+                            max-count="{{item.imgUrlList.length}}" 
+                            disabled="{{true}}"
+                            upload-text="图片加载中"
+                            deletable="{{false}}"/>
+            </van-col>
+        </view>
+        <van-row wx:if="{{item.imgUrlList.length > 0}}">
+          <van-col span="2">
+            <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <van-cell title=""  
+                  label="{{item.dtlDateTimeDesc}}"
+                  border="{{false}}"/>
+          </van-col>
+        </van-row>
+      </view>
+    </van-collapse-item>
+</van-collapse>
+
+<!-- 底部按钮 -->
+<view style="height:148rpx" wx:if="{{obj.procStat == '01' || obj.procStat == '03'}}"></view>
+<view wx:if="{{obj.procStat == '01'}}" class="view_do_btn">
+  <van-button  type="info" custom-class="do_btn" bind:click="acceptAdvice">立即受理</van-button>
+</view>
+
+<view wx:if="{{obj.procStat == '03' && obj.poSeqId == curPoSeqId}}" class="view_do_btn">
+  <van-row>
+    <van-col span="12">
+      <van-button  type="info" custom-class="do_btn_two" bind:click="cancelAdvice">取消受理</van-button>
+    </van-col>
+    <van-col span="12">
+      <van-button  type="info" custom-class="do_btn_two" bind:click="finishAdvice">受理完成</van-button>
+    </van-col>
+  </van-row>
+</view>
+
+
+
+<!-- 反馈类型菜单 -->
+<van-popup show="{{ showItemType }}" 
+            bind:close="changeShow"
+            position="top"
+            custom-style="height: 50%;"
+            loading="{{queryItemType}}"
+            >
+  <van-picker columns="{{ itemTypeList }}" 
+              bind:change="changeType" 
+              show-toolbar="{{true}}"
+              bind:confirm="sureChose"
+              bind:cancel="changeShow"
+              id="itemTypePicker"
+              />
+</van-popup>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<!--pages/staffs/staffList.wxml-->
+<view class="rootpage">
+  <view class="member-list">
+    <view wx:for="{{staffs}}" >
+      <view class="item-container"  data-bitem="{{item}}"  data-index="{{index}}" catchtap="onPersonClick">
+        <view class="item-left">       
+        <van-checkbox
+            value="{{ item.Checked }}"
+           
+            icon-size="20px"
+            checked-color="#169aff"
+            custom-class="item-margin"
+           
+        />           
+          <van-icon name="contact" color="#169aff" size="66rpx" ></van-icon>
+          <view class="staff-column">
+            <text class="member_name">{{item.poName}}</text>
+            <text  class="member_dept">{{item.deptName}}</text>
+          </view>
+        </view>
+        <text class="member_name item-margin">{{item.aveScore}}分</text>
+      </view>
+     
+    </view>
+  </view>
+  <view style="height:90px"></view>
+  <view class="{{iphoneX?'button-buttom-row-ipx':'button-buttom-row'}}" >
+      <view class="btn-row">
+        <van-button size="normal" type="info" bind:click="onTapConfirm">确定</van-button>      
+      </view>
+    </view>
+</view>

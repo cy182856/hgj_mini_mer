@@ -1,0 +1,300 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+<van-dialog id="van-dialog" overlay-style ="z-index:6666 !important;"  confirm-button-color ="#189AFE" />
+<view style="padding-bottom:40rpx;">
+    <view class="prop-info-view">
+      <view  class="img-view">
+        <image class="head-img" src="../../charge/images/background.png"/>
+      </view>
+      <view class="prop-left-view">
+        <view class="head-text-view">
+          <view class="prop-name-view">
+            <text>{{userInfo.SHORTNAME}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="prop-right-view">
+        <view data-item="{{chargeRule}}" bindtap="onShowRulePopup" class="charge-rule-class">
+          <text class="iconfont jia-jifei">
+            <text class="jia-jifei-text">计费规则</text>
+          </text>
+        </view>
+      </view>
+    </view>
+    <block wx:if="{{chargeList && chargeList.length > 0}}">
+      <view class="charge-view" >
+        <block wx:for="{{chargeList}}" wx:for-item="chargeArea" wx:key="keyArea">
+        <view class="charge-area-view">
+          <van-cell-group inset>
+          <van-collapse accordion value="{{showChargeAreaId}}" bind:change="onClickArea" >
+            <van-collapse-item name="{{chargeArea.chargeAreaId}}" >
+              <view slot="title">
+                <van-row class="collapse-title-view">
+                  <van-col span="24">
+                    <text class="charge-title">{{chargeArea.chargeAreaName}}</text>
+                  </van-col>
+                </van-row>
+                <van-row class="collapse-title-view">
+                  <van-col span="17" class="charge-title-label">
+                    <text style="color: #1cc864" >空闲 {{chargeArea.freeCharge}}</text>
+                    <text style="color: #fd9a03;padding-left:20rpx;">占用 {{chargeArea.chargeing}}</text>
+                    <text style="padding-left:20rpx;">总共 {{chargeArea.totalCharge}}</text>
+                  </van-col>
+                  <block wx:if="{{chargeArea.areaLongitude !='' && chargeArea.areaLongitude !=''}}">
+                    <van-col span="2">
+                      <view class="charge-map-icon">
+                        <van-icon name="location-o" color="#258bff;" size="36rpx" data-item="{{chargeArea}}" catchtap="onShowMapPopup"/>
+                      </view>
+                    </van-col>
+                    <van-col span="5">
+                      <view class="charge-map-btn">
+                        <text data-item="{{chargeArea}}" catchtap="onShowMapPopup">区域地图</text>
+                      </view>
+                    </van-col>
+                  </block>
+                </van-row>
+              </view>
+              <view style="height:20rpx;"></view>
+              <block wx:if="{{chargeArea.chargeDevInfoVos && chargeArea.chargeDevInfoVos.length > 0}}">
+                <van-grid gutter="{{ 10 }}" column-num="2" center="{{false}}">
+                  <van-grid-item use-slot wx:for="{{chargeArea.chargeDevInfoVos}}" wx:for-item="chargeDev" wx:key="keyDev">
+                    <view class="grid-item-top-view">
+                      <van-cell 
+                      data-item="{{chargeDev}}" 
+                      bind:click="chargeDetail" 
+                      border="{{false}}" 
+                      custom-class=""
+                      is-link 
+                      > 
+                        <view slot="title">
+                          <van-row style="padding-left:0rpx;">
+                            <block wx:if="{{chargeDev.isCharge && chargeDev.isCharge == 'Y'}}">
+                            <van-col span="8">
+                              <view class="charge-icon-class">
+                                <image src="../../charge/images/charge.png" class="charge-icon"/>
+                              </view>
+                            </van-col>
+                            <van-col span="8">
+                              <view class="charge-tag-class">
+                                <van-tag color="rgba(28,200,100,0.10)" text-color="#1cc864" custom-class="charge-tag">空闲</van-tag>
+                              </view>
+                            </van-col>
+                            </block>
+                            <block wx:elif="{{chargeDev.isCharge && chargeDev.isCharge == 'N'}}">
+                            <van-col span="8">
+                              <view class="charge-icon-class">
+                                <image src="../../charge/images/charged.png" class="charge-icon"/>
+                              </view>
+                            </van-col>
+                            <van-col span="8">
+                              <view class="charge-tag-class">
+                                <van-tag color="rgba(253,154,3,0.10)" text-color="#fd9a03" custom-class="charge-tag">占用</van-tag>
+                              </view>
+                            </van-col>
+                            </block>
+                          </van-row>
+                        </view>
+                      </van-cell>
+                    </view>
+                    <view class="grid-item-bottom-view ellipsis_view">
+                      <text >{{chargeDev.deviceName}}</text>
+                    </view>
+                    
+                    <view style="height:0rpx;"></view>
+                  </van-grid-item>
+                </van-grid>
+              </block>
+              <view style="height:20rpx;"></view>  
+            </van-collapse-item>
+          </van-collapse>          
+        </van-cell-group>
+        </view>
+        </block>
+      </view>     
+      
+      <van-popup 
+        show="{{ rule_popup_show }}" 
+        bind:close="onCloseRulePopup" 
+        custom-class="rule_popup_class"
+        closeable="true">
+        <view class="charge-rule-view"> 
+          <van-cell border="{{true}}" use-label-slot="{{true}}">
+            <view slot="title">
+              <view class="charge-rule-title-class">计费规则</view>
+            </view>  
+            <view slot="label">
+              <view class="charge-rule-label-class">充电费用包含：基础电价及服务费</view>
+            </view>  
+          </van-cell>
+          <view style="height:20rpx;"></view>
+          <van-cell title-class="vant-cell-title-class" title="单价" value="{{chargeRule.quantityAmt}}元/度" border="{{false}}" /> 
+          <block wx:if="{{chargeRule.discountInterval && chargeRule.discountInterval != ''}}">
+            <van-cell title-class="vant-cell-title-class" title="优惠时段费用" 
+              use-label-slot="{{true}}" border="{{false}}"> 
+              <view slot="">
+                <van-row>
+                  <text>{{chargeRule.discountAmt}}元/度</text>
+                  <text style="padding-left:10rpx;">（{{chargeRule.discountInterval}}）</text>
+                  <image src="../images/preferential.png" style="width:30rpx;height:30rpx;position: absolute;padding-top: 10rpx;"/>
+                </van-row>
+              </view>
+            </van-cell>      
+          </block>
+          <block wx:if="{{chargeRule.minAmt != '' && chargeRule.minAmt > 0}}">
+          <van-cell title-class="vant-cell-title-class" title="订单最低金额" border="{{false}}" >
+            <view slot="">
+              <van-row>
+                {{chargeRule.minAmt}}元
+              </van-row>
+            </view>
+          </van-cell> 
+          </block>
+          <view style="height:20rpx;"></view>
+          <van-row>
+            <block wx:if="{{chargeRule.discountInterval && chargeRule.discountInterval != ''}}">
+            <view class="charge-rule-tips-class">● 订单发起后在“优惠时段”区间内产生的电量，将按照优惠金额计算。非“优惠时段”区间内的按照正常单价计算。</view>
+            </block>
+            <block wx:if="{{chargeRule.minAmt != '' && chargeRule.minAmt > 0}}">
+            <view class="charge-rule-tips-class">● 如充电金额小于订单最低金额，将按照“订单最低金额”收取。</view>
+            </block>
+          </van-row>  
+        </view>
+      </van-popup>
+      
+      <!--地图-->
+      <van-popup 
+        show="{{ map_popup_show }}" 
+        bind:close="onCloseMapPopup" 
+        custom-class="map_popup_class"
+        closeable="true">
+        <view class="map-control-container">
+          <view class="map-control-content">
+            <view class="introduce plr20">标记点为充电桩所在区域位置</view>
+            <view class="map-container plr20">
+              <map
+                class="map"
+                id="map"
+                markers="{{markers}}"
+                latitude="{{location.latitude}}"
+                longitude="{{location.longitude}}"
+                show-location="{{showPosition}}"
+                show-compass="{{isShowCompass}}"
+                show-scale="{{isShowScale}}"
+                scale="{{scale}}"
+              >
+              </map>
+            </view>
+            <!--
+            <view class="feature-container pl20">
+              <view class="feature-content border-bottom">
+                <text class="feature-label">比例尺显示</text>
+                <switch color="#3875FF" checked="{{isShowScale}}" bindchange="onChangeShowScale"></switch>
+              </view>
+              <view class="feature-content border-bottom">
+                <text class="feature-label">指南针显示</text>
+                <switch color="#3875FF" checked="{{isShowCompass}}" bindchange="onChangeShowCompass"></switch>
+              </view>
+              <view class="feature-content">
+                <text class="feature-label">定位控件</text>
+                <switch class="feature-switch" color="#3875FF" checked="{{isShowPosition}}" bindchange="onChangeShowPosition"></switch>
+              </view>
+            </view>
+            -->
+          </view>
+        </view>
+      </van-popup>
+      
+      <!--订阅弹窗-->
+      <van-popup
+        show="{{ sub_popup_show }}"
+        position="bottom"
+        custom-style="height: 20%;"
+        bind:close="onCloseSubPopup"
+        custom-class="sub_popup_class"
+        closeable="true"
+        round="true"
+        >
+        <view style="height:60rpx;"></view>  
+        <view class="charge-sub-view">
+        <form> 
+            <van-cell title="充电桩区域" value="{{popupChageArea.chargeAreaName}}" border="{{ false }}" />
+            <van-cell title="开始通知日期" 
+              value="{{subDate}}" 
+              bind:click="onDisplaySubDate" 
+              border="{{ false }}" 
+              is-link
+            />
+            <van-calendar 
+              show="{{ sub_date_show }}" 
+              default-date="{{newSubDate}}"
+              max-date="{{ maxSubDate }}"
+              bind:close="onCloseSubDate" 
+              bind:confirm="onConfirmSubDate" 
+              show-confirm="{{ false }}"
+              color="#07c160"
+            />
+            <van-cell title="开始通知时间" 
+              value="{{subStartTime}}" 
+              catchtap="onShowTimePopup" 
+              data-item="{{subStartTime}}"
+              border="{{ false }}"  
+              is-link/>
+            <van-row custom-class="popup-sub-tips">
+              <van-col>1. 通知时间段从开始时间至当天24时，每小时通知一次。</van-col>
+              <van-col>2. 如您不再需要充电桩空闲通知可取消订阅。</van-col>
+            </van-row>
+            <van-row custom-class="popup-line">
+              <van-col span="12" custom-class="charge-center">
+                <van-button bind:click="onCloseSubPopup" round >
+                  <text decode="{{true}}">&emsp;取消&emsp;</text> 
+                </van-button>
+              </van-col>
+              <van-col span="12" custom-class="charge-center">
+                <van-button 
+                  disabled="{{popupChageArea.areaSubLog.subStat =='N' ? sub_btn_disabled : false}}" 
+                  data-chargeAreaId="{{popupChageArea.chargeAreaId}}" 
+                  data-chargeAreaName="{{popupChageArea.chargeAreaName}}" 
+                  bind:click="doChargeAreaSub" 
+                  round type="primary"
+                  form-type="submit">
+                  <text>确认订阅</text> 
+                </van-button>
+              </van-col>
+            </van-row>
+        </form>   
+        </view>
+      </van-popup>
+
+       <!--订阅时间弹窗-->
+       <van-popup
+        show="{{ time_popup_show }}"
+        position="bottom"
+        bind:close="onCloseTimePopup"
+        custom-class="time_popup_class"
+        round="true"
+        >
+        <van-datetime-picker
+          type="time"
+          value="{{ newSubTime }}"
+          min-hour="{{ minSubTimeHour }}"
+          filter="{{ filter }}"
+          title="选择时间"
+          bind:confirm="onConfirmSubTime"
+          bind:cancel="onCancelSubTime"
+        />
+        </van-popup>
+    </block>
+    <block wx:elif ="{{!isFail}}">
+      <view class="choose-view" style="height:82%;">
+        <template is="empty" data="{{src:'/assets/icons/empty/no-record.png',width:232,text:'暂无充电桩信息，请联系物业。'}}"></template>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="choose-view" style="height:82%;">
+        <view style="padding-top:40rpx;">
+          <van-skeleton row="6" />
+        </view>
+      </view>
+    </block>
+</view>

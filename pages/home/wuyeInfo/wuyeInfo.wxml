@@ -1,0 +1,54 @@
+<!--pages/wuyeInfo/wuyeInfo.wxml-->
+<view>
+  <van-cell-group title=" ">
+    <van-cell title="物业信息" >
+      <view class="modify-container" slot="">
+        <view class="button" data-index="0" bindtap="onModify">修改</view>
+      </view>
+    </van-cell>
+    <van-cell title="电话号码" value="021-16816888" border="{{ false }}" />
+    <van-cell title="工作地址" value="上海市闵行区光明路128号" border="{{ false }}" />
+    <van-cell title="工作时间" border="{{ false }}">
+      <view class="cellTime" slot="">
+        <text>工作日：9:00-17:00</text>
+        <text>周六：9:00-15:00</text>
+      </view>
+    </van-cell>
+    <van-cell title="其它信息" value="上海市闵行区光明路128号" border="{{ false }}" />
+  </van-cell-group>
+
+  <van-cell-group title=" ">
+    <van-cell title="居委会(上海滩)" >
+      <view class="modify-container" slot="">
+        <view class="button" data-index="1" bindtap="onModify">修改</view>
+      </view>
+    </van-cell>
+    <van-cell title="电话号码" value="021-16816888" border="{{ false }}" />
+    <van-cell title="工作地址" value="上海市闵行区光明路128号" border="{{ false }}" />
+    <van-cell title="工作时间" border="{{ false }}">
+      <view class="cellTime" slot="">
+        <text>工作日：9:00-17:00</text>
+        <text>周六：9:00-15:00</text>
+      </view>
+    </van-cell>
+    <van-cell title="其它信息" value="上海市闵行区光明路128号" border="{{ false }}" />
+  </van-cell-group>
+
+  <van-cell-group title=" ">
+    <van-cell title="小区活动室" >
+      <view class="modify-container" slot="">
+        <view class="button" data-index="2" bindtap="onModify">修改</view>
+      </view>
+    </van-cell>
+    <van-cell title="电话号码" value="021-16816888" border="{{ false }}" />
+    <van-cell title="工作地址" value="上海市闵行区光明路128号" border="{{ false }}" />
+    <van-cell title="工作时间" border="{{ false }}">
+      <view class="cellTime" slot="">
+        <text>工作日：9:00-17:00</text>
+        <text>周六：9:00-15:00</text>
+      </view>
+    </van-cell>
+    <van-cell title="其它信息" value="上海市闵行区光明路128号" border="{{ false }}" />
+  </van-cell-group>
+  
+</view>   

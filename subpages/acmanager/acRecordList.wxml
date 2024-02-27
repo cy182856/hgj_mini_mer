@@ -1,0 +1,190 @@
+<!--subpages/acmanager/acRecordList.wxml-->
+<!-- <import src="/component/empty/empty.wxml"></import> -->
+
+<wxs module='tools'>
+	function formatStr(str,tag) {
+	
+		if (str.length== 4) {
+			if(tag=="D"){
+				return str.substring(0,2)+"月"+str.substring(2,4)
+			}else if(tag=="H")
+			return str.substring(0,2)+":"+str.substring(2,4)
+		}
+		
+
+		return str
+	}
+	function getTextColor(text){
+		if (text=="导出中") {
+			return "#999999"
+		}else if(text=="导出失败"){
+			return "#fe8f18"
+		}else if(text=="完成"){
+			return "#169aff"
+		}
+		
+	}
+	function getIconName(text){
+		 if(text=="导出失败"){
+			return "warning-o"
+		}else if(text=="完成"){
+			return "passed"
+		}
+		
+	}
+	module.exports = {
+		formatStr: formatStr,
+		getTextColor:getTextColor,
+		getIconName:getIconName
+	}
+</wxs>
+<!-- <van-popup
+  show="{{ true }}"
+  position="top"
+  custom-style="height: 100%;margin-top:80rpx;background: #22000000;"
+  bind:close="onClose"
+	overlay="{{false}}"
+>
+	<view class="line"></view>
+	<van-cell-group border="{{false}}" custom-style="z-index:199 ">
+		<van-cell title="起始日期" value="{{currentTime}}" is-link></van-cell>
+		<van-cell title="起始时间" value="{{currentTime}}" is-link></van-cell>
+			
+			<view class="cellRow2">
+			<view>
+				<button class="queryButton"  bindtap="onQueryAcDevList" disabled="{{isLoading}}">查询</button>
+			</view>
+			<view>
+			
+			</view>	
+			</view>
+		</van-cell-group>
+</van-popup> -->
+<van-popup show="{{ showTimePopup }}" position="bottom" custom-style="height: 40%;background:#22000000;width:100%;"
+	bind:close="onClose" overlay="{{false}}">
+	<van-datetime-picker title="请选择日期" type="date" value="{{ currentDate }}" min-date="{{ minDate }}"
+		max-date="{{ maxDate }}" bind:input="onInputSelTime" formatter="{{ formatter }}" bind:confirm="onDateConfirm"
+		bind:cancel="onDateCancel" />
+</van-popup>
+<view style="height: 100vh;">
+<view style="margin:60rpx 40rpx 20rpx 40rpx;">
+<text style="font-size: 28rpx;color: #999999;">请选择需要上传记录的时间
+</text>
+</view>
+	<view class="queryBlock" style="z-index: 999;">
+		<!-- <block wx:if="{{showQueryBlock}}"> -->
+
+			<van-cell value="{{currentDateStr}} " title="   请选择日期" catchtap='ontapShowPopup' title-style="margin-left:20rpx;"
+				value-class="topValue-text" border="{{false}}">
+				<van-icon slot="right-icon" name="{{showPopup?'arrow-down':'arrow-up'}}" color='#179AFD' size="32rpx"
+					style="margin-right: 30rpx;" />
+			</van-cell>
+			<view class="cellRow0" style="padding-left: 50rpx;">
+				<text class="cell_title_text">请选择时间</text>
+				<van-dropdown-menu style="margin-bottom: 90px;">
+					<van-dropdown-item id="hour" title="{{selectHour}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose'
+						bind:change='' title-class="dropdowm_item_title">
+						<van-cell-group>
+							<block wx:for='{{hourList}}' wx:key='hour'>
+								<van-cell title-class="{{item == selectHour ? 'cell_titleClass_s' : 'cell_titleClass'}}"
+									title="{{item}}" data-index='{{index}}' bindtap='onHourChange'>
+									<van-icon wx:if="{{item == selectHour}}" slot="right-icon" name="success" color='#1798dc'
+										size="40rpx" />
+								</van-cell>
+							</block>
+							<view style="height: 90rpx;"></view>
+						</van-cell-group>
+					</van-dropdown-item>
+				</van-dropdown-menu>
+			</view>
+			<view class="line"></view>
+			<view class="cellRow2">
+				<view>
+					<button class="queryButton" bindtap="onQueryRecordList" disabled="{{isLoading}}">导出并上传</button>
+
+				</view>
+			</view>
+		<!-- </block>
+		<block wx:else>
+			<van-cell value="{{queryCond}} " title="   查询条件" catchtap='onShowQueryBloc' title-style="margin-left:20rpx;"
+				value-class="topValue-text" border="{{false}}">
+				<van-icon slot="right-icon" name="arrow-down" color='#179AFD' size="32rpx" style="margin-right: 30rpx;" />
+			</van-cell>
+		</block> -->
+	</view>
+	<view style="margin:20rpx 40rpx 20rpx 40rpx;">
+		<text style="font-size: 28rpx;color: #999999;">
+			说明：
+1. 页面选择”日期“，将会上传所选日期的内所有数据。
+2. 页面选择”日期+时间“，将会上传所选时段内的所有数据。
+3. 数据读取上传时，请不要离开本页面。
+4 蓝牙传输数据速度较慢，如遇数据较多时请您耐心等待。
+5. 数据如有重复系统将以最后一次为准进行对比。
+		</text>
+	</view>
+<!--
+	<view wx:if="{{devList.length < 1}}" style="z-index:1">
+
+		<template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无记录'}}"></template>
+
+	</view>
+	<view class='list-content' wx:if="{{devList.length > 0 }}">
+		<view class="titleFixed">
+			<van-row gutter="10">
+				<van-col span="5">
+					<view class="text-title">日期</view>
+				</van-col>
+				<van-col span="5">
+					<view class="text-title"> 时间</view>
+				</van-col>
+				<van-col span="9">
+					<view class="text-title">卡号/业主码</view>
+				</van-col>
+				<van-col span="5">
+					<view class="text-title" style="padding-right: 10rpx;">类型 </view>
+				</van-col>
+			</van-row>
+		</view>
+		<scroll-view class="scroll-height" scroll-y='true'>
+			<block wx:for="{{devList}}" wx:key="id">
+				<view class="content-list">
+					<van-row gutter="10">
+						<van-col span="5">
+							<view class="text-title">{{tools.formatStr(item.ENTERDATE,'D')}}</view>
+						</van-col>
+						<van-col span="5">
+							<view class="text-title">{{tools.formatStr(item.ENTERTIME,'H')}}</view>
+						</van-col>
+						<van-col span="9">
+							<view class="text-title">{{item.ACHUID==''?item.ICCARDID:item.ACHUID}}</view>
+						</van-col>
+
+						<van-col span="5">
+							<view class="text-title" style="padding-block-end: 10rpx;">{{item.ENTERTYPE}} </view>
+						</van-col>
+					</van-row>
+				</view>
+			</block>
+
+
+		</scroll-view>
+	</view>-->
+</view>
+
+<van-dialog
+  use-slot
+ 
+  show="{{ upDiaShow }}"
+	show-confirm-button="{{false}}"
+>
+<view class="dia-body">
+	<van-loading color="#1989fa" size="50rpx" wx:if="{{upLoading}}"/> 
+	<van-icon wx:else name="{{tools.getIconName(upRet)}}" size="50rpx" color="{{tools.getTextColor(upRet)}}"></van-icon>
+	<view class="dia-content">
+		<text>{{upRet}}</text>,已导出<text style="color: #169aff;">{{recordCount}}</text>条
+	</view>
+
+	<van-button type="info" size="small" color="#169aff" disabled="{{upLoading}}"  round bind:click="onClickConfirm">确认</van-button>
+</view>
+
+</van-dialog>

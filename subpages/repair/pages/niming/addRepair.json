@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-tag": "@vant/weapp/tag/index"
+    ,"van-picker": "@vant/weapp/picker/index"
+    ,"van-popup": "@vant/weapp/popup/index"
+  },
+  "navigationBarTitleText":"报事报修"
+}

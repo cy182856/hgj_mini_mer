@@ -1,0 +1,101 @@
+<!--subpages/repair/pages/ranking/ranking.wxml-->
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!--上方查询条件-->
+<view class="head">
+  <image class="image-class" src="../../images/ranking.png" ></image>
+
+  <van-row custom-class="condition">
+    <van-col span="7" custom-class="last-month" >
+      <view  wx:if="{{lastMonthShow}}"><text bindtap="lastMonth">上一月</text></view>
+    </van-col>
+    <van-col span="10" custom-class="curr-month">{{currMonthDesc}}</van-col>
+    <van-col span="7" custom-class="next-month" >
+      <view  wx:if="{{nextMonthShow}}"><text bindtap="nextMonth">下一月</text></view>
+    </van-col>
+  </van-row>
+
+  
+</view>
+
+<!--查询结果-->
+<view class="result">
+  <van-row custom-class="single">
+    <van-col span="7" custom-class="title">贡献排名</van-col>
+    <van-col span="10" custom-class="title">户号</van-col>
+    <van-col span="7" custom-class="title">家园勋章</van-col>
+  </van-row>
+
+  <view wx:if="{{huMonthScoreDtos == null || huMonthScoreDtos.length==0}}">
+    <view class="page" >暂无排名</view>
+  </view>
+  <view wx:else>
+    <view wx:for="{{huMonthScoreDtos}}" wx:for-item="huMonthScoreDto" wx:key="key" >
+      <view wx:if="{{index%2==0}}">
+        <van-row custom-class="even">
+          <van-col span="6" custom-class="body-first">
+            <view wx:if="{{index == 0}}">
+              <image src="../../images/first.png"  mode="aspectFit"  class="xunzhang"></image>
+            </view>
+            <view wx:elif="{{index == 1}}">
+              <image src="../../images/second.png"  mode="aspectFit"  class="xunzhang"></image>
+            </view>
+            <view wx:elif="{{index == 2}}">
+              <image src="../../images/third.png"  mode="aspectFit"  class="xunzhang"></image>
+            </view>
+            <view wx:else>
+              {{index+1}}
+            </view>
+          </van-col>
+          <van-col span="12" custom-class="body-second">{{huMonthScoreDto.houseName}}</van-col>
+          <van-col span="6" custom-class="body-third">{{huMonthScoreDto.monthScoreDesc}}</van-col>
+        </van-row>
+      </view>
+      <view wx:else>
+        <van-row custom-class="single">
+          <van-col span="6" custom-class="body-first">
+            <view wx:if="{{index == 0}}" >
+              <view class="xunzhang">
+                <image src="../../images/first.png"  mode="aspectFit"  class="xunzhang"></image>
+              </view>
+            </view>
+            <view wx:elif="{{index == 1}}">
+              <image src="../../images/second.png"  mode="aspectFit"  class="xunzhang"></image>
+            </view>
+            <view wx:elif="{{index == 2}}">
+              <image src="../../images/third.png"  mode="aspectFit"  class="xunzhang"></image>
+            </view>
+            <view wx:else>
+              {{index+1}}
+            </view>
+          </van-col>
+          <van-col span="12" custom-class="body-second">{{huMonthScoreDto.houseName}}</van-col>
+          <van-col span="6" custom-class="body-third">{{huMonthScoreDto.monthScoreDesc}}</van-col>
+        </van-row>
+      </view>
+    </view>
+    <!--翻页-->
+    <view class="page" bindtap="scrolltolower" >
+      {{bottomText}}
+    </view>
+  </view>
+  
+  
+  <!-- <van-row custom-class="even">
+    <van-col span="6" custom-class="body-first">1</van-col>
+    <van-col span="12" custom-class="body-second">东区19号2单元201室</van-col>
+    <van-col span="6" custom-class="body-third">1枚</van-col>
+  </van-row>
+
+  <van-row custom-class="even">
+    <van-col span="6" custom-class="body-first">
+      <view class="xunzhang">
+      <image src="../../images/first.png"  mode="aspectFit"  class="xunzhang"></image>
+      </view>
+    </van-col>
+    <van-col span="12" custom-class="body-second">东区19号2单元201室</van-col>
+    <van-col span="6" custom-class="body-third">1枚</van-col>
+  </van-row> -->
+</view>
+
+

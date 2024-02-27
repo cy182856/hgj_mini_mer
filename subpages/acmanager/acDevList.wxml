@@ -1,0 +1,166 @@
+<import src="/component/empty/empty.wxml"></import>
+<wxs module='tools'>
+	function isNeedUpData(item,globalVer) {
+		if(item.STAT=="I"){
+			return "未激活"
+		}
+		if(item.STAT=="C"){
+			return "已关闭"
+		}
+		if (item.DEVSYNBM.substring(0,3) != "000" || item.DEVVER!=globalVer) {
+			return "需更新"
+		}
+		
+
+		return "无需更新"
+	}
+	function getTextColor(item,globalVer){
+		if(item.STAT=="I"){
+			return "#fe8f18"
+		}
+		if(item.STAT=="C"){
+			return "#999999"
+		}
+		if (item.DEVSYNBM.substring(0,3) != "000" || item.DEVVER!=globalVer) {
+			return "#179AFD"
+		}
+		
+
+		return "#999999"
+	}
+	module.exports = {
+		isNeedUpData: isNeedUpData,
+		getTextColor:getTextColor
+		
+	}
+</wxs>
+<van-popup
+  show="{{ showPopup }}"
+  position="top"
+  custom-style="height: 100%;margin-top:80rpx;background: #22000000;"
+  bind:close="onClose"
+	overlay="{{false}}"
+>
+	<view class="line"></view>
+	<van-cell-group border="{{false}}" custom-style="z-index:199 ">
+
+		<!-- <view class="cellRow0"> -->
+					<!-- <text class="cell_title_text">需要更新</text>
+					<view class="right-container">
+						<view wx:for="{{upList}}" wx:key="text" class="stat-row">
+							<view class='{{item.checked?"checked_button":"normal_button"}}' data-bindex='{{index}}' bindtap="ontapStatChange"> {{item.text}}</view>
+						</view>
+					</view>
+				</view> -->
+				<view class="cellRow0">
+					<text class="cell_title_text">需要更新</text>
+					<view class="right-container">
+					<van-radio-group value="{{ radio }}" bind:change="onRadioChange" class="radio-group_direc" wx:for="{{upList}}" wx:key="text" >
+  				<van-radio name="{{index}}" style="margin-right: 40rpx;font-size: 26rpx;" checked-color="#179AFD">{{item.text}}</van-radio>
+
+</van-radio-group>
+				</view>	</view>
+
+		<view class="cellRow0" wx:if="{{showArea}}">
+				<text class="cell_title_text">区域</text>
+				<view class="right-container">
+					<van-dropdown-menu style="display:{{showArea ? 'block' : 'none'}};">
+						<van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change='' title-class="dropdowm_item_title">
+							<van-cell-group>
+								<block wx:for='{{areaList}}' wx:key='areaId'>
+									<van-cell title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+										<van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>
+			</view>
+			<view class="cellRow0" >
+				<text class="cell_title_text">楼号</text>
+	<van-dropdown-menu>
+						<van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''  title-class="dropdowm_item_title">
+							<van-cell-group>
+								<block wx:for='{{buildingList}}' wx:key='buildingId'>
+									<van-cell title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+										<van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>	
+			
+
+			<view class="line"></view>
+			<view class="cellRow2">
+			<view>
+				<button class="queryButton"  bindtap="onQueryAcDevList" disabled="{{isLoading}}">查询</button>
+
+			</view>
+			<view>
+				<button class="queryButton"  bindtap="onTapClear" >清空</button>
+			</view>
+			
+
+			</view>
+		</van-cell-group>
+</van-popup>
+<view   style="height: 100vh;">
+	<view class="topfixed">
+			<van-cell value="{{queryConid}} " title="  请选择查询条件" catchtap='ontapShowPopup' title-style="margin-left:30rpx;"  value-class="topValue-text" border="{{false}}">
+					<van-icon  slot="right-icon" name="{{showPopup?'arrow-down':'arrow-up'}}" color='#179AFD' size="32rpx" style="margin-right: 30rpx;"/>
+			</van-cell>
+  </view>  
+  
+  
+<view wx:if="{{devList.length < 1}}" style="z-index:1">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无记录'}}"></template>
+</view> 
+
+
+	<view class='list-content'  wx:if="{{devList.length > 0 }}">
+		
+		<!-- <view class="titleFixed">
+			<!-- <van-cell wx:if="{{houseList.length > 0}}" title="房屋信息" border="{{false}}">
+				<view slot="">
+					<text class="cellHouseInfo" >房屋状态</text>
+				</view>
+			</van-cell>
+			<view class="title-view">
+				<view class="title-layout">
+					<text class="text-title">设备名称</text>
+					<text class="text-title" >更新</text>
+				</view>
+    	</view>
+		</view> -->
+		<scroll-view class="scroll-height" scroll-y='true'>
+			<block wx:for="{{devList}}" wx:key="DEVSN">
+				<van-cell title-width="60vw" data-index="{{index}}" bind:click="onClickDev">
+				  <view slot="title" class="title-cell">
+    			<view class="van-cell-text" >{{item.DEVSN }}</view>
+					<view class="van-cell-text" style="color: #999999;" >{{item.ACDEVNAME }}</view>
+  			</view>
+				
+					<view slot="" class="cell-value">
+						<text style="color:{{tools.getTextColor(item,GLOBALDEVVER)}};margin-right:10rpx">{{tools.isNeedUpData(item,GLOBALDEVVER) }}</text>
+						<van-icon  name="arrow" size="32rpx" color="#999999"></van-icon>
+					</view>
+				</van-cell>
+			</block>
+			<!-- 点击加载更多 tools.getShowStat(item)-->
+			<block wx:if="{{more}}">
+				<view wx:if="{{loading}}" class="loading-container">
+					<van-loading type="spinner" size="26rpx" text-size="22rpx">加载中...</van-loading>
+				</view>
+				<view wx:else class="loading-container" bindtap="onLoadMore">点击加载更多...</view>
+			</block>
+			<block wx:else>
+				<view class="loading-container" bindtap="">暂无更多记录</view>
+			</block>
+			<view wx:if="{{iphoneX}}" style="height:68rpx"> </view>
+
+		</scroll-view>
+</view>
+  </view>

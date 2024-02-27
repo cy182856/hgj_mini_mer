@@ -1,0 +1,161 @@
+.view_detail{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width: 94%;
+  margin: 16rpx 3% 3%;
+  font-size: 28rpx;
+}
+.view_title_desc{
+  color: #474747;
+  padding-top: 10rpx;
+}
+.view_time{
+  color: #ABABAB !important;
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+.view_repiar{
+  color: #1B1B1B;
+}
+.view_img{
+  padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px);
+}
+.pay{
+  padding: var(--cell-vertical-padding,10px);
+}
+
+.xunzhang{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+  color: #FA9A0B !important;
+}
+
+
+.view_repairman{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width: 94%;
+  margin: 16rpx 3% 3%;
+  font-size: 28rpx;
+  padding-top: 10rpx;
+}
+.change_man{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+
+.avg{
+  text-align: left !important;
+  color: #189AFE !important;
+}
+.wuxing{
+  padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px) !important;
+}
+.wuxing1{
+  padding: var(--cell-vertical-padding,0px) var(--cell-horizontal-padding,16px) !important;
+  padding-bottom: 50rpx !important;
+}
+.pingjia{
+  padding: var(--cell-vertical-padding,11px) var(--cell-horizontal-padding,16px) !important;
+}
+.pingjia1{
+  padding: var(--cell-vertical-padding,2px) var(--cell-horizontal-padding,16px) !important;
+}
+.view_lianxi{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+  padding-top: 7px !important;
+}
+
+.cancel_btn{
+  /* text-align: center; */
+  margin-top: 25rpx;
+}
+
+.view_btn{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,0px) !important;
+  padding-top: 7px !important;
+}
+.usermotto {
+  margin-top: 5px;
+  width: 350rpx;
+}
+
+.view_cancel{
+  /* margin-top: 100rpx; */
+  margin-bottom: 60rpx;
+  width: 100%;
+  text-align: center;
+  margin-top: 200rpx;
+}
+
+.score_value{
+  text-align: left !important;
+  color: #189AFE !important;
+}
+.score_title{
+  text-align: right !important;
+}
+
+/* vant dialog弹窗的确定按钮统一改为 */
+.dialog-index--van-dialog__confirm{
+  color: #189AFE !important;
+}
+.detail_title{
+  padding-right: 0rpx !important;
+ }
+ .detail_value{
+  padding-left: 0rpx !important;
+  padding-right: 0rpx !important;
+ }
+
+ .txt{
+  text-overflow:ellipsis;
+  /* z-index: -1; */
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 20;
+  overflow: hidden;
+ }
+
+ .tel_tip{
+  color: #ABABAB;
+  font-size: 28rpx;
+  text-align: left;
+  line-height: 90rpx;
+  margin-left: 5%;
+  margin-top: -3%;
+ }
+
+.clear{
+  clear:both; 
+}
+
+.flex {
+  display: flex;
+}
+.card_start {
+  margin-top: 50rpx;
+}
+.imagecls {
+  height: 45rpx;
+  width: 45rpx;
+  padding: 0 20rpx;
+}
+.ft-size-28 {
+  font-size: 28rpx;
+}
+.titleRight {
+  color: rgba(0, 0, 0, 0.25)
+}
+
+.page-section{
+  color: #6e5a5a;
+  font-size: 28rpx;
+  margin-left: 15px;
+}
+
+.satisFaction{
+  color: #6e5a5a;
+  font-size: 28rpx; 
+  margin-left: 3%;
+}

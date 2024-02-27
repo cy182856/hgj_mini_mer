@@ -1,0 +1,110 @@
+<import src="../../../component/empty/empty.wxml"></import>
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../styles/iconfont.wxss"></import>
+<view style="min-height:100%;width:100%;background-color:{{bgColor}};position: absolute;padding-bottom: {{btuBottom}};">
+  <view class="propHouseShow_title">
+    <van-dropdown-menu>
+      <van-dropdown-item value="{{ CHOOSED_RENTORSALE }}" title='{{rentOrSaleTitle}}' options="{{ RENTORSALES }}" bind:change="chooseRentOrSale"/>
+      <van-dropdown-item id="floorArea" title="{{ floorAreaTitle }}">
+        <view style="margin-bottom: 40rpx;">
+          <van-row custom-class="condition_col">
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='0' data-floorAreaDesc='楼层' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='0'?'background-color:#1798dc;color:white;':''}}">不限</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='LL' data-floorAreaDesc='低区' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='LL'?'background-color:#1798dc;color:white;':''}}">低区</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='ML' data-floorAreaDesc='中低区' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='ML'?'background-color:#1798dc;color:white;':''}}">中低区</view></van-col>
+          </van-row>
+          <van-row custom-class="condition_col">
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='MM' data-floorAreaDesc='中区' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='MM'?'background-color:#1798dc;color:white;':''}}">中区</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='MH' data-floorAreaDesc='中高区' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='MH'?'background-color:#1798dc;color:white;':''}}">中高区</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-floorArea='HH' data-floorAreaDesc='高区' bindtap="chooseFloorArea" style="{{CHOOSED_FLOORAREA=='HH'?'background-color:#1798dc;color:white;':''}}">高区</view></van-col>
+          </van-row>
+        </view>
+      </van-dropdown-item>
+      <van-dropdown-item id="roomCnt" title="{{ roomCntTitle }}">
+        <view style="margin-bottom: 40rpx;">
+          <van-row custom-class="condition_col">
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='0' data-roomCntDesc='房型' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='0'?'background-color:#1798dc;color:white;':''}}">不限</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='1' data-roomCntDesc='一室' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='1'?'background-color:#1798dc;color:white;':''}}">一室</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='2' data-roomCntDesc='二室' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='2'?'background-color:#1798dc;color:white;':''}}">二室</view></van-col>
+          </van-row>
+          <van-row custom-class="condition_col">
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='3' data-roomCntDesc='三室' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='3'?'background-color:#1798dc;color:white;':''}}">三室</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='4' data-roomCntDesc='四室' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='4'?'background-color:#1798dc;color:white;':''}}">四室</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='5' data-roomCntDesc='五室' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='5'?'background-color:#1798dc;color:white;':''}}">五室</view></van-col>
+          </van-row>
+          <van-row custom-class="condition_col">
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail" data-roomCnt='6' data-roomCntDesc='五室+' bindtap="chooseRoomCnt" style="{{CHOOSED_ROOMCNT=='6'?'background-color:#1798dc;color:white;':''}}">五室+</view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail_zw"></view></van-col>
+            <van-col span="6" custom-class="condition_display"><view class="condition_detail_zw"></view></van-col>
+          </van-row>
+        </view>
+      </van-dropdown-item>
+    </van-dropdown-menu>
+  </view>
+  <view class="deadline"></view>
+  <view wx:if="{{PROPHOUSESHOWDTOS.length==0&&!isLoading}}">
+    <view class="deadline"></view>
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无房屋租售记录'}}"></template>
+  </view>
+  <view wx:else class="propHouseShow_content">
+     <view wx:for="{{PROPHOUSESHOWDTOS}}" wx:for-item="PROPHOUSESHOWDTO" bindtap="imageEdit" data-showId="{{PROPHOUSESHOWDTO.SHOWID}}" style="background-color: #F2F2F2;padding-top: 20rpx;">
+        <view class="propHouseShow_content_detail" >
+          <view class="house_show_img">
+            <block wx:if="{{PROPHOUSESHOWDTO.IMGCNT>0}}">
+              <block wx:for="{{PROPHOUSESHOWDTO.IMAGEURLS}}" wx:for-item="image" wx:for-index="key">
+                <view  wx:if="{{key==0}}" class="house_show_img">
+                  <image src="{{image+'?t='+time}}" mode="aspectFill" style="height:100%;"></image>
+                </view>
+              </block>
+            </block>
+            <block wx:else>
+              <image src="../../../images/home/prop_house/empty_img.png" mode="aspectFill" style="height:100%;"></image>
+            </block>
+          </view>
+          <view class="house_show_right">
+              <view class="house_show_title">【{{PROPHOUSESHOWDTO.RENTORSALEDESC}}】{{PROPHOUSESHOWDTO.HOUSETITLE}}</view> 
+              <view wx:if="{{PROPHOUSESHOWDTO.STAT=='N'}}" class="house_show_releaseDateTime">上架时间:{{PROPHOUSESHOWDTO.RELEASEDATETIME}}</view>
+              <view class="house_show_addr">地址:{{PROPHOUSESHOWDTO.HOUSEINFO}}</view>
+              <view class="house_show_price" wx:if="{{PROPHOUSESHOWDTO.RENTORSALE=='S'}}">
+                  <text style="color:#FA5943;font-size:32rpx;">{{PROPHOUSESHOWDTO.BIDPRICEDESC}}万元</text>
+                  <text style="margin-left:20rpx;">{{PROPHOUSESHOWDTO.SALEHOWMONEYPER}}元/㎡</text>
+              </view>
+              <view wx:else class="house_show_price">
+                  <view wx:if="{{PROPHOUSESHOWDTO.HOUSETYPE=='R'}}">
+                    <text style="color:#FA5943;font-size:32rpx;">{{PROPHOUSESHOWDTO.BIDPRICEDESC}}元/月</text>
+                  </view>
+                  <view wx:else>
+                    <text style="color:#FA5943;font-size:32rpx;">{{PROPHOUSESHOWDTO.BIDPRICEDESC}}元/月</text>
+                    <text style="margin-left:20rpx;">{{PROPHOUSESHOWDTO.SALEHOWMONEYPER}}元/㎡/天</text> 
+                  </view>
+              </view>
+          </view>
+          <view class="house_show_icon">
+            <view wx:if="{{PROPHOUSESHOWDTO.STAT=='N'}}" class="iconfont jia-yishangjia" style="font-size:80rpx;color: #296d0b;"></view>
+            <!-- <view wx:elif="{{PROPHOUSESHOWDTO.STAT=='I'}}" class="iconfont jia-weifabu" style="font-size:80rpx;color: #f4ea2a;"></view> -->
+            <view wx:else class="iconfont jia-yixiajia1" style="font-size:80rpx;color: #f4ea2a;"></view>
+          </view>    
+          </view> 
+        <!-- <view class="deadline" style="margin-top: 30rpx;"></view> -->
+     </view>
+  </view>
+  <view wx:if="{{!isLoading&&TOTALRECORD!=CURRENTRECORD}}" class="record_more" bindtap="queryMore">
+              <text>点击加载更多...</text>
+  </view>
+  <view wx:elif="{{isLoading&&CURRENTRECORD!=0}}" style="text-align:center;padding-bottom: 20rpx;font-size: 30rpx;  color: #999999;">
+        <van-loading type="spinner" size="30rpx" text-size="30rpx" >加载中...</van-loading>
+  </view>
+  <view wx:else class="record_none">
+      <text></text>
+  </view>
+  <!-- <view class="house_show_instru" bindtap="getHouseBriefDesc">
+    <view class="house_show_btn">
+      <view class="house_show_instru_desc">
+        <image src="../../../images/home/prop_house/prop_wyjj.png" style="width:76rpx;height:76rpx;" mode="aspectFit"></image>
+      </view>
+      <view class="house_show_instru_text">
+          <text>物业简介</text>
+      </view>
+    </view>
+  </view>  -->
+</view>

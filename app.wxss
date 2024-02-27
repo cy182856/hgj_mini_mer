@@ -1,0 +1,86 @@
+/**app.wxss**/
+@import "component/loading/loading.wxss";
+@import "component/empty/empty.wxss";
+@import "component/toast/toast.wxss";
+@import "styles/weui.wxss";
+@import "styles/iconfont.wxss";
+@import "styles/common.wxss";
+@import "templates/heoinfo-template/heoinfo-item-template.wxss";
+page {
+  background-color: #f7f7f7;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.fun-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background: white;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 3px;
+  box-shadow:0px 1px 2px 2px #f2f2f2;
+}
+
+.fun-topic{
+  margin-top: 36rpx;
+  margin-bottom: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-left: 40rpx;
+  color: #363f4d;
+}
+.fun-grid{    
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.fun-text{
+  width: 100%;  
+  color: #666666;
+  font-size: 26rpx;
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.img-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.text-with-icon{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+.gg{
+  padding: 0rpx 40rpx;
+  height: 80%;
+  color: #666666;
+  font-size: 28rpx;
+}
+
+.minx{
+  float:right  ;
+  height: 70rpx;
+  width: 70rpx;
+}
+
+.van-dialog__header {
+  padding: 20rpx 0rpx !important;
+}
+
+.show-border-bottom{
+  border-bottom:1px solid #f2f2f2
+}

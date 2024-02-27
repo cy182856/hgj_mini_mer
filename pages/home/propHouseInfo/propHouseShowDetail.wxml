@@ -1,0 +1,106 @@
+<import src="../../../component/empty/empty.wxml"></import>
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<van-toast id="custom-selector" />
+<view style="min-height:100%;width:100%;position: absolute;padding-bottom: {{btuBottom}};">
+   <view wx:if="{{PROPHOUSESHOWDTO.length==0&&!isLoading}}">
+     <view class="deadline"></view>
+     <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无房屋信息详情记录'}}"></template>
+   </view>
+   <view wx:else >
+      <view class="house_detail_content">
+         <view class="house_detail_content_addr">{{PROPHOUSESHOWDTO.HOUSEINFO}}</view>
+         <view class="house_detail_content_title">{{PROPHOUSESHOWDTO.HOUSETITLE}}</view>
+      </view>
+      <view class="house_detail_content">
+         <view class="house_detail_content_image">
+            <view class="house_detail_content_image_text">
+               <text>选择上传图片<text style="color:#ABABAB;">(长按可拖拽移动图片位置)</text></text>
+            </view>
+            <!-- 上传图片 -->
+            <view class='uploadPic'>
+               <view class='uploadPic-ul clearfix' style="justify-content:{{pic_flex}}">
+                  <movable-area class='uploadPic-ul-wrap clearfix'>
+                     <view wx:for="{{fileList}}" wx:key="path" class='uploadPic-li uploadPic-li-item' data-index='{{index}}' bindlongpress='_longtap' bindtouchstart='touchs' bindtouchend='touchend' bindtouchmove='touchm' catchtap="previewImg"  data-img='{{item.imageUrl}}' data-limg='{{item.path}}'>
+                        <!-- item.src?item.src:item.path 这里的图片路径应该换为服务器返回的路径-->
+                        <image class='uploadPic-li-pic' src='{{item.imageUrl}}' mode="aspectFill" lazy-load="{{true}}"  hidden="{{index==choosedIndex?true:false}}"></image>
+                        <view wx:if="{{item.path}}" hidden="{{index==choosedIndex?true:false}}" class='van-uploader__preview-delete' catchtap='delimg' data-keyindex="{{index}}">
+                           <van-icon name="cross" class="van-uploader__preview-delete-icon" />
+                        </view>
+                     </view>
+                     <!-- 把长按图片时候的图片路径 传过来 -->
+                     <movable-view x="{{x}}" y="{{y}}" direction="all" out-of-bounds="{{true}}" damping="{{2000}}" friction="{{1}}" disabled="{{disabled}}">
+                        <view class='item-move' hidden='{{hidden}}'>
+                           <image wx:if="{{maskImg}}" src="{{maskImg}}" mode="aspectFill"></image>
+                        </view>
+                     </movable-view>
+               
+                     <!-- 添加图片按钮 -->
+                     <view class='uploadPic-li' bindtap="uploadpic" wx:if="{{fileList.length<imgnum}}">
+                     <view class='uploadPic-li-camer'>{{fileList.length}}/{{imgnum}}</view>
+                     </view>
+                  </movable-area>
+               </view>
+            </view>
+           
+            <canvas canvas-id="canvas0" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-18000px;top:-18000px;">
+            </canvas>
+            <canvas canvas-id="canvas1" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-20000px;top:-20000px;">
+            </canvas>
+            <canvas canvas-id="canvas2" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+            </canvas>
+            <canvas canvas-id="canvas3" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+            </canvas>
+            <canvas canvas-id="canvas4" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+            </canvas>
+            <canvas canvas-id="canvas5" 
+                  style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+            </canvas>
+         </view>
+      </view>
+      <view class="house_detail_content">
+            <view class="house_detail_oper">
+               <text>房屋上架/下架修改</text>
+            </view>
+            <view class="house_detail_info_stat">
+               <view class="house_detail_info_stat_left">
+                  <block wx:if="{{PROPHOUSESHOWDTO.STAT=='N'}}">
+                     <text>房屋下架</text>
+                  </block>
+                  <block wx:else>
+                     <text>房屋上架</text>
+                  </block>
+               </view>
+               <view class="house_detail_info_stat_right">
+                     <van-switch custom-class="switch_custom" checked="{{statChecked}}" bind:change="changeHouseShowStat"/>
+               </view>
+            </view>
+      </view>
+      <view class="iconfont jia-tishi1"><text style="color:#ABABAB;font-size:28rpx;">如需修改房屋信息，请至企业控台操作</text></view>
+      <view class="house_detail_upload" bindtap="uploadPicFinshed">
+         <view class="house_detail_upload_btn">保存</view>
+      </view>
+   </view>
+</view>
+<van-popup show="{{ isShowDialog }}" bind:click-overlay="closeInstru" custom-style="width: 93%;height: auto; border-radius: 20rpx !important">
+  <view style="padding-top: 30rpx;">
+    <view class="obj_title">操作提示</view>
+    <view class="obj_intru_list">
+      <view class="obj_intru">
+        <text>{{showDialogDesc}}</text>
+      </view>
+    </view>
+    <view class="deadline"></view>
+    <view class="obj_instru_close">
+      <view class="obj_instru_close_btn" bindtap="closeInstru">
+        <text>关闭</text>
+      </view>
+    </view>
+  </view>
+</van-popup>
+ 

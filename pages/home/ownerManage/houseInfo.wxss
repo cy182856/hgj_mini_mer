@@ -1,0 +1,74 @@
+/* pages/home/ownerManage/houseInfo.wxss */
+.notice-content {
+  padding: 20rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  border-radius: 8rpx;
+  margin-top: 20rpx;
+  border: 2rpx lightgray solid;
+}
+
+.text_title{
+  margin-top: 40rpx;
+  margin-left: 50rpx;
+  margin-bottom: 10rpx;
+  font-weight: 600;
+  text-align: left;
+  font-size: 28rpx;
+  color: #3c3c3c;
+}
+
+.notice-text {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.btn-container {
+  margin-top: 60rpx;
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+}
+.title-view {
+ 
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  height: 72rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+  border-top-left-radius:10rpx;
+  border-top-right-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-view-noradius {
+  padding-top: 16rpx;
+  padding-left: 30rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+}
+.text-title{
+  
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: left;
+  color: #3c3c3c;
+}
+.field-text{
+  color: #969799 !important; 
+  font-size: 24rpx !important;
+}
+
+.modify-row{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}

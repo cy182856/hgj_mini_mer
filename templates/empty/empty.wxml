@@ -1,0 +1,8 @@
+<template name="empty">
+    <view class="global-empty">
+        <image class="global-empty-img" mode="aspectFit" src="{{src||'/assets/icons/empty/no-data.png'}}" style="width: {{width||328}}rpx;height:{{height||width||328}}rpx" ></image>
+        <view class="global-empty-text" wx:if="{{!!text}}">
+            <text>{{text}}</text>
+        </view>
+    </view>
+</template>

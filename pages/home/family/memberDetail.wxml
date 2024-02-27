@@ -1,0 +1,60 @@
+<!--pages/family/memberDetail.wxml-->
+<wxs src="./tools.wxs" module="m" />
+
+<view class="rootpage">
+  <view class="fun-card">
+    <view class="title-view">
+      <text class="text-title">房屋信息</text>
+    </view>
+  <van-cell-group  >
+    <van-cell title="所属小区" >
+      <view style="text-align:right" slot="">
+        <text>{{shortName}}</text>
+      </view>
+    </van-cell>
+    <van-cell title="地址" >
+      <view style="text-align:right" slot="">
+        <text>{{showBuildingRoom}}</text>
+      </view>
+    </van-cell>
+  </van-cell-group>
+
+  <view class="title-view-noradius">
+      <text class="text-title">成员</text>
+  </view>
+  <van-cell-group>
+    <van-cell title="昵称" value="{{mNickName}}" />
+    <van-cell title="角色" value="{{m.getRole(memberInfo.huRole,PROPTYPE)}}" />
+    <van-cell title="状态" value="{{m.getStat(memberInfo.stat)}}" border="{{ false }}" />
+  </van-cell-group>
+  <view class="title-view-noradius">
+      <text class="text-title">权限管理</text>
+  </view>
+    <view style="background:white;padding-left:20rpx">
+      <van-grid direction="horizontal" column-num="3" border="{{false}}" icon-size="15">
+        <block wx:for="{{authList}}"  wx:key="name">
+          <van-grid-item icon="{{m.getAuthIcon(item.hasAuth)}}" icon-color="{{item.hasAuth==1?'#169aff':'red'}}"
+            text="{{item.name}}" custom-class="gridItem" />
+        </block>
+      </van-grid>
+      <!-- <view style="height:10rpx"></view> -->
+      <!-- <view class="notice-row">
+      <text class="notice-text">注：</text>
+      <van-icon name="/images/icon_wait.png" size="14"></van-icon>
+      <text class="notice-text">--等待状态,需要房屋认证成功后方可使用</text>
+      </view> -->
+    </view>
+    <view style="height:20rpx"></view>
+    <view class="title-view-noradius">
+      <text class="text-title">通知管理</text>
+  </view>
+  <view style="background:white;padding-left:20rpx">
+    <van-grid direction="horizontal" column-num="3" border="{{false}}" icon-size="15">
+      <block wx:for="{{notifyAuth}}"  wx:key="name">
+        <van-grid-item icon="{{(item.hasAuth==1?'success':'cross')}}" icon-color="{{item.hasAuth==1?'#169aff':'red'}}"
+          text="{{item.name}}" custom-class="gridItem" />
+      </block>
+    </van-grid>
+  </view>
+</view>
+</view>

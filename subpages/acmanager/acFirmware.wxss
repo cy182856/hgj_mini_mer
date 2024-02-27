@@ -1,0 +1,27 @@
+/* subpages/acmanager/acFirmware.wxss */
+.van-button--primary {
+  font-size: 16px !important;
+  background-color: #169aff !important;
+  border: 1px solid transparent !important;
+  color:white !important;
+  width: 300rpx !important;
+  height: 64rpx !important;
+}
+.title-view{
+  margin: 20rpx 40rpx;
+}
+.title-text{
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.btn-view{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 40rpx;
+  margin-top: 20rpx;
+}
+.title-notice{
+  font-size: 26rpx;
+  color: red;
+}

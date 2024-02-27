@@ -1,0 +1,39 @@
+<!-- 引用 -->
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+
+
+<view class="titleStyle">{{orgName}}</view>
+
+<view class="subTitleStyle">分期</view>
+<view class="rowStyle">
+    <van-row >
+		<view wx:for="{{stagesList}}" wx:for-index="index" bindtap="stagesChange" data-index="{{index}}" data-datavalue="{{item}}">	
+			<van-col span="8"><button class="{{stagesDataIndex == index? 'buttonClassYes' : 'buttonClass'}}">{{item.grpName}}</button></van-col>
+		</view>
+    </van-row>
+</view>
+
+<view wx:if="{{buildingShow}}">
+	<view class="subTitleStyle">楼栋</view>
+	<view class="rowStyle">
+		<van-row>
+			<view wx:for="{{buildingList}}" wx:for-index="index" bindtap="buildingChange" data-index="{{index}}" data-datavalue="{{item}}">	
+				<van-col span="8"><button class="{{buildDataIndex == index? 'buttonClassYes' : 'buttonClass'}}">{{item.budName}}</button></van-col>
+			</view>
+		</van-row>
+	</view>
+</view>
+
+<view wx:if="{{roomNumShow}}">
+	<view class="subTitleStyle">房号</view>
+	<view class="rowStyle">
+		<van-row>
+			<view wx:for="{{roomNumList}}" wx:key="index" bindtap="changecontent" data-datavalue="{{item}}">		
+				<van-col span="8"><button class="buttonClass">{{item.resName}}</button></van-col>
+			</view>
+		</van-row>
+	</view>
+</view>

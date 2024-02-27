@@ -1,0 +1,584 @@
+<!-- loading -->
+<import src="../../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+<!-- 报修详情模块 -->
+<view class="view_detail pd">
+  <!-- 报修详情 -->
+  <view class="view_title_desc">
+    <van-cell title-class="txt" title="{{obj.repairDesc}}" border="{{false}}"/>
+  </view>
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/>
+  <!-- 图片 -->
+  <view class="view_img" wx:if="{{maxCount>0}}"> 
+    <van-uploader   file-list="{{ fileList }}" 
+                    max-count="{{maxCount}}" 
+                    disabled="{{true}}"
+                    image-fit="aspectFill"
+                    upload-text="图片加载中"
+                    deletable="{{false}}"
+                    bind:click-preview="clickPreview"
+                    preview-full-image="{{false}}"
+                    name="fileList"/>
+  </view>
+  <view class="view_img" wx:if="{{maxCount<=0}}">
+    <van-uploader   disabled="{{true}}"
+                    upload-text="暂无图片"/>
+  </view>
+  <!-- 详情信息 -->
+  <view class="">
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="报修地址" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value" 
+            title="{{obj.houseDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.repairType == 'S' && obj.isRepairTime === 'Y'}}">
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="期望上门时间" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.expArvTimeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title"  title="报修人" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  border="{{false}}">
+          <view slot="title">
+            <view class="van-cell-text">
+              {{obj.nickName}}
+            </view>
+          </view>
+        </van-cell>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="报修类型" border="{{false}}"/>
+      </van-col>
+      <van-col span="8">
+        <van-cell wx:if="{{obj.repairType == 'S' && comObj.propType == 'R'}}"  custom-class="view_time detail_value"  title="个人住宅" border="{{false}}"/>
+        <van-cell wx:elif="{{obj.repairType == 'S' && comObj.propType == 'B'}}" custom-class="view_time detail_value"  title="套内报修" border="{{false}}"/>
+        <van-cell wx:else custom-class="view_time detail_value"  title="共建家园" border="{{false}}"/>
+      </van-col>
+      <van-col span="6">
+        <block wx:if="{{obj.procStat == '01' || obj.procStat == '03' || obj.procStat == '05'}}">
+          <view class="view_upd_item">
+            <van-button color="#189AFE" type="primary" size="mini" bind:click="openRepairTypeShow" custom-style="90%">修改</van-button>
+          </view>
+        </block>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title"  title="报修单号" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.repairSeqId}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.objName && obj.objTypeDesc}}">
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title"  title="报修标的" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.objTypeDesc}}-{{obj.objName}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <block wx:if="{{obj.recvSpan != '' && obj.recvSpan != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="接单时长(分钟)" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell custom-class="view_time detail_value"  title="{{obj.recvSpan}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <block wx:if="{{obj.arvSpan != '' && obj.arvSpan != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="到场时长(分钟)" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell wx:if="{{obj.arvSpan < 0}}" custom-class="view_time detail_value"  title="提前到场" border="{{false}}"/>
+          <van-cell wx:else custom-class="view_time detail_value"  title="{{obj.arvSpan}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <block wx:if="{{obj.repairTime !='' && obj.repairTime != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="维修时长(分钟)" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell custom-class="view_time detail_value"  title="{{obj.repairTime}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <block wx:if="{{obj.repairType == 'P' && (obj.procStat == '09' || obj.procStat == '11')}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="共建家园勋章" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell wx:if="{{obj.huScore > 0}}" custom-class="view_time detail_value"  title="已奖励{{obj.huScore}}枚家园勋章" border="{{false}}"/>
+          <van-cell wx:else custom-class="view_time detail_value"  title="未奖励" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <van-row wx:if="{{obj.itemBtypeDesc}}">
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="维修分类" border="{{false}}"/>
+      </van-col>
+      <van-col span="8">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.itemRepType=='P'?'公共':'业主'}}-{{obj.itemBtypeDesc}}" border="{{false}}"/>
+      </van-col>
+      <van-col span="6" wx:if="{{!updItem}}">
+        <view class="view_upd_item">
+          <van-button color="#189AFE" type="primary" size="mini" bind:click="choseItemType" custom-style="90%">修改</van-button>
+        </view>
+      </van-col>
+    </van-row>
+
+    <van-row wx:if="{{obj.itemStypeDesc}}">
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.itemStypeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+
+    <!-- 选择反馈类别 -->
+    <block wx:if="{{updItem && obj.procStat != '19'}}">
+      <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 5rpx 0rpx;"/>
+      <view class="view_chose_type">
+        <van-cell title="请选择报修类型" is-link value="立即分类" border="{{false}}" bind:click="choseItemType"/>
+      </view>
+    </block>
+    <!-- 收费金额 -->
+    <block wx:if="{{isMyRepair && obj.procStat=='07' && obj.repairType == 'S'}}">
+      <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 12rpx 0rpx;"/>
+      <van-row>
+        <van-col span="8">
+            <van-cell custom-class="view_pay detail_title"  title="收费方式" border="{{false}}"/>
+        </van-col>
+        <van-col span="11">
+          <van-cell wx:if="{{obj.payType == 'N'}}" custom-class="view_pay detail_value"  title="无费用" border="{{false}}"/>
+          <van-cell wx:elif="{{obj.ordAmt > 0 && obj.payType == 'C'}}" 
+                    custom-class="view_pay detail_value" title="{{obj.ordAmt}} 元(现金)" border="{{false}}"/>
+          <van-cell wx:elif="{{obj.ordAmt > 0 && obj.payType == 'A'}}" 
+                    custom-class="view_pay detail_value" title="{{obj.ordAmt}} 元(线下)" border="{{false}}"/>
+          <van-cell wx:elif="{{obj.ordAmt > 0 && obj.payType == 'O'}}" 
+                    custom-class="view_pay detail_value pay_title" value-class="pay_value" title=" {{obj.ordAmt}} 元" value="(待支付)" border="{{false}}"/>         
+          <van-cell wx:else="{{obj.ordAmt}}" custom-class="view_pay"  title="待协商" border="{{false}}"/>
+        </van-col>
+        <van-col span="5">
+          <van-button custom-style="" type="info" size="small" bind:click="changePay" custom-style="90%">修改</van-button>
+        </van-col>
+      </van-row>
+    </block>
+
+
+    <!-- <block wx:if="{{isMyRepair && (obj.procStat=='09'||obj.procStat=='11') }}">
+      <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 12rpx 0rpx;"/>
+      <van-row>
+        <van-col span="8">
+            <van-cell custom-class="view_pay detail_title"  title="收费方式" border="{{false}}"/>
+        </van-col>
+        <van-col span="16">
+          <van-cell wx:if="{{obj.payType == 'N'}}" custom-class="view_pay detail_value"  title="无费用" border="{{false}}"/>
+          <van-cell wx:elif="{{obj.payType == 'C'}}" 
+                    custom-class="view_pay detail_value" title="{{obj.ordAmt}} 元(现金)" border="{{false}}"/>
+          <van-cell wx:elif="{{obj.payType == 'O'}}" 
+                    custom-class="view_pay detail_value pay_title" value-class="pay_value" title=" {{obj.ordAmt}} 元" value="(待支付)" border="{{false}}"/>         
+          <van-cell wx:else="{{obj.ordAmt}}" custom-class="view_pay"  title="待协商" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block> -->
+  </view>
+</view>
+
+
+
+<!-- 勋章奖励 -->
+<view wx:if="{{isMyRepair && (obj.procStat == '09') && obj.huScore < 1  && obj.repairType == 'P' && obj.huSeqId}}" class="view_jiangli">
+  <view class="view_chose_jiangli">
+    <van-radio-group value="{{ huScore }}" bind:change="changeReward">
+      <van-row>
+        <van-col span="12">
+          奖励1枚共建家园勋章
+        </van-col>
+        <van-col span="6">
+          <van-radio name="1">奖励</van-radio>
+        </van-col>
+        <van-col span="6">
+          <van-radio name="0">不奖励</van-radio>
+        </van-col>
+      </van-row>
+    </van-radio-group> 
+  </view>
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/> 
+
+    <van-field
+      value="{{ msgBody }}"
+      type="textarea"
+      placeholder=""
+      autosize="{{autosize}}"
+      border="{{ false }}"
+      maxlength="40"
+      show-word-limit="{{true}}"
+      bind:input="liuyan"
+    />
+
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/> 
+  <view class="fankui">
+    <van-button type="info" size="small" bind:click="sureReward" custom-style="90%">确定</van-button>
+  </view>
+  
+</view>
+<!-- 维修员信息模块 -->
+<view  class="view_repairman  pd" wx:if="{{!(isChaXun||isJieDan) && ( obj.procStat == '01'||obj.procStat == '03')}}">
+  <van-cell wx:if="{{isPaiDan && obj.procStat == '01'}}" custom-class="cf" title="请选择维修员" is-link border="{{false}}" bind:click="choseRepairMan"/>
+  <van-cell wx:elif="{{isPaiDan && obj.procStat == '03'}}" custom-class="cf" title="请选择维修员" is-link border="{{false}}" value="改派" bind:click="choseRepairMan"/>
+  <!-- 初次选中维修员，还没入库 -->
+  <block wx:if="{{(hasRepairMan && obj.procStat == '01')||obj.procStat == '03' }}">
+    <van-divider wx:if="{{isPaiDan}}" dashed 
+          customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/>
+
+    <van-row>
+        <van-col span="17">
+          <view wx:if="{{hasRepairMan}}" class="detail_value" style="padding-top:28rpx;">
+              <text style="font-size:28rpx;padding-left:6%;">维修人员</text>
+              <text style="font-size:28rpx;padding-left:40rpx;">{{choseObj.poName}}</text>
+              <text style="font-size:28rpx;color:#189AFE;padding-left:20rpx;">{{choseObj.aveScore}}分</text> 
+          </view>
+          <view wx:elif="{{obj.poName != ''}}" class="detail_value" style="padding-top:28rpx;">
+              <text style="font-size:28rpx;padding-left:6%;">维修人员</text>
+              <text style="font-size:28rpx;padding-left:40rpx;">{{obj.poName}}</text>
+              <text style="font-size:28rpx;color:#189AFE;padding-left:20rpx;">{{obj.avgPoScore}}分</text> 
+          </view>
+      </van-col>
+      <!-- <van-col span="8">
+        <van-cell custom-class="view_lianxi detail_title" title="维修人员" border="{{false}}"/>
+      </van-col>
+      <van-col span="11">
+        <van-cell wx:if="{{hasRepairMan}}" custom-class="view_lianxi detail_value" value-class="view_score"
+                title="{{choseObj.poName}} {{choseObj.aveScore}}分" border="{{false}}"/>
+        <van-cell wx:elif="{{obj.poName != ''}}" custom-class="view_lianxi detail_value" value-class="view_score"
+                  title="{{obj.poName}} {{obj.avgPoScore}}分" border="{{false}}"/>
+      </van-col> -->
+      <van-col wx:if="{{isPaiDan && comObj.repairAssign == 'A' && hasRepairMan && obj.procStat == '03'}}" span="6">
+        <view class="change_man view_btn" style="text-align: right;">
+            <van-button type="info" size="small" bind:click="sureChangeRepairMan" custom-style="90%">确认改派</van-button>
+          </view>
+      </van-col>
+    </van-row>    
+    <van-row wx:if="{{obj.poMp != '' && obj.poMp != null}}">
+        <van-col span="18">
+          <view class="detail_value" style="padding-top:20rpx;padding-bottom:28rpx;">
+              <text style="font-size:28rpx;padding-left:6%;">联系电话</text>
+              <text style="font-size:28rpx;padding-left:40rpx;">{{obj.poMp}}</text>
+          </view>
+        </van-col>
+    </van-row>
+    <van-row wx:elif="{{choseObj.poMp != '' && choseObj.poMp != null}}">
+        <van-col span="18">
+          <view class="detail_value" style="padding-top:20rpx;padding-bottom:28rpx;">
+              <text style="font-size:28rpx;padding-left:6%;">联系电话</text>
+              <text style="font-size:28rpx;padding-left:40rpx;">{{choseObj.poMp}}</text>
+          </view>
+        </van-col>
+    </van-row>
+    <van-row wx:else>
+        <van-col span="18">
+          <view class="detail_value" style="padding-bottom:28rpx;">
+          </view>
+        </van-col>
+    </van-row>
+    <!-- <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_lianxi detail_title" title="联系电话" border="{{false}}"/>
+      </van-col>
+      <van-col span="11">
+        <van-cell wx:if="{{hasRepairMan}}"  custom-class="view_lianxi detail_value" title="{{choseObj.poMp}}"  border="{{false}}"/>
+        <van-cell  wx:elif="{{obj.poMp != ''}}" custom-class="view_lianxi detail_value" title="{{obj.poMp}}"  border="{{false}}"/>
+      </van-col>
+    </van-row>  -->
+  </block>
+
+
+</view>
+<!-- 到场图片上传 -->
+<!-- bind:oversize="overSize" -->
+<view wx:if="{{isMyRepair && obj.procStat == '03' && obj.repairType == 'S'}}" class="daochang">
+    <van-uploader   file-list="{{ imgList }}" 
+                    max-count="{{upImgCnt}}" 
+                    image-fit="aspectFill"
+                    upload-text="上传到场图片"
+                    capture="{{capture}}"
+                    bind:delete="delete"	
+                    multiple="{{true}}"
+                    sizeType="{{sizeType}}"
+                    bind:after-read="afterRead"
+                    deletable="{{true}}"/>
+  </view>
+  <!-- 留言 -->
+  <van-collapse accordion value="{{ activeNames }}" bind:change="onChange" bind:open="onOpen">
+    <van-collapse-item title="维修过程" name="1">
+      <!--备注-->
+      <block wx:if="{{isMyRepair && obj.procStat !== '19'}}">
+        <van-row>
+          <van-col span="2">
+            <van-icon name="/subpages/repair/images/wuye.png" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <!-- 留言输入 -->
+            <!--<van-cell-group>-->
+            <van-field
+                    value="{{ repairMsgBody }}"
+                    type="textarea"
+                    placeholder="请输入维修备注"
+                    autosize
+                    border="{{ true }}"
+                    bind:change="repairMsgBody"
+                    maxlength="{{'46'}}"
+            />
+            <!--</van-cell-group>-->
+          </van-col>
+        </van-row>
+        <view style="height:15rpx"></view>
+        <van-row>
+          <van-col span="18">
+            <view>
+              <text decode="true">&nbsp;</text>
+            </view>
+          </van-col>
+          <van-col span="6">
+            <van-button type="info" size="small" bind:click="submitRepairMsg" data-msgSource="P" wx:if="{{!disabled}}" custom-style="90%">确定</van-button>
+            <van-button type="info" size="small" disabled bind:click="submitRepairMsg" data-msgSource="P" wx:else="{{disabled}}" custom-style="90%">确定</van-button>
+          </van-col>
+        </van-row>
+      </block>
+
+      <block wx:if="{{isPaiDan}}">
+        <van-row>
+          <van-col span="2">
+            <van-icon name="/subpages/repair/images/beizhu.png" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="17">
+            <!-- 留言输入 -->
+            <!--<van-cell-group>-->
+            <van-field
+                    value="{{ repairMsgBody }}"
+                    type="textarea"
+                    placeholder="请输入维修备注"
+                    autosize
+                    border="{{ true }}"
+                    bind:change="repairMsgBody"
+                    maxlength="{{'46'}}"
+            />
+            <!--</van-cell-group>-->
+          </van-col>
+          <van-col span="5">
+            <van-button 
+              type="info" size="normal" 
+              data-msgSource="R"
+              bind:click="submitRepairMsg" 
+              custom-style="font-size:28rpx;height:60rpx;margin-top:15rpx;border-radius: 10rpx;width:90%"
+              wx:if="{{!disabled}}">留言</van-button>
+              
+            <van-button 
+              disabled
+              type="info" size="normal" 
+              data-msgSource="R"
+              bind:click="submitRepairMsg" 
+              custom-style="font-size:28rpx;height:60rpx;margin-top:15rpx;border-radius: 10rpx;width:90%"
+              wx:else="{{disabled}}">留言</van-button>
+          </van-col>
+        </van-row>
+      </block>
+
+      <view wx:for="{{msgList}}" class="view_msg" wx:key="*this">
+        <van-row>
+          <!-- /subpages/repair/images/yezhu.png -->
+          <van-col span="2">
+            <van-icon wx:if="{{item.msgSource == 'H'}}" 
+                            name="/subpages/repair/images/yezhu.png" size="2em" custom-style="padding-top:22rpx;"/>
+            <van-icon wx:elif="{{item.msgSource == 'P'}}" 
+                           name="/subpages/repair/images/wuye.png"  size="2em" custom-style="padding-top:22rpx;"/>
+            <van-icon wx:elif="{{item.msgSource == 'R'}}" 
+                           name="/subpages/repair/images/beizhu.png"  size="2em" custom-style="padding-top:22rpx;"/>
+            <van-icon wx:else 
+                            name="/subpages/repair/images/jiqi.png"  size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <!-- label="{{item.dtlDateTimeDesc}}" -->
+          <van-col span="22">
+            <!-- 没有图片和修改时间，dtl在同一个cell里面，否则放在图片和修改按钮下方 -->
+            <van-cell wx:if="{{(isMyRepair && obj.repairType == 'S' && obj.isRepairTime === 'Y' && obj.procStat == '03' && item.replyStat == 'I' && item.msgSource == 'H')||(item.imgCnt > 0)}}" title="{{item.msgBody}}"
+                  border="{{false}}"/>
+            <van-cell wx:else title="{{item.msgBody}}"  
+                  label="{{item.dtlDateTimeDesc}}"
+                  border="{{false}}"/>      
+          </van-col>
+        </van-row>                  
+        <view wx:if="{{isMyRepair && obj.repairType == 'S' && obj.isRepairTime === 'Y' && obj.procStat == '03' && item.replyStat == 'I' && item.msgSource == 'H'}}">
+          <van-row>
+            <van-col offset="10" span="8">
+              <van-button plain type="info" size="small" bind:click="showPopup" data-dtlid="{{item.dtlId}}" custom-style="90%">改约其他时间</van-button>
+            </van-col>
+            <van-col span="6">
+              <van-button type="info" size="small" bind:click="sureTime" data-dtlid="{{item.dtlId}}" custom-style="90%">确定</van-button>
+            </van-col>
+          </van-row>
+        </view>
+        <view wx:if="{{item.imgCnt > 0 && item.dtlId == msgDtlId }}" class="view_img">
+          <van-col span="2">
+            <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+              <van-uploader   file-list="{{ msgImgList }}" 
+                          max-count="{{msgImgCnt}}" 
+                          disabled="{{true}}"
+                          image-fit="aspectFill"
+                          upload-text="图片加载中"
+                          deletable="{{false}}"
+                          bind:click-preview="clickPreview"
+                          preview-full-image="{{false}}"
+                          name="msgList"/>
+          </van-col>                
+        </view>
+        <view wx:if="{{item.imgCnt > 0 && item.dtlId == msgFinishDtlId }}" class="view_img">
+          <van-col span="2">
+            <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <van-uploader   file-list="{{ msgfinishImgList }}" 
+                          max-count="{{msgfinishImgCnt}}"
+                          disabled="{{true}}"
+                          image-fit="aspectFill"
+                          upload-text="图片加载中"
+                          deletable="{{false}}"
+                          bind:click-preview="clickPreview"
+                          preview-full-image="{{false}}"
+                          name="finshList"/>
+          </van-col>                   
+        </view>
+        <van-row wx:if="{{(isMyRepair && obj.repairType == 'S' && obj.procStat == '03' && item.replyStat == 'I' && item.msgSource == 'H')||(item.imgCnt > 0)}}">
+          <van-col span="2">
+            <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <!--  -->
+          <van-col span="22">
+            <van-cell title=""  
+                  label="{{item.dtlDateTimeDesc}}"
+                  border="{{false}}"/>
+          </van-col>
+        </van-row>
+      </view>
+    </van-collapse-item>
+    <view class="guding"></view>
+  </van-collapse>
+  <!-- 其他，时间弹窗 -->
+  <!-- picker -->
+  <van-popup show="{{ show }}" bind:close="onClose"  position="bottom">
+    <van-picker columns="{{ columns }}" bind:cancel="onClose" bind:confirm="changeTime" show-toolbar="{{true}}"/>
+  </van-popup>
+  <block wx:if="{{!isChaXun}}">
+    <!-- 设置固定高度,主要是距离下方的点击按钮 -->
+    <view style="height: 90rpx;"></view>
+    <!-- 派单模式下且没有维修员时才显示 hasRepairMan:选中的维修员，默认是false-->
+    <view wx:if="{{isPaiDan && comObj.repairAssign == 'A' && obj.procStat == '01'}}" class="dispatch_btn guding">
+        <van-button wx:if="{{hasRepairMan}}" type="info" size="large" bind:click="dispatchOrder" custom-style="width: 90%">派单</van-button>
+        <van-button wx:else type="info" size="large" disabled custom-style="width: 90%">派单</van-button>
+    </view>
+    <!-- 认领模式下，且该维修单 -->
+    <view wx:if="{{isJieDan && comObj.repairAssign == 'P' && obj.procStat == '01'}}" class="dispatch_btn guding">
+        <van-button type="info" size="large" bind:click="jieDan" custom-style="width: 90%">接单</van-button>
+    </view>
+
+    <!-- 确认到场，只有03状态 -->
+    <block wx:if="{{isMyRepair && obj.procStat == '03'}}">
+      <view  class="dispatch_btn guding">
+        <van-row wx:if="{{userInfo.REPAIRASSIGN == 'P'}}">
+          <van-col span="12">
+          <view style="width:375rpx;">
+            <van-button plain type="info" bind:click="cancel" custom-style="width:90%;">取消接单</van-button>
+          </view>
+          </van-col>
+          <van-col span="12">
+            <view style="width:375rpx;">
+              <van-button type="info"  bind:click="turnUp"  custom-style="width:90%;">确认到场</van-button>
+            </view>
+          </van-col>
+        </van-row>
+        <van-row wx:else>
+          <van-col span="24">
+              <van-button type="info"  bind:click="turnUp"  size="large" custom-style="width: 90%">确认到场</van-button>
+          </van-col>
+        </van-row>
+      </view>
+    </block>
+    <!-- 维修完成 05状态-->
+    <view wx:if="{{isMyRepair && obj.procStat == '05'}}" class="dispatch_btn guding">
+        <van-button type="info" size="large" bind:click="repairFinish" custom-style="width: 90%">维修完成</van-button>
+    </view>
+
+    <!-- 维修完成 05状态-->
+    <view wx:if="{{isMyRepair && obj.procStat == '07' && obj.repairType == 'P'}}" class="dispatch_btn guding">
+        <van-button type="info" size="large" bind:click="repairFinish">奖励勋章</van-button>
+    </view>
+  </block>
+
+  <!-- 反馈类型菜单 -->
+<van-popup show="{{ showItemType }}" 
+            bind:close="changeShow"
+            position="top"
+            custom-style="height: 50%;"
+            loading="{{queryItemType}}"
+            >
+  <!--<van-picker columns="{{ itemTypeList }}" -->
+  <!--            bind:change="changeType" -->
+  <!--            show-toolbar="{{true}}"-->
+  <!--            bind:confirm="sureChose"-->
+  <!--            bind:cancel="changeShow"-->
+  <!--            id="itemTypePicker"-->
+  <!--            />-->
+
+  <van-area custom-style="text-align:left" area-list="{{ areaList }}"  bind:confirm="sureChose" bind:cancel="changeShow" value="{{defaultValue}}"/>
+</van-popup>
+
+<van-popup
+  show="{{ repairTypeShow }}"
+  position="bottom"
+  custom-style="height: 30%"
+  bind:close="closeRepairTypeShow">
+  <van-picker show-toolbar columns="{{ repairTypeCols }}" default-index="{{ obj.repairType == 'S'?0:1 }}"
+            bind:cancel="closeRepairTypeShow"  
+            bind:confirm="changeRepairType" /> 
+</van-popup>
+
+<!-- 图片 -->
+<canvas canvas-id="canvas0" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-18000px;top:-18000px;">
+</canvas>
+<canvas canvas-id="canvas1" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-20000px;top:-20000px;">
+</canvas>
+<canvas canvas-id="canvas2" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+</canvas>

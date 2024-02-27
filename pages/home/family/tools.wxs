@@ -1,0 +1,53 @@
+
+  function getRole(huRole,houseType) {
+    switch (huRole) {
+      case "O":
+        if(houseType=="R"){
+          return "户主"
+        }else if(houseType=="B"){
+          return "管理员"
+        }
+       
+      case "U":
+        return "未知"
+      case "M":
+        if(houseType=="R"){
+          return "家庭成员"
+        }else if(houseType=="B"){
+          return "成员"
+        }
+       
+      case "T":
+        return "租客"
+    }
+  }
+  function getStat(stat) {
+    switch (stat) {
+      case "I":
+        return "初始"
+      case "P":
+        return "已认领"
+      case "N":
+        return "正常"
+      case "C":
+        return "关闭"
+      case "D":
+        return "销户"
+    }
+  }
+    function getAuthIcon(stat) {
+    switch (stat) {
+      case 0:
+        return "cross"
+      case 1:
+        return "success"
+      case 2:
+        return "/images/icon_wait.png"
+   
+    }
+  }
+  module.exports = {
+    getStat:getStat,
+    getRole: getRole,
+    getAuthIcon:getAuthIcon
+  }

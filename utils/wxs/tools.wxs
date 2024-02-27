@@ -1,0 +1,49 @@
+
+var getHeoTypeClass = function(heoType){
+  var heoTypeClass = "";
+  heoTypeClass = 'heo-' + heoType + '-view'
+  return heoTypeClass;
+}
+
+function convertHeoStatDesc(stat) {
+  if (stat == 'I') {
+    return '待审核';
+  }else if(stat == 'N'){
+    return '';
+  }else if(stat == 'R'){
+    return '已拒绝';
+  }else if(stat == 'C'){
+    return '已关闭';
+  }else if(stat == 'D'){
+    return '已删除';
+  }
+  return '';
+}
+var statToLowerCase = function(stat){
+  if(!stat || stat == '' || stat == null){
+    return '';
+  }
+  return stat.toLowerCase()
+}
+
+function convertHeoNorGDesc(type) {
+  if (type == 'N') {
+    return '求助';
+  }else if(type == 'G'){
+    return '帮助';
+  }else if(type == 'S'){
+    return '分享';
+  }else if(type == 'P'){
+    return '表扬';
+  }else if(type == 'E'){
+    return '曝光';
+  }
+  return '';
+}
+
+module.exports = {
+  getHeoTypeClass: getHeoTypeClass,
+  convertHeoStatDesc:convertHeoStatDesc,
+  statToLowerCase:statToLowerCase,
+  convertHeoNorGDesc: convertHeoNorGDesc
+};

@@ -1,0 +1,407 @@
+.heoinfo-item{
+  background-color: #fff;
+  padding:20rpx;
+  margin:10rpx 20rpx;
+  border-radius: .25em;
+  padding-bottom: 10rpx;
+}
+.heoinfo-preview{
+  display: flex;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+}
+
+.heoinfo-item-detail{
+  margin-top: 20rpx;
+}
+
+.hu-preview-img{
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  margin-right: 26rpx;
+  border-radius: 100%;
+}
+
+.hu-content{
+  width: 65%;
+}
+
+.heo-stat-desc{
+	margin-top: 10rpx;
+	width: 25%;
+	text-align: center;
+	font-size: 24rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.stat-c{
+	color: #DCDCDC;
+}
+
+.stat-n{
+	color: #0048FF;
+}
+
+.stat-r{
+	color: #DCDCDC;
+}
+
+.stat-i{
+	color: #0048FF;
+}
+
+.hu-name-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hu-name{
+  font-size: 24rpx;
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.hu-top{
+  text-align: center;
+  margin-left: 20rpx;
+}
+
+.hu-top-btn{
+  height: 46rpx;
+  background: rgba(243,83,67,0.1);
+  border-radius: 8rpx;
+  color: #f35343;
+  font-size: 24rpx;
+  line-height: 46rpx;
+  padding: 0px 10rpx;
+}
+
+.hu-info{
+  display: flex;
+  font-size: 20rpx;
+  color: #C6C6C6;
+  margin-top: 8rpx;
+}
+
+.heo-time{
+  width: 30%;
+}
+
+.hu-detail-info{
+  width: 60%;
+}
+
+.heoinfo-type-title{
+  display: flex;
+  flex-direction: row;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+  align-items: center;
+}
+
+.heoinfo-title{
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+  font-weight: bold;
+  color: #474747;
+}
+
+.heoinfo-desc{
+  font-size: 24rpx;
+  padding-top: 20rpx;
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;
+  color: #777777;
+}
+
+.heoinfo-message{
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+
+.jia-msg{
+  font-size: 32rpx;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 22rpx;
+  color: #666666;
+  margin-top: 16rpx;
+  padding-bottom: 20rpx;
+}
+
+.heo-istop-view{
+  margin: 0 20rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  color: #666666;
+}
+
+.heo-istop-item{
+  margin: 0rpx 20rpx;
+  padding: 10rpx;
+}
+
+.heo-istop-title-content{
+  display: flex;
+  padding-bottom: 10rpx;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.heo-istop-title{
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #474747;
+}
+
+.heo-istop-flag{
+  color: #FFFFFF;
+  background-color: #189AFE;
+  height: 26rpx;
+  line-height: 30rpx;
+  display: flex;
+  font-size: 20rpx;
+  justify-content: center;
+  padding: 4rpx;
+  align-items: center;
+  border-radius: .25em;
+  width: 26rpx;
+}
+
+.heo-theme-view{
+  margin-left: 10rpx;
+  color: #FF9000;
+  border: 1px solid #FF9000;
+  border-radius: .25em;
+  height: 26rpx;
+  line-height: 26rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  padding: 2rpx;
+  width: 50rpx;
+  text-align: center;
+  white-space:nowrap;
+}
+
+.heo-themeE-view{
+  color: #ff6c57;
+  border: 1px solid #ff6c57;
+}
+
+.heo-themeG-view{
+  color: #ff8643;
+  border: 1px solid #ff8643;
+}
+
+.heo-themeN-view{
+  color: #80a6ff;
+  border: 1px solid #80a6ff;
+}
+
+.heo-themeP-view{
+  color: #73d29a;
+  border: 1px solid #73d29a;
+}
+
+.heo-themeS-view{
+  color: #ffb061;
+  border: 1px solid #ffb061;
+}
+
+.heoinfo-type{
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  padding:0px 10rpx;
+  text-align: center;
+  white-space:nowrap;
+  margin-left: 10rpx;
+}
+.heo-01-view{
+  color: #F19149;
+}
+.heo-05-view{
+  color: #F19149;
+}
+.heo-03-view{
+  color: #F19149;
+}
+.heo-07-view{
+  color: #F19149;
+}
+.heo-09-view{
+  color: #F19149;
+}
+.heo-11-view{
+  color: #F19149;
+}
+.heo-13-view{
+  color: #F19149;
+}
+.heo-99-view{ 
+  color: #F19149;
+}
+
+.heo-type-time{
+  display: flex;
+  padding-bottom: 10rpx;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.heo-top-type{
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  white-space:nowrap;
+}
+
+.heo-top-name{
+  margin-left: 20rpx;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  color: #C6C6C6;
+}
+
+.heo-top-time{
+  margin-left: 20rpx;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  color: #C6C6C6;
+}
+
+.msg-count-info{
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24rpx;
+  color: #777777;
+}
+
+.oper-heoinfo-btn{
+  width: auto;
+  border-radius: 5em !important;
+  font-size: 24rpx !important;
+  height: 56rpx !important;
+  line-height: 56rpx !important;
+  padding: 0rpx 20rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #fff !important;
+	color: #000 !important;
+  border: 1px solid #C6C6C6 !important;
+}
+
+.del-btn{
+  margin-left:40rpx !important;
+}
+
+.audit-pass-btn{
+  margin-left:40rpx !important;
+}
+
+.offical-view{
+  color: gold;
+  font-size: 16rpx;
+  border: 1px solid;
+  border-radius: 2.5em;
+  padding: 0 6rpx;
+  margin-left: 10rpx;
+}
+
+.heo-refruse-info{
+  margin-left: 10rpx;
+  font-size: 24rpx;
+  color: #777777;
+}
+
+.jia-stat{
+  font-size: 90rpx;
+  position: relative;
+  top: -50rpx;
+  right: -70rpx;
+  height: 0px;
+}
+
+.jia-stat-r{
+	color:#AC2109;
+}
+
+.jia-stat-d{
+	color:#AC2109;
+}
+
+.jia-stat-d{
+	color:#A2A2A2;
+}
+
+.jia-stat-c{
+	color:#A2A2A2;
+}
+
+.jia-stat-n{
+	color:#56BB2C;
+}
+
+.jia-stat-i{
+	color:#FEBD0B;
+}
+
+.flex-end-view{
+  justify-content:flex-end;
+}
+
+.heo-praise-view{
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  margin-right: 20rpx;
+}
+
+.jia-dianzan{
+  font-size: 36rpx;
+  color: #cdcdcd;
+}
+
+.jia-yidianzan{
+  font-size: 36rpx;
+  color:#189AFE;
+}
+
+.praise-cnt-text{
+  margin-left: 10rpx;
+  color: #cdcdcd;
+  margin-top: 6rpx;
+}

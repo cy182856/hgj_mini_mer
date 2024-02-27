@@ -1,0 +1,135 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+
+<view style="height:100%;">
+  <scroll-view scroll-y="{{true}}" style="height:100%;">
+    <view class="door-view" catchtouchmove='preventTouchMove'>
+      <view class="img-view">
+        <image class="head-img" src="../images/background.png"/>
+      </view>
+      <view class="title-view">
+        <view class="title-text-view">
+          <text>欢迎使用远程开门</text>
+        </view>
+        <view class="title-link-info">
+          <text bindtap="checkDetail">什么是远程开门?</text>
+        </view>
+      </view>
+    </view>
+    <view class="dev-view" catchtouchmove='preventTouchMove'>
+      <view style="height:40rpx;"></view>
+      <van-tree-select
+        items="{{ items }}"
+        main-active-index="{{ mainActiveIndex }}"
+        active-id="{{ activeId }}"
+        bind:click-nav="onClickNav"
+        height="90%"
+        main-item-class="tab-class"
+        main-active-class="tab-checked-class"
+      >
+        <van-cell-group slot="content" border="{{false}}">
+          <van-radio-group value="{{acDevId}}">
+          <van-radio name="" style="display:none"></van-radio>
+          <block wx:if="{{mainActiveIndex == '0'}}">
+            <block use-slot wx:for="{{gateDoorDevList}}" wx:for-item="gateDoorDev" wx:key="gateDoorDev">
+            <view data-item="{{gateDoorDev.acDevId}}" bindtap="selectViewDoor">
+              <van-cell border="{{false}}"> 
+                  <view slot="icon">
+                    <view>
+                      <block wx:if="{{gateDoorDev.acDevId == acDevId}}">
+                        <image src="../images/doorblue.png" class="dev-icon-class"/>
+                      </block>
+                      <block wx:else>
+                        <image src="../images/door.png" class="dev-icon-class"/>
+                      </block>
+                    </view>
+                  </view>
+                  <view slot="title">
+                   <block wx:if="{{gateDoorDev.acDevId == acDevId}}">
+                    <text class="dev-text-checked">{{gateDoorDev.acDevName}}</text>
+                   </block>
+                   <block wx:else>
+                    <text>{{gateDoorDev.acDevName}}</text>
+                   </block>
+                  </view>
+                  <view slot="">
+                    <view>
+                      <van-radio name="{{gateDoorDev.acDevId}}" icon-size="18" custom-class="dev-radio-class"></van-radio>
+                    </view>
+                  </view>
+              </van-cell>
+            </view>
+            </block>
+          </block>
+          <block wx:if="{{mainActiveIndex == '1'}}">
+            <block use-slot wx:for="{{cellDoorDevList}}" wx:for-item="cellDoorDev" wx:key="cellDoorDev">
+            <view data-item="{{cellDoorDev.acDevId}}" bindtap="selectViewDoor">
+              <van-cell border="{{false}}"> 
+                  <view slot="icon">
+                    <view>
+                      <block wx:if="{{cellDoorDev.acDevId == acDevId}}">
+                        <image src="../images/doorblue.png" class="dev-icon-class"/>
+                      </block>
+                      <block wx:else>
+                        <image src="../images/door.png" class="dev-icon-class"/>
+                      </block>
+                    </view>
+                  </view>
+                  <view slot="title">
+                    <block wx:if="{{cellDoorDev.acDevId == acDevId}}">
+                      <text class="dev-text-checked">{{cellDoorDev.acDevName}}</text>
+                    </block>
+                    <block wx:else>
+                      <text>{{cellDoorDev.acDevName}}</text>
+                    </block>
+                  </view>
+                  <view slot="">
+                    <view>
+                      <van-radio name="{{cellDoorDev.acDevId}}" icon-size="18" custom-class="dev-radio-class"></van-radio>
+                    </view>
+                  </view>
+              </van-cell>
+            </view>
+            </block>
+          </block>
+          </van-radio-group>
+          <view style="height:40rpx;"></view>
+        </van-cell-group>
+      </van-tree-select>
+    </view>
+  </scroll-view>
+</view>
+<view class="door-btn" style="padding-bottom:{{isFullSucreen ? '36rpx' : '0rpx'}}">
+  <view class="door-btn-view-class">
+    <block wx:if="{{true}}">
+      <van-button custom-class="door-btn-class" disabled="{{ acDevId=='' ? true : false}}" data-item="{{acDevId}}" bind:click="openDoor" color="#258BFF" block>
+        <text>点击开门</text> 
+      </van-button>
+    </block>
+  </view>
+</view>
+
+<van-popup show="{{ showDesc }}" bind:click-overlay="closeInstru" custom-style="width: 93%;height: auto;">
+  <view style="padding-top: 30rpx;">
+    <view class="open-door-title">什么是远程开门</view>
+    <view class="obj_intru_list">
+      <view class="obj_intru" >
+        <view class="obj_title">使用方法：</view>
+        <view class="obj_desc">选中要开启的门禁，点击【点击开门】按钮即可打开对应的门禁。</view>
+      </view>
+      <view class="obj_intru" >
+        <view class="obj_title">注意事项：</view>
+        <view class="obj_desc">1.远程开门功能为方便业主，不需要时请勿随意操作；</view>
+        <view class="obj_desc">2.开门需要连接网络，如手机无网络信号则不能开门；</view>
+        <view class="obj_desc">3.因网络等原因如操作后门禁未开启，请再次尝试或与物业联系开门。</view>
+      </view>
+    </view>
+    <view class="dead_line"></view>
+    <view class="obj_instru_close">
+      <view class="obj_instru_close_btn" bindtap="closeInstru">
+        <text>关闭</text>
+      </view>
+    </view>
+  </view>
+</van-popup>

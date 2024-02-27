@@ -1,0 +1,202 @@
+<import src="../../component/empty/empty.wxml"></import>
+<import src="../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<view style="min-height:100%;width:100%;position: absolute;background-color: {{bgColor}};padding-bottom: {{btuBottom}};">
+  <view class="appt_obj">
+    <view class="position-top" >
+      <view>
+        <van-row>
+          <van-col class="ellipsis_view"  span="24">
+            <van-col span="1">
+            </van-col>
+            <view bindtap="showCondition">
+              <van-cell custom-class="ordQueryCondition">
+                <van-col class="ellipsis_view"  span="21">
+                  <view>{{ordQueryDesc}}</view>
+                </van-col>
+                <van-col span="2">
+                  <text class="iconfont {{iconName}}"></text>
+                </van-col>
+                <van-col span="1">
+                </van-col>
+              </van-cell>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
+    </view>
+  </view>
+  <view class="deadline"></view>
+  <view wx:if="{{APPTORDLOGDTOS.length==0&&!isLoading}}">
+    <view class="deadline"></view>
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无预约订单记录'}}"></template>
+  </view>
+  <view wx:else style="padding-top: 15rpx;background-color: #f5f5f5;">  
+    <view wx:for="{{APPTORDLOGDTOS}}" wx:for-item="value" class="apptOrdContentBg">
+      <view class="mine_ord_title" wx:if="{{value.STAT=='I'}}">
+        <image src="../../images/appt/mine_appt_I.png" mode="aspectFit" style="width: 100%;height: 246rpx;background-color: #F3F5F5;"></image>
+      </view>
+      <view class="mine_ord_title" wx:elif="{{value.STAT=='D'||value.STAT=='H'}}">  
+        <image src="../../images/appt/mine_appt_DH.png" mode="aspectFit" style="width: 100%;height: 246rpx;background-color: #F3F5F5;"></image>
+      </view>          
+      <view class="mine_ord_title" wx:elif="{{value.STAT=='R'}}">
+        <image src="../../images/appt/mine_appt_R.png" mode="aspectFit" style="width: 100%;height: 246rpx;background-color: #F3F5F5;"></image>
+      </view> 
+      <view class="mine_ord_title"  wx:elif="{{value.STAT=='O'}}"> 
+        <image src="../../images/appt/mine_appt_O.png" mode="aspectFit" style="width: 100%;height: 246rpx;background-color: #F3F5F5;"></image>
+      </view>  
+      <view class="mine_ord_title" wx:elif="{{value.STAT=='P'}}"> 
+         <image src="../../images/appt/mine_appt_P.png" mode="aspectFit" style="width: 100%;height: 246rpx;background-color: #F3F5F5;"></image>
+      </view> 
+      <view class="mine_ord_title" wx:else="{{value.STAT=='S'}}"> 
+        <image src="../../images/appt/mine_appt_S.png" mode="aspectFit" style="width: 100%;height: 246rpx;  background-color: #F3F5F5;"></image>
+      </view> 
+      <view class="mine_ord_top">
+          <view class="mine_ord_title_objName">{{value.OBJNAME}}</view>
+          <view class="mine_ord_tilte_createTime">
+            <view class="mine_ord_tilte_createTime_left">下单时间</view>
+            <view class="mine_ord_tilte_createTime_right">{{value.ORDDATETIME}}</view>
+          </view>
+      </view>
+      <view class="mine_ord_content">
+        <view class="mine_ord_content_title">
+            <van-row>
+              <van-col span="12">预约时间</van-col>
+              <van-col span="6" style="text-align:center;">
+                <view wx:if="{{value.STAT=='R'||value.STAT=='P'||value.STAT=='0'}}">已退/数量</view>
+                <view wx:else>
+                  数量
+                </view>
+              </van-col>
+              <van-col span="6" style="text-align:center;">单价</van-col>
+            </van-row>
+        </view>
+        <view class="mine_ord_content_detail" wx:for="{{value.APPTORDDTLDTOS}}" wx:for-item="content">
+            <van-row>
+              <van-col span="12">{{content.APPTDATEDAY}} {{content.BEGINTIMEDESC}}-{{content.ENDTIMEDESC}}</van-col>
+              <van-col span="6" style="text-align:center;">
+                <view wx:if="{{value.STAT=='R'||value.STAT=='P'||value.STAT=='0'}}">{{content.CANCELCNT+content.ONCANCELCNT}}/{{content.OBJCNT}}</view>
+                <view wx:else>
+                 {{content.OBJCNT}}
+                </view>
+              </van-col>
+              <van-col span="6" style="text-align:center;">￥{{content.APPTPRICEDESC}}</van-col>
+            </van-row>
+        </view>
+        <view class="mine_ord_img" >
+          <image style="height:50rpx;width:100%; background-color: #F3F5F5;"
+  src="../../images/appt/appt_middle.png" />
+        </view>
+        <view class="mine_ord_bottom">
+          <van-row>
+              <van-col span="16"><text style="font-size:36rpx;color:#169AFF;">￥{{value.ORDAMTDESC}}</text></van-col>
+            </van-row>
+        </view>
+      </view>  
+      <view style="background-color: #F3F5F5;">
+        <image style="height:66rpx;width:100%; background-color: #F3F5F5;" src="../../images/appt/appt_bottom.png" />
+      </view>
+    </view>
+    <view wx:if="{{!isLoading&&TOTALCOUNT!=CURRENTCOUNT}}" class="record_more" bindtap="queryMore">
+              <text>点击加载更多...</text>
+    </view>
+    <view wx:elif="{{isLoading&&CURRENTCOUNT!=0}}" style="text-align:center;padding-bottom: 20rpx;font-size: 30rpx;  color: #999999;">
+          <van-loading type="spinner" size="30rpx" text-size="30rpx" >加载中...</van-loading>
+    </view>
+    <view wx:else class="record_none">
+        <text></text>
+    </view>
+  </view> 
+</view>
+<van-popup show="{{ IS_SHOW_CHOOSE_AREA }}" position="bottom" z-index="666" bind:click-overlay="hideDateOverLay" overlay="{{isShowOverlay}}">
+  <calendar 
+      year="{{curYear}}"
+      month="{{curMonth}}" 
+      day="{{today}}" 
+      
+      header="{{header}}" 
+      next="{{next}}" 
+      prev="{{prev}}"
+      
+      
+      weeks="{{week_title}}"
+      weeks-type="{{title_type}}" 
+      show-more-days="{{more}}" 
+      showOtherDesc = false
+      selectType = "multiple"
+
+      cell-size="{{cellSize}}"    
+      
+      days-color="{{style}}"
+      active-type="{{activeType}}"
+      next-month='hi'
+      bindnextMonth='nextMonth'                
+      bindprevMonth='prevMonth'
+      binddateChange='dateChange'
+      binddayClick='dayClick'
+      bindconfirmDate = "confirmDate"
+      calendar-style="calendar-style" 
+      header-style="header-style" 
+      board-style="board-style" 
+      weeks-style="weeks-style"
+      month-btn-style ="month-btn-style"
+      confirm-btn-style = "confirm-btn-style"
+      calendar-days-style = "calendar-days-style"
+      calendar-day = "calendar-day"
+      showBtn = "{{true}}"
+      selStartDate = "{{selStartDate}}"
+      selEndDate = "{{selEndDate}}"
+  />
+</van-popup>
+<van-popup
+  position="top"
+  show="{{ isShowCondition }}"
+  bind:click-overlay="showCondition"
+  duration="200"
+  custom-style="margin-top:100rpx;height:auto;"
+>
+  <view class="deadline"></view>
+  <view class="chooseObjCondition">
+    <van-row>
+      <van-col span="8"><view class="condition_left">预约标的<text style="color:red;">*</text></view></van-col>
+      <van-col span="16">  
+        <van-dropdown-menu>
+          <van-dropdown-item value="{{CHOOSED_OBJID}}" options="{{ OBJINFOS }}"  bind:change="chooseObj" id="objItem"/>
+        </van-dropdown-menu>
+      </van-col>
+    </van-row>
+
+    <view class="deadline"></view>
+    <view class="condition_left">订单状态<text style="color:red;">*</text></view>
+    <view>
+      <van-row custom-class="condition_stat_col">
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='ALL' data-statDesc="全部" bindtap="chooseThisStat" style="{{CHOOSED_STAT=='ALL'?'background-color:#1798dc;color:white;':''}}">全部</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='I' data-statDesc="未付款"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='I'?'background-color:#1798dc;color:white;':''}}">未付款</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='S' data-statDesc="已支付"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='S'?'background-color:#1798dc;color:white;':''}}">已支付</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='R' data-statDesc="已退款"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='R'?'background-color:#1798dc;color:white;':''}}">已退款</view></van-col>
+      </van-row>
+      <van-row custom-class="condition_stat_col">
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='P' data-statDesc="部分退款"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='P'?'background-color:#1798dc;color:white;':''}}">部分退款</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='O' data-statDesc="退款中"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='O'?'background-color:#1798dc;color:white;':''}}">退款中</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-stat='DH' data-statDesc="已取消"bindtap="chooseThisStat" style="{{CHOOSED_STAT=='DH'?'background-color:#1798dc;color:white;':''}}">已取消</view></van-col>
+      </van-row>
+    </view> 
+    <view class="deadline"></view>
+    <view class="condition_left">下单时间<text style="color:red;">*</text></view>
+    <view>
+      <van-row custom-class="condition_stat_col">
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-date='D' bindtap="chooseThisDate" style="{{CHOOSED_DATE=='D'?'background-color:#1798dc;color:white;':''}}">本日</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-date='W' bindtap="chooseThisDate" style="{{CHOOSED_DATE=='W'?'background-color:#1798dc;color:white;':''}}">本周</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-date='L' bindtap="chooseThisDate" style="{{CHOOSED_DATE=='L'?'background-color:#1798dc;color:white;':''}}">上周</view></van-col>
+        <van-col span="6" custom-class="condition_stat_display"><view class="condition_stat" data-date='M' bindtap="chooseThisDate" style="{{CHOOSED_DATE=='M'?'background-color:#1798dc;color:white;':''}}">本月</view></van-col>
+      </van-row>
+    </view>
+    <view class="condition_date_display">
+          <view class="condition_date_zdy" style="width:{{chooseTimeWidth}}" bindtap="chooseTimeArea">{{ CHOOSED_TIME_AREA }}</view>   
+    </view>
+</view>
+<view class="deadline"></view>
+<view class="cellRow2">
+  <view class="queryButton" bindtap="onQueryApptInfo">查询</view>
+</view>
+</van-popup>

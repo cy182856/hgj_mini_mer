@@ -1,0 +1,190 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/empty/empty.wxml"></import>
+<view class="position-top" >
+  <view bindtap="showCondition">
+    <van-cell center border="{{defaultFalse}}" class="check-condition-cell">
+      <van-row>
+        <van-col class="ellipsis_view"  span="21">
+          <view class="house-info-view">{{selCondition}}</view>
+        </van-col>
+        <van-col span="2" offset="1">
+          <text class="iconfont {{iconName}}"></text>
+        </van-col>
+      </van-row>
+    </van-cell>
+  </view>
+</view>
+<view class="visit-list-view" >
+  <view class="weui-loadmore" wx:if="{{isRefreshing}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips">正在刷新...</view>
+  </view>
+  <block wx:if="{{visitInoutLogs && visitInoutLogs.length>0}}">
+    <view class="visit-srcoll-view" bindscrolltolower="onReachBottom" style="padding-bottom:40rpx;" scrollY>
+      <van-cell-group border="{{false}}">
+          <block wx:for="{{visitInoutLogs}}" wx:for-item="visitInoutLog">
+            <view class="visit-inoutlog-item" hover-class="visit-inoutlog-item-hover" bindtap="checkVisitInoutLogs" data-item = "{{visitInoutLog}}">
+              <view class="visitinout-visitType">
+                <text class="iconfont jia-{{visitInoutLog.visitType == 'I' ? 'rukou' : 'chukou'}}"></text>
+                <!-- <view class = "visit-type-view jia-visittype-{{visitInoutLog.visitType == 'I' ? 'ruchang' : 'lichang'}}">
+                  {{visitInoutLog.visitType == 'I' ? '入' : '出'}}
+                </view> -->
+              </view>
+              <view class="visitinout-item-left">
+                <view class="visitinout-item-title ellipsis_view">
+                  <view class="visitinout-acttime ellipsis_view">{{visitInoutLog.actTimeDesc}}</view>
+                </view>
+                <view class="visitinout-item-detail ellipsis_view">
+                  <view class="visitinout-housename ellipsis_view">{{visitInoutLog.houseName}}</view>
+                </view>
+              </view>
+              <view class="visitinout-visitname-view">
+                <view class="visitinout-visitname ellipsis_view">{{visitInoutLog.visitName}}</view>
+              </view>
+              <view class="visitinout-item-right">
+                <text class="iconfont jia-arrow-right"></text>
+              </view>
+            </view>
+          </block>
+          <!-- 点击加载更多 -->
+          <block wx:if="{{more}}">
+            <view wx:if="{{loading}}" class="loading-container">
+              <van-loading type="spinner" size="26rpx" text-size="22rpx">正在加载更多...</van-loading>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="loading-container" bindtap="" >没有更多内容啦</view>
+          </block>
+        </van-cell-group>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-view">
+        <template is="empty" data="{{width:232,text: '暂无访客出入记录'}}"></template>
+      </view>
+    </block>
+</view>
+<van-popup
+  position="top"
+  show="{{ showSelectCondition }}"
+  duration="200"
+  bind:click-overlay="hideOverLay" 
+  custom-style="margin-top:100rpx;height:100%;"
+>
+  <view class="page__bd" catchtouchmove='preventTouchMove' style="padding-bottom:0px;height:100%;">
+      <view class="cellRow0" >
+        <text class="left-text">访问类型</text>
+        <view class="right-container">
+          <van-dropdown-menu>
+            <van-dropdown-item id="visitType" title="{{selectVisitType.typeDesc}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+              <scroll-view scroll-y="true" style="max-height:{{select_height}}rpx;overflow:auto;z-index:999;">
+                <van-cell-group>
+                  <block wx:for='{{visitTypes}}' wx:for-item ="item" wx:key='visitType'>
+                    <van-cell  title-class="{{item.type == selectVisitType.type ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.typeDesc}}" data-index='{{index}}' bindtap='onVisitTypeChange'>
+                      <van-icon wx:if="{{item.type == selectVisitType.type}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </scroll-view>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </view>
+      <view class="cellRow0" >
+        <text class="left-text">放行物管</text>
+        <view class="right-container">
+          <van-dropdown-menu>
+            <van-dropdown-item id="propOper" title="{{selectPropOperInfo.poName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+              <scroll-view scroll-y="true" style="max-height:{{select_height}}rpx;overflow:auto;z-index:999;">
+              <van-cell-group>
+                  <block wx:for='{{propOperInfos}}' wx:key='poSeqId'>
+                    <van-cell  title-class="{{item.poSeqId == selectPropOperInfo.poSeqId ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.poName}}" data-index='{{index}}' bindtap='onPropOperChange'>
+                      <van-icon wx:if="{{item.poSeqId == selectPropOperInfo.poSeqId}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                    </van-cell>
+                  </block>
+                </van-cell-group>
+              </scroll-view>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </view>
+      <view class="line"></view>
+    <view class="cellRow0" style="height:188rpx;">
+      <text class="left-text" style="margin-top:10rpx;">访问日期<text class="iconfont jia-xinghao markStar"></text></text>
+      <view class="check-date-view" >
+        <view class="button-sp-area">
+          <view class="{{checkBtnClass[0].class}}" data-id="last-week" bindtap="checkDateArea">上周</view>
+          <view class="{{checkBtnClass[1].class}}" data-id="current-week" bindtap="checkDateArea">本周</view>
+          <view class="{{checkBtnClass[2].class}}" data-id="last-month" bindtap="checkDateArea">上月</view>
+          <view class="{{checkBtnClass[3].class}}" data-id="current-month" bindtap="checkDateArea">本月</view>
+        </view>
+        <view style="padding-top:24rpx;padding-bottom:20rpx;">
+            <block wx:if="{{showCanlendarText}}">
+                <view class="not-check-btn" bindtap="calendarChange" style="width:180rpx;">按日历选择</view>
+            </block>
+            <block wx:else>
+              <view class="button-sp-area" bindtap="calendarChange" style="width:300rpx; border: 1px solid #f2f2f2;border-radius: 8rpx;padding-left: 5px;padding-right: 5px;">
+                <view class="start-date-view">{{showStartDate}}</view>
+                <view class="date-press-view">~</view>
+                <view class="end-date-view">{{showEndDate}}</view>
+              </view>
+            </block>
+          </view>
+      </view>
+    </view>
+      <view class="line"></view>
+      <view class="cellRow2">
+        <view class="queryButton" bindtap="onQueryVisitInoutInfos">查询</view>
+      </view>
+      <view style="height:100%;background-color:rgba(0, 0, 0, 0.7); opacity:1;" catchtouchmove='preventTouchMove' bindtap="hideOverLay">
+      </view>
+  </view>
+</van-popup>
+
+<van-popup 
+  show="{{ selDateShow }}"
+  position="bottom"
+  z-index="666" 
+  bind:click-overlay="hideCheckDateOverLay">
+  <view catchtouchmove='preventTouchMove' style="height:100%;">
+    <calendar 
+      year="{{curYear}}"
+      month="{{curMonth}}" 
+      day="{{today}}" 
+      
+      header="{{header}}" 
+      next="{{next}}" 
+      prev="{{prev}}"
+      
+      
+      weeks="{{week_title}}"
+      weeks-type="{{title_type}}" 
+      show-more-days="{{more}}" 
+      showOtherDesc = false
+      selectType = "multiple"
+
+      cell-size="{{cellSize}}"    
+      
+      days-color="{{style}}"
+      active-type="{{activeType}}"
+      next-month='hi'
+      bindnextMonth='nextMonth'                
+      bindprevMonth='prevMonth'
+      binddateChange='dateChange'
+      binddayClick='dayClick'
+      bindconfirmDate = "confirmDate"
+      calendar-style="calendar-style" 
+      header-style="header-style" 
+      board-style="board-style" 
+      weeks-style="weeks-style"
+      month-btn-style ="month-btn-style"
+      confirm-btn-style = "confirm-btn-style"
+      calendar-days-style = "calendar-days-style"
+      calendar-day = "calendar-day"
+      showBtn = "{{true}}"
+      selStartDate = "{{selStartDate}}"
+      selEndDate = "{{selEndDate}}"
+  />
+  </view>
+</van-popup>

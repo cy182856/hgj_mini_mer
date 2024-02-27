@@ -1,0 +1,37 @@
+page{
+  background-color: #fff;
+}
+
+.praise-user-info{
+  display: flex;
+  padding: 30rpx 60rpx;
+}
+
+.heo-praiser-img{
+	width: 80rpx;
+	height: 80rpx;	
+	border-radius: 2em;
+	margin-right: 10rpx;
+}
+
+.praise-user-name{
+  margin-left: 20rpx;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 32rpx;
+}
+
+.praise-time-view{
+  margin-left: 40rpx;
+  display:flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #C6C6C6;
+  font-size: 28rpx;
+}
+
+.weui-loadmore{
+  margin-top:0rpx !important;
+}

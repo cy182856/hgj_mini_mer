@@ -1,0 +1,98 @@
+/* pages/family/members/createQRCode.wxss */
+
+
+.qr_content{
+  padding-top: 60rpx;
+  padding-bottom: 60rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  background: white;
+}
+.qr-text{
+ 
+  font-size: 28rpx;
+  color: #3c3c3c;
+}
+.house-container{
+ 
+  padding: 20rpx 40rpx 10rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-start;
+}
+.ext_margin_bottom{
+  padding-bottom: 50rpx;
+}
+.text-label{
+  color: white;
+  margin-right: 40rpx;
+  text-align: right;
+  width: 250rpx;
+}
+.qr-root {
+ 
+  width: 100%;
+  height: 100%;
+   background-color: #f2f2f2;
+   position: relative;
+}
+
+.qr-background-image{
+  
+  width : 92%;
+   position: absolute;
+   height: 950rpx;
+   margin-top: 44rpx;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+.qr-content-root{
+   position: absolute;
+  
+   width: 91%;
+   height: 640rpx;
+   margin-top: 48rpx;
+  margin-left: 4.5%;
+  margin-right: 4.5%;
+}
+.qr-card-body{
+  position: relative;
+  background-color: white;
+  top: 4rpx;
+  left: 4rpx;
+  right: 4rpx;
+}
+.qr-text_title{
+ 
+font-size: 18px;
+margin-bottom: 34rpx;
+font-weight: 400;
+text-align: left;
+color: #1b1b1b;
+}
+.area-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 60rpx;
+  margin-left: 60rpx;
+}
+.text-area-name{
+  font-size: 36rpx;
+  font-family: Microsoft YaHei Regular, Microsoft YaHei Regular-Regular;
+  font-weight: 400;
+  text-align: left;
+  color: #ffffff;
+}
+.text-house-name{
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  font-family: Microsoft YaHei Regular, Microsoft YaHei Regular-Regular;
+  font-weight: 400;
+  text-align: left;
+  color: #323232;
+}

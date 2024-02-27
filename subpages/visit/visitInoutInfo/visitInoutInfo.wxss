@@ -1,0 +1,39 @@
+page{
+  height: 100%;
+}
+
+.empty-view{
+  background-color: #fff;
+  height: 100%;
+}
+
+.visitinout-info-view{
+  margin: 20rpx;
+  padding-top: 10rpx;
+  padding-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: .5em;
+}
+
+.item-list-view{
+  display: flex;
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+}
+
+.item-flex-left{
+  flex:left;
+  width:50%;
+  text-align:left;
+}
+
+.item-flex-right{
+  flex:right;
+  width:50%;
+  text-align:right;
+}
+
+.blod-text{
+  font-size:32rpx;
+  font-weight:bold;
+}

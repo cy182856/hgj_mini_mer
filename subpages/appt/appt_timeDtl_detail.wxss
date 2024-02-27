@@ -1,0 +1,68 @@
+page{
+  background-color: white;
+}
+.deadline{
+  border-bottom: 3rpx solid #f2f2f2;
+}
+.appt_ord_detail_Obj{
+  margin-left: 40rpx;
+  padding-top: 30rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #474747;
+}
+.apptOrd_success_bgImg{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXcAAAARCAYAAAAmGuwNAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDphOWJhMjk0NC03OWJhLTEyNGQtYWRkZC0xZjk0YzU4NzhjZTUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6N0E0OTZDMTZGMjYzMTFFQUFCOTRBNTVGN0E0RDU4NjAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6N0E0OTZDMTVGMjYzMTFFQUFCOTRBNTVGN0E0RDU4NjAiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6YTk1MWI2ZGItN2JhNi1iNDQxLWI3M2EtNGEwNzkzZDA4ZjJmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6MzViOTUwMmUtYWIwZS0xZTQyLTkyZWUtNzFhNWZkOGQxMDlkIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+vA3WTQAAAIhJREFUeNrs280GgEAUgNFuqvd/3pJbIhJD0g91zmpmMZtZfK5hIjOrI9qIZrONdTFk9hUAl5u72222+1jn3N+xdLZ2fQDfI+4A4r6IwhoAkzsAdw3T4g5gcgdA3AEQdwDEHeDPQtwBTO4A/DnuPjABfCTugg7wrFMfmTzLAJjcARB3AF4xCTAAD3QNKIaHE1YAAAAASUVORK5CYII=);
+  background-size: 100% 100%;
+}
+.apptDetail_ord{
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  padding: 30rpx;
+  color: #3C3C3C;
+  line-height: 70rpx;
+}
+.apptDetail_ord_content{
+  font-size: 32rpx;
+}
+.apptDetail_ord_title{
+  padding-left: 30rpx;
+  padding-bottom: 30rpx;
+  font-size: 32rpx;
+}
+.apptDetail_ord_time{
+  float: right;
+}
+.apptDetail_ord_apptPo{
+  color: #3C3C3C;
+  margin-left: 50rpx;
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+}
+.apptDetail_ord_content_title{
+  padding-top: 30rpx;
+  padding-left: 30rpx;
+  padding-bottom: 20rpx;
+  color: #3C3C3C;
+    margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.apptDetail_ord_content_detail{
+  padding-top: 20rpx;
+  color: #474747;
+  padding-left: 30rpx;
+  padding-bottom: 20rpx;
+    margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.ord_return_btn{
+  width: 400rpx;
+  line-height: 47px;
+  font-size: 36rpx;
+  text-align: center;
+  background-color: #189AFE;
+  border-radius: 20rpx;
+  color: white;
+}

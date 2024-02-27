@@ -1,0 +1,277 @@
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<import src="../../../component/toast/toast.wxml"></import>
+<template is="toast" data="{{..._toast_}}"></template>
+<wxs src="./../../../utils/wxs/tools.wxs" module="tools" />
+<import src="../../../component/empty/empty.wxml"></import>
+<view class='float_window' bindtap="showMoreFlag" hidden='{{showFloat}}'>
+  <view class="float_sort" style="left:{{windowW - 195}}px;top:{{heoInfo.usrSeqId != huSeqId ? itemHeight + 10 : itemHeight -40}}px;">
+    <view class="float_tip">
+      <view class="tool-bar-view">
+        <block wx:if = "{{heoInfo.usrType != 'P'}}">
+          <view wx:if="{{heoInfo.usrSeqId != poSeqId}}" class="heoinfo-message-btn" catchtap="bindShowMsgInput" data-replyseqid ="{{heoInfo.usrSeqId}}" data-replyusername = "{{heoInfo.huNickName}}">
+            <text class="iconfont jia-w_liuyan" ></text>
+            <text style="font-size:28rpx;color:#fff;">留言</text>
+          </view>
+        </block>
+        <view class = "heo-praise-view" catchtap="praiseHeo" data-item="{{heoInfo}}">
+            <text class="iconfont {{heoInfo.takePartInPraise == 'Y' ? 'jia-yidianzan' : 'jia-dianzan'}}" ></text>
+            <text class="praise-cnt-text">{{heoInfo.praiseCnt}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<block wx:if="{{heoInfo && heoInfo != null}}">
+  <view class="heoinfo-item" id="heoInfoItem">
+    <view class="heoinfo-preview">
+      <image class="hu-preview-img" src="{{heoInfo.headImgUrl?heoInfo.headImgUrl:'/images/wuye.png'}}" />
+      <view class="hu-content">
+        <view class="hu-name-top">
+          <view class="hu-name ellipsis_view">{{heoInfo.huNickName ? heoInfo.huNickName : "未知"}}
+            <text wx:if="{{heoInfo.usrType == 'P'}}" class="offical-view">物业发布</text>
+          </view>
+        </view>
+        <view class="hu-info">
+          <view class="heo-time">{{heoInfo.heoDateTime}}</view>
+          <block wx:if="{{heoInfo.houseDesc != null}}">
+            <view class="hu-detail-info ellipsis_view">{{heoInfo.houseDesc}}</view>
+          </block>
+        </view>
+      </view>
+      <block wx:if="{{heoInfo.usrSeqId == poSeqId || queryType == 'A' || queryType == 'R'}}">
+        <text class="iconfont jia-stat jia-stat-{{tools.statToLowerCase(heoInfo.stat)}}"></text>
+      </block>
+    </view>
+    <view class="heoinfo-item-detail">
+      <view class="heoinfo-type-title">
+        <view class="heo-theme-view heo-theme{{heoInfo.needOrGive}}-view">{{tools.convertHeoNorGDesc(heoInfo.needOrGive)}}</view>
+        <view class="heoinfo-type heo-05-view">{{heoInfo.heoTypeDesc}}</view>
+        <view class="heoinfo-title">{{heoInfo.heoTitle}}</view>
+      </view>
+      <view class="heoinfo-desc">
+        <text>{{heoInfo.heoDesc}}</text>
+      </view>
+    </view>
+    <block wx:if="{{heoInfo.imageNames && heoInfo.imageNames.length > 0}}">
+      <view class="heoinfo-image">
+        <van-grid column-num="3" border="{{ false }}">
+          <van-grid-item use-slot wx:for="{{ heoInfo.imageNames }}"  wx:for-item="imageNames" wx:key="imgIndex">
+            <image bindtap='previewImage' data-id="{{imageNames}}" data-item="{{heoInfo.imageNames}}"
+              style="width: 100%; height: 90px;" 
+              src="{{imageNames}}"
+              mode="aspectFill"
+            />
+          </van-grid-item>
+        </van-grid>
+      </view>
+    </block>
+    <block wx:if="{{(queryType == 'R' || queryType == '') && heoInfo.stat == 'N'}}">
+      <view class="tool-bar-view" style="align-items:flex-end;justify-content:flex-end;">
+        <view class="heo-gengduo-view" catchtap="showMoreFlag">
+          <text class="iconfont jia-shixingengduo" ></text>
+        </view>
+      </view>
+      <block wx:if ="{{heoInfo.usrSeqId == poSeqId}}">
+        <block wx:if="{{heoInfo.stat == 'N' || heoInfo.stat == 'I'}}">
+          <view class="heo-oper-bar flex-end-view padding-right-20" >
+            <view class="heo-oper-view">  
+              <van-button bindtap="updateHeoInfo" data-stat ="C" data-item="{{heoInfo}}" data-opername="关闭" custom-class="oper-heoinfo-btn close-btn">关闭帖子</van-button>
+            </view>
+          </view>
+        </block>
+      </block>
+    </block>
+    <block wx:if = "{{heoInfo.stat == 'R'}}">
+        <view class="heo-oper-bar padding-right-20">
+          <view class="heo-oper-view" > 
+            <view class="heo-refruse-info" style="text-align:left;">
+              拒绝原因:<text style="margin-left:20rpx;">{{heoInfo.refuseDesc}}</text>
+            </view>  
+          </view>  
+        </view>
+      </block>
+  </view>
+  <view style="padding-bottom:{{iphoneX? 34:0}}rpx;">
+    <block wx:if="{{heoInfo.usrType == 'P' && (!queryType || queryType == 'R' || queryType == '')}}">
+      <block wx:if="{{heoPraiseListDtos && heoPraiseListDtos.length > 0}}">
+        <view class="heo-praise-detail" bindtap="checkPraiseList">
+          <view class="heo-praise-list">
+            <view class="heo-praise-item">
+              <block wx:for="{{heoPraiseListDtos}}"  wx:for-item="heoPraise" wx:for-index="idx">
+                <block wx:if="{{idx < 6}}">
+                  <image 
+                      class="heo-praiser-img" 
+                      src="{{heoPraise.headImgUrl}}"
+                      mode="aspectFill"
+                    />
+                </block>
+              </block>
+              <view class="heo-praise-total">{{totalNum}}个赞</view>
+            </view>
+          </view>
+          <view class="right-arrow-view">
+            <text class="iconfont jia-arrow-right"></text>
+          </view>
+        </view>
+      </block>
+    </block>
+    <block wx:if="{{queryType == 'A'}}">
+      <block wx:if="{{heoInfo.stat == 'I'}}">
+        <view class="heo-oper-bar flex-end-view padding-right-20">
+          <view class="heo-oper-view">  
+            <van-button catchtap="updateHeoInfo" data-stat ="R" data-item="{{heoInfo}}" data-opername="审核拒绝" custom-class="oper-heoinfo-btn audit-refuse-btn">审核拒绝</van-button>
+            <van-button catchtap="updateHeoInfo" data-stat ="N" data-item="{{heoInfo}}" data-opername="审核通过" custom-class="oper-heoinfo-btn audit-pass-btn">审核通过</van-button>
+            <van-button catchtap="updateHeoInfo" data-stat ="D" data-item="{{heoInfo}}" data-opername="删除" custom-class="oper-heoinfo-btn del-btn">删除帖子</van-button>
+          </view>
+        </view>
+      </block>
+      <block wx:elif="{{heoInfo.stat == 'N'}}">
+        <view class="heo-oper-bar flex-end-view padding-right-20" >
+          <view class="heo-oper-view">  
+            <van-button catchtap="heoTopManager" data-item ="{{heoInfo}}" custom-class="oper-heoinfo-btn heo-top-btn">{{heoInfo.isTop == 'Y' ? '取消置顶' : '置顶帖子'}}</van-button>
+            <van-button catchtap="updateHeoInfo" data-stat ="D" data-item="{{heoInfo}}" data-opername="删除" custom-class="oper-heoinfo-btn del-btn">删除帖子</van-button>
+          </view> 
+        </view>
+      </block>  
+    </block>
+    <block wx:if="{{heoDtlInfos && heoDtlInfos.length >0}}">
+        <block wx:for="{{heoDtlInfos}}" wx:for-item="heoDtlItems" wx:for-index="index">
+          <view class="reply-hu-item">
+            <block wx:for="{{heoDtlItems}}" wx:for-item="heoDtlItem" wx:for-index="itemInd">
+              <block wx:if="{{itemInd == 0 && heoDtlItem.msgSeqId != heoInfo.usrSeqId }}">
+                <view class="reply-msg-item no-border" bindtap="bindShowMsgInput" data-item="{{heoDtlItem}}"  data-replyusername = "{{heoDtlItem.msgUsrName}}" data-replyseqid ="{{heoDtlItem.msgSeqId}}">
+                    <view class="msg-hu-info" >
+                      <image class="msg-hu-avatar" src="{{heoDtlItem.msgHeadImgUrl}}"></image>
+                      <view class="msg-hu-detail">
+                        <view class="msg-hu-name ellipsis_view">{{heoDtlItem.msgUsrName}}</view>
+                        <view class="msg-hu-addr ellipsis_view">{{heoDtlItem.msgUsrAddress}}</view>
+                      </view>
+                      <view class="msg-time-view">
+                      {{heoDtlItem.dtlDateTimeDesc}}
+                      </view>
+                    </view>
+                    <view class="msg-content" >
+                      <view class="msg-body" style="width:75%;margin-left:48rpx;">
+                        回复 <text>{{heoDtlItem.replyUsrName}}:</text><text>{{heoDtlItem.msgBody}}</text>
+                      </view>
+                      <block wx:if="{{queryType == 'A'}}">
+                        <view bindtap="delHeoDtl" data-item = "{{heoDtlItem}}" class="del-btn-view">
+                            <view class="del-msg-btn">删除</view>
+                          </view>
+                      </block>
+                    </view>
+                  </view>
+                </block>
+                <block wx:else>
+                  <view class="reply-msg-item" bindtap="bindShowMsgInput" style="border-top:none;" data-item="{{heoDtlItem}}" data-replyusername = "{{heoDtlItem.msgUsrName}}" data-replyseqid ="{{heoDtlItem.msgSeqId}}">
+                    <view>
+                      <view style="border-top:1rpx solid rgba(0,0,0,.1);">
+                        <view class="msg-hu-info">
+                          <image class="msg-hu-avatar" src="{{heoDtlItem.msgHeadImgUrl}}"></image>
+                          <view class="msg-hu-detail">
+                            <view class="msg-hu-name ellipsis_view">{{heoDtlItem.msgUsrName}}</view>
+                            <view class="msg-hu-addr ellipsis_view">{{heoDtlItem.msgUsrAddress}}</view>
+                          </view>
+                          <view class="msg-time-view">
+                          {{heoDtlItem.dtlDateTimeDesc}}
+                          </view>
+                        </view>
+                        <view class="msg-content" >
+                          <view class="msg-body" style="width:75%;margin-left:48rpx;">
+                            回复 <text>{{heoDtlItem.replyUsrName}}:</text><text>{{heoDtlItem.msgBody}}</text>
+                          </view>
+                          <block wx:if="{{queryType == 'A'}}">
+                            <view bindtap="delHeoDtl" data-item = "{{heoDtlItem}}" class="del-btn-view">
+                              <view class="del-msg-btn">删除</view>
+                            </view>
+                          </block>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+            </block>
+          </view>
+        </block>
+    </block>
+    <block wx:else>
+        <view class="msg-empty-view">
+          <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'还没有任何留言信息!'}}"></template>
+        </view>
+      </block>
+  </view>
+</block>
+
+<van-overlay show="{{ showMsgInput }}" custom-style="background-color:var(--overlay-background-color,rgba(0,0,0,0));" >
+  <view bindtap="hideMsgInput" class="hide-view" style="height: {{windH * 2 - InputViewHeight - marginBottom}}rpx;"></view>
+  <view class = "msg-input-view" style="padding-bottom:{{InputBottom}}px;height:{{InputViewHeight + marginBottom}}rpx;">
+    <view class="cu-bar foot" style="padding-bottom:{{marginBottom}}rpx;">
+      <view class='text_box' >
+        <van-field
+          type="textarea"
+          placeholder='回复{{replyUsrName}}:'
+          custom-style="weui-textarea" 
+          placeholder-style = "placeholder-style"
+          bind:input = "bindInputMsg"
+          bind:linechange = "bindlinechange"
+          bind:blur="InputBlur"
+          bind:focus = "InputFocus"
+          bind:confirm = "sendMsg"
+          data-huseqid = "{{replySeqId}}" 
+          value="{{inputMsg}}"
+          maxlength= "80"
+          show-word-limit
+          show-confirm-bar="{{false}}"
+          adjust-position="{{false}}"
+          hold-keyboard="{{true}}"
+          autosize="{{textArea}}"
+        />
+      </view>
+      <button bindtap="sendMsg" data-huseqid = "{{replySeqId}}" class='textarea_btn bg-blue'>发送</button>
+    </view>
+  </view>
+</van-overlay>
+
+<van-overlay show="{{ showDeleteOwnMsg }}" custom-style="background-color:var(--overlay-background-color,rgba(0,0,0,0.2));" bind:click="hideDelete">
+  <view class="delete-msg-view">
+    <view class="delete-msg-title">
+      <text>删除我的评论</text>
+    </view>
+    <view class="delete-btn" data-item = "{{deleteHeoDtlItem}}" bindtap="deleteOwnMsg">
+      <text>删除</text>
+    </view>
+    <view class="cancel-btn" bindtap="hideDelete">
+      <text>取消</text>
+    </view>
+  </view>
+</van-overlay>
+<van-popup 
+  show="{{ showRefuseDescInput }}"
+  position="center"
+  round
+  closeable
+  close-icon = "close"
+  z-index="666" 
+  bind:close = "onClickHide"
+  custom-style="width:320px;height:auto; top:{{propTop}};"
+  bind:click-overlay="onClickHide">
+    <view catchtouchmove='preventTouchMove'>
+      <view class="refusedesc-title" style="text-align:center;font-size:28rpx;margin:24rpx;">
+        请输入拒绝原因
+      </view>
+      <view  class="fun-card">  
+        <view class="input-margin-bottom">
+            <textarea class="textArea-work-desc" maxlength='80' bindfocus="setRefuseDescFocus" focus='{{refuseDescFocus}}' placeholder="" value="{{refuseDesc}}" bindinput="inputRefuseDesc" bindblur="bindRefuseDescBlur"/>
+        </view>
+        <view class="picker-row item-title-margin" bindtap="setRefuseDescFocus">     
+          <view class="text-number" style="{{inputLength>=80?'color:red':'color:#999999'}}">{{inputLength}}/80</view> 
+        </view> 
+      </view>
+      <view class="refuse-bar">
+        <view class="refuse-cancel-btn" bindtap="onClickHide">取消</view>
+        <view class="refuse-confirm-btn" bindtap="refuseHeoInfo">确定</view>
+      </view>
+    </view>
+</van-popup>
+<van-dialog id="van-dialog"  overlay-style ="z-index:6666 !important;"  confirm-button-color ="#189AFE"/>

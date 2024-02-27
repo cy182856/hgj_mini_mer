@@ -1,0 +1,155 @@
+<!-- 引用 -->
+<import src="../../../../templates/empty/empty.wxml"></import>
+<import src="../../../../templates/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog"/>
+<!-- 根据UI，距离顶端始终保持14rpx，14+9 -->
+<view style="height:14rpx;"></view>
+
+<!-- tab切换 -->
+<view class="hd">
+  <block wx:for="{{navList}}" wx:key="navList">
+    <view class="hd_flex {{nav_type == index ? 'hd_flex_on' : ''}}" catchtap="changeType" data-index="{{index}}">{{item}}</view>
+  </block>
+</view>
+
+<view class="weui-loadmore" wx:if="{{isRefreshing}}" style="margin-top: 50px;">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips" style="margin-top: 5px;">正在刷新...</view>
+</view>
+
+<!-- 查询的报修记录列表 -->
+<view wx:if="{{repairLogList == null || repairLogList.length == 0}}" >
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无我的报修记录'}}"></template>
+</view>
+
+<view style="margin-top: 50px;" wx:else>
+  <view style="height: auto;" class="view_bg" wx:for="{{repairLogList}}" wx:key="*this">
+    <!-- <block wx:if="{{item.huSeqId==obj.huSeqId}}"> -->
+      <van-cell wx:if="{{item.repairStatus=='WOSta_Sub'}}"  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="状态" 
+           text value="已提交" url="" />
+      <van-cell wx:if="{{item.repairStatus=='WOSta_Proc'}}"  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="状态" 
+           text value="处理中" url="" />   
+      <van-cell wx:if="{{item.repairStatus=='WOSta_Finish'}}"  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="状态" 
+           text value="已完工" url="" />   
+      <van-cell wx:if="{{item.repairStatus=='WOSta_Visit'}}"  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="状态" 
+           text value="已回访" url="" />
+      <van-cell wx:if="{{item.repairStatus=='WOSta_Close'}}"  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="状态" 
+           text value="已关闭" url="" />
+
+    <view class="view_desc">
+         <!-- <view class="view_light">
+          <text class="text_right" decode="{{true}}" >报修人&nbsp;&nbsp;&nbsp;</text><text>{{item.cstName}}</text>
+        </view> 
+        <view class="view_light">
+          <text class="text_right">报修类型</text><text>{{item.quesType}}</text>
+        </view>
+        <view class="view_light">
+          <text class="text_right" decode="{{true}}" >报修单号</text><text>{{item.repairNum}}</text>
+        </view>
+        <view class="view_light">
+          <text class="text_right">报修时间</text><text>{{item.createTime}}</text>
+        </view>
+        <view class="view_light" wx:if="{{item.repairStatus=='WOSta_Proc' || item.repairStatus=='WOSta_Finish'}}">
+          <text class="text_right" decode="{{true}}">接单人&nbsp;&nbsp;&nbsp;</text><text>{{item.orders}}</text>
+        </view>
+        <view class="view_light" wx:if="{{item.repairStatus=='WOSta_Proc' || item.repairStatus=='WOSta_Finish'}}">
+          <text class="text_right">开工时间</text><text>{{item.ordersTime}}</text>
+        </view>
+        <view class="view_light" wx:if="{{item.repairStatus=='WOSta_Finish' || item.repairStatus=='WOSta_Visit'}}">
+          <text class="text_right">完工时间</text><text>{{item.completionTime}}</text>
+        </view> -->
+
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修人</text></van-col>
+          <van-col span="16"> {{item.cstName}} </van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修类型</text></van-col>
+          <van-col span="16"> {{item.quesType}} </van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修单号</text></van-col>
+          <van-col span="16"> {{item.repairNum}} </van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修时间</text></van-col>
+          <van-col span="16"> {{item.createTime}}</van-col>
+        </van-row>
+        <van-row wx:if="{{item.repairStatus=='WOSta_Proc' || item.repairStatus=='WOSta_Finish'}}">
+          <van-col span="8"><text class="text_right" decode="{{true}}" >接单人</text></van-col>
+          <van-col span="16"> {{item.orders}}</van-col>
+        </van-row>
+        <van-row wx:if="{{item.repairStatus=='WOSta_Proc' || item.repairStatus=='WOSta_Finish'}}">
+          <van-col span="8"><text class="text_right" decode="{{true}}" >开工时间</text></van-col>
+          <van-col span="16"> {{item.ordersTime}}</van-col>
+        </van-row>
+        <van-row wx:if="{{item.repairStatus=='WOSta_Finish' || item.repairStatus=='WOSta_Visit'}}">
+          <van-col span="8"><text class="text_right" decode="{{true}}" >完工时间</text></van-col>
+          <van-col span="16"> {{item.completionTime}}</van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修位置</text></van-col>
+          <van-col span="16"> {{item.workPos}}</van-col>
+        </van-row>
+
+        <view style="display: flex;" class="view_light" wx:if="{{(item.repairStatus=='WOSta_Finish' || item.repairStatus=='WOSta_Visit') && item.labourCost + item.materialCost > 0}}">
+            <text class="text_cost">本单费用</text><text>{{item.labourCost + item.materialCost}}</text>
+            <navigator class="costDetail" hover-class="none" url="../repairCostDetailPage/repairCostDetailPage?repairNum={{item.repairNum}}">费用明细</navigator>
+            <!-- <text class="costDetail" bindtap="costDetail" data-repairNum="11111">费用明细</text> -->
+        </view>
+       
+        <view wx:if="{{item.repairStatus=='WOSta_Visit'}}"class="view_light">
+          <text style="margin-left: 85%;">已评价</text>
+        </view>
+        <view wx:if="{{item.repairStatus=='WOSta_Finish'}}"class="view_light">
+          <text style="margin-left: 85%;">未评价</text>
+        </view>
+
+        <!-- <view wx:if="{{item.repairStatus=='WOSta_Finish' || item.repairStatus=='WOSta_Visit'}}" class="view_light">
+          <button type="default"  class="buttonView" bindtap="Popup" >材料明细</button>
+        </view> -->
+
+    </view>
+
+  </view>
+
+  <view wx:if="{{repairLogList.length > 0 && pageNum < pages}}" 
+        class="last_font" bindtap="loadMore" data-pageNum="{{pageNum}}" data-pageSize="{{pageSize}}">点击加载更多</view>
+  <view wx:elif="{{repairLogList.length > 0 && pageNum == pages}}" class="last_font">已经到底了</view> 
+  <view wx:else class="last_font">暂无记录</view>
+  <view style="height:20rpx;"></view>
+</view>
+
+
+
+
+
+
+  <!-- <view wx:for="{{repairLogList}}">
+    <text>{{index}}</text>
+  </view>
+  <view bindtap="loadMore" data-pageNum="{{pageNum}}" data-pageSize="{{pageSize}}">加载更多</view>
+  <view bindtap="test" data-pageNum="{{pageNum}}" data-pageSize="{{pageSize}}">测试session</view> -->
+

@@ -1,0 +1,26 @@
+
+.devcontrol-row{
+  margin-top: 1px;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.body{
+  background-color: #ffffff;
+  width: 100%;
+
+}
+.fun-icon{
+  margin: 40rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.func-title{
+  font-size: 24rpx;
+  color: #323232;
+}

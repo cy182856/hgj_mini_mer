@@ -1,0 +1,55 @@
+page{
+  background-color: #fff;
+}
+.register-toast-view{
+  background-color: #ffff;
+  padding: 40rpx;
+}
+
+.exist-btn-view{
+  position: fixed;
+  display: flex;
+  height: 140rpx;
+  background-color: #fff;
+  bottom: 0rpx;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.line-view{
+  text-indent:62rpx;
+  color: #999999;
+  font-size: 30rpx;
+}
+
+.navigator-btn{
+  color: #fff;
+  background-color: #298DFF;
+  width: 400rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5em;
+}
+
+.customer-view{
+  padding: 40rpx;
+}
+
+.refund_contact_Img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:20rpx;
+}
+
+.refund_contact_instru{
+  font-size: 30rpx;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 120rpx;
+}

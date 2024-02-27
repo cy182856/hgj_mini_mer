@@ -1,0 +1,31 @@
+<!-- subpages/humsg/humsgloglist/huMsgLogList.wxml -->
+<import src="../../../component/empty/empty.wxml"></import>
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+
+<view class="page-container">
+  <view wx:if="{{huMsgLogs && huMsgLogs.length > 0}}">
+    <view wx:for="{{huMsgLogs}}" wx:for-index="index" wx:for-item="item" wx:key="msgSeqId" class="huMsgLogC">
+      <van-row data-msgdate="{{item.msgDate}}" data-msgseqid="{{item.msgSeqId}}" bindtap="onTapWatchDetail" class="msgTitleC">
+        <van-col span="10">
+          <text class="msgBodyText">{{item.msgTitle}}</text>
+        </van-col>
+        <van-col span="13" style="color: #ababab; text-align:center;">
+          {{item.msgDateTimeDesc}}
+        </van-col>
+        <van-col span="1">
+          <van-icon name="arrow" color="#ababab" size="28rpx"></van-icon>
+        </van-col>
+      </van-row>
+      <van-row class="msgBodyC">
+        <van-col span="18">
+          <text wx:if="{{item.signName==''||item.signName==null}}" class="msgBodyText">{{item.msgBody}}</text>
+          <text wx:else class="msgBodyText">{{item.msgBody+'【'+item.signName+'】'}}</text>
+        </van-col>
+      </van-row>
+    </view>
+  </view>
+  <view wx:else class="no-data-container">
+    <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'哎呀，暂无数据!'}}"></template>
+  </view>
+</view>

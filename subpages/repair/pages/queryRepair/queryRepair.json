@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index"
+  },
+  "navigationBarTitleText":"报修查询"
+}

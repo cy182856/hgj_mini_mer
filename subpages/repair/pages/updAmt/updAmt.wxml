@@ -1,0 +1,155 @@
+<!-- loading -->
+<import src="../../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+<!-- 报修详情模块 -->
+<view class="view_detail pd">
+  <!-- 报修详情 -->
+  <view class="view_title_desc">
+    <van-cell title-class="txt"  title="{{obj.houseDesc}}" border="{{false}}"/>
+  </view>
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/>
+  <!-- 图片 -->
+  <!-- <view class="view_img">
+    <van-uploader   file-list="{{ fileList }}" 
+                    max-count="{{maxCount}}" deletable="{{false}}"/>
+  </view> -->
+  <!-- 详情信息 -->
+  <view class="">
+    <van-row wx:if="{{obj.repairType == 'S'  && obj.isRepairTime == 'Y'}}">
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="期望上门时间" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.expArvTimeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title"  title="报修人" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  border="{{false}}">
+          <view slot="title">
+            <view class="van-cell-text">
+              {{obj.nickName}}
+            </view>
+          </view>
+        </van-cell>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title" title="报修类型" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell wx:if="{{obj.repairType == 'S' && comObj.propType == 'R'}}"  custom-class="view_time detail_value"  title="个人住宅" border="{{false}}"/>
+        <van-cell wx:elif="{{obj.repairType == 'S' && comObj.propType == 'B'}}" custom-class="view_time detail_value"  title="套内报修" border="{{false}}"/>
+        <van-cell wx:else custom-class="view_time detail_value"  title="共建家园" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="10">
+        <van-cell custom-class="view_time detail_title"  title="报修单号" border="{{false}}"/>
+      </van-col>
+      <van-col span="14">
+        <van-cell custom-class="view_time detail_value"  title="{{obj.repairSeqId}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <block wx:if="{{obj.recvSpan != '' && obj.recvSpan != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="接单时长（分钟）" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell custom-class="view_time detail_value"  title="{{obj.recvSpan}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <block wx:if="{{obj.arvSpan != '' && obj.arvSpan != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="到场时长（分钟）" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell wx:if="{{obj.arvSpan < 0}}" custom-class="view_time detail_value"  title="提前到场" border="{{false}}"/>
+          <van-cell wx:else custom-class="view_time detail_value"  title="{{obj.arvSpan}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+    <block wx:if="{{obj.repairTime !='' && obj.repairTime != '0'}}">
+      <van-row>
+        <van-col span="10">
+          <van-cell custom-class="view_time detail_title"  title="维修时长（分钟）" border="{{false}}"/>
+        </van-col>
+        <van-col span="14">
+          <van-cell custom-class="view_time detail_value"  title="{{obj.repairTime}}" border="{{false}}"/>
+        </van-col>
+      </van-row>
+    </block>
+  </view>
+</view>
+
+<view wx:if="{{obj.repairType == 'S'}}" class="view_repairman pd">
+  <view class="view_chose_jiangli">
+      <van-row>
+        <van-col span="8">
+            收费方式
+        </van-col>
+        <van-col span="12">
+          <van-radio-group value="{{ payType }}" bind:change="changePayType">
+            <van-radio name="N">无费用</van-radio>
+            <van-radio custom-class="redio_pd" name="C">现金</van-radio>
+            <van-radio custom-class="redio_pd" name="O">线上支付</van-radio>
+            <van-radio custom-class="redio_pd" name="A">线下后收</van-radio>
+          </van-radio-group> 
+        </van-col>
+      </van-row>
+  </view>
+  <van-field 
+      wx:if="{{payType != 'N'}}"
+      value="{{ ordAmt }}"
+      type="digit"
+      clearable
+      label="收费金额"
+      maxlength="8"
+      border="{{true}}"
+      bind:blur="ordAmtValue"
+      placeholder="请输入收费金额">
+    </van-field>
+</view>
+<!-- deletable="{{true}}" -->
+<!-- bind:oversize="overSize" -->
+<view wx:if="{{ op && obj.procStat == '05'}}" class="daochang">
+    <van-uploader   file-list="{{ imgfinishList }}" 
+                    max-count="{{ imgfinishCnt }}" 
+                    upload-text="上传维修完成图片"
+                    capture="{{capture}}"
+                    bind:delete="delete"	
+                    multiple="{{true}}"
+                    sizeType="{{sizeType}}"
+                    bind:after-read="afterRead"
+                    />
+  </view>
+
+<view style="height:110rpx;"></view>
+<view wx:if="{{obj.procStat == '05'}}" class="dispatch_btn guding">
+    <van-button type="info" size="large" bind:click="finishRepair">确认维修完成</van-button>
+</view>
+<view wx:if="{{obj.procStat == '07'}}" class="dispatch_btn guding">
+    <van-button type="info" size="large" bind:click="sureUpd">确定</van-button>
+</view>
+
+<!--  图片 -->
+<canvas canvas-id="canvas0" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-18000px;top:-18000px;">
+</canvas>
+<canvas canvas-id="canvas1" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-20000px;top:-20000px;">
+</canvas>
+<canvas canvas-id="canvas2" 
+        style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-22000px;top:-22000px;">
+</canvas>
+

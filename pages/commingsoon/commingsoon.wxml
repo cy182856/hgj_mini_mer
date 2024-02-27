@@ -1,0 +1,2 @@
+<import src="../../component/empty/empty.wxml"></import>
+<template is="empty" data="{{src:src,width:332,text:'功能开发中，敬请期待...'}}"></template>

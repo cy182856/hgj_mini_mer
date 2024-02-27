@@ -1,0 +1,69 @@
+<!-- /subpages/pfeebillload/pbladd/pblAdd.wxml -->
+<view style="margin:24rpx; border-radius:8rpx;">
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="按账单金额">
+      <include src="addbybillamt/addByBillAmt"/>
+    </van-tab>
+    <van-tab title="按付费总金额">
+      <include src="addbyrcvdamt/addByRcvdAmt"/>
+    </van-tab>
+  </van-tabs>
+</view>
+<!--
+<view style="margin:24rpx; border:2rpx solid #FFFFFF; border-radius:8rpx;">
+  <van-cell title="账单明细">
+    <text style="color:#58ABFF;">总金额：{{ billAmtTotal }}</text>
+  </van-cell>
+  <view wx:if="{{pfeeMonBillDtos && pfeeMonBillDtos.length > 0}}">
+    <view wx:for="{{pfeeMonBillDtos}}" wx:for-index="index" wx:for-item="item" wx:key="billMon" >
+      <van-row data-msgdate="{{item.msgDate}}" data-msgseqid="{{item.msgSeqId}}" bindtap="onTapWatchDetail" class="billDetails">
+        <van-col span="8" style="color: #ababab; text-align:left;">
+          {{item.billMonDesc}}
+        </van-col>
+        <van-col span="8" style="color: #ababab; text-align:right;">
+          {{item.billAmtDesc}}
+        </van-col>
+        <van-col span="8" style="color: #ababab; text-align:right;">
+          {{item.statDesc}}
+        </van-col>
+      </van-row>
+    </view>
+  </view>
+  <view wx:else>
+    <van-row class="billDetails2" >
+        <van-col span="24" style="color: #ababab; text-align:center;">
+          请先选择账单结束日期
+        </van-col>
+    </van-row>
+  </view>
+</view>
+
+<view style="width:100%;">
+  <view class="queryButton" bindtap="onSubmitAudit">提交审核</view>
+</view>
+
+<van-popup show="{{ showEndBillMonPicker }}" 
+  position="bottom"
+  custom-style="height: 50%; width:100%;"
+  bind:close="onCloseEndBillMonPicker">
+  <van-datetime-picker
+          type="year-month"
+          value="{{ currentDate }}"
+          min-date="{{ minDate }}"
+          bind:confirm="onConfirmEndBillMon"
+          bind:cancel="onCancelEndBillMon"
+        />
+</van-popup>
+
+<van-popup show="{{ showOrdDatePicker }}" 
+  position="bottom"
+  custom-style="height: 50%; width:100%;"
+  bind:close="onCloseOrdDatePicker">
+  <van-datetime-picker
+          type="date"
+          value="{{ currentOrdDate }}"
+          bind:confirm="onConfirmOrdDate"
+          bind:cancel="onCancelOrdDate"
+        />
+</van-popup>
+-->

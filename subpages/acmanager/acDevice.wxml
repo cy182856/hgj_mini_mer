@@ -1,0 +1,190 @@
+<wxs module='tools'>
+  function getStatName(item, ver) {
+    var statName = ""
+    if (item.stat == "1") {
+      statName = "需更新"
+    } else if (item.stat == "0") {
+      if (item.name == "固件版本号") {
+        statName = 'Ver:' + ver
+      } else {
+        statName = "已完成"
+      }
+    }
+    return statName
+  }
+
+  function getConnStatName(stat) {
+    if (stat == "1") {
+      return "连接中"
+    } else if (stat == "2") {
+      return "完成"
+    } else if (stat == "3") {
+      return "重新连接"
+    }
+  }
+
+  function getTextColor(stat) {
+    if (stat == "未认领") {
+      return "#fe8f18"
+    } else if (stat == "已认领") {
+      return "#169aff"
+    } else if (stat == "已入住") {
+      return "#22ac38"
+    } else if (stat == "已关闭") {
+      return "#ababab"
+    }
+  }
+
+  module.exports = {
+    getStatName: getStatName,
+    getConnStatName: getConnStatName,
+    getTextColor: getTextColor,
+  }
+</wxs>
+<scroll-view scroll-y="true" style="height: 100%;">
+<view >
+  <block wx:if="{{currentDev.STAT=='I'}}">
+    <view class="fun-card">
+      <!-- <van-cell title="设备序列号" value="{{currentDev.DEVSN}}"></van-cell> -->
+
+      <view class="active-content" >
+        <text class="label-text" style="margin-bottom: 20rpx;"> {{actText}}</text>
+        <!-- <view class="devsn-row">
+          <view class="devsn-text">设备序列号</view>
+          <view class="devsn-text">{{currentDev.DEVSN}}</view>
+        </view> -->
+        <van-cell title="设备序列号" title-style="font-size: 14px;font-weight: 400;color: #999999;" value="{{currentDev.DEVSN}}"
+        border="{{false}}" value-class="cell-value_dev">
+      </van-cell>
+  
+      <van-cell title="固件版本" title-style="font-size: 14px;font-weight: 400;color: #999999;"
+         border="{{false}}" catchtap="onTapConnect">
+        <view class="value_solt">
+          
+          <view class="cell-value" wx:if="{{!devUpdata}}" >
+          v{{currentDev.DEVVER?currentDev.DEVVER:'0.0'}}
+          </view> 
+          <van-button wx:else plain type="default" size="mini" color="#169aff">更新</van-button>
+        </view>
+      </van-cell>
+      </view>
+  
+  </view>
+
+
+    <block>
+      <view class="fun-card">
+        <view style="height: 20rpx;"></view>
+        <view class="active-sheet" wx:for="{{actData}}" wx:key="name">
+       
+          <van-cell title="{{item.name}}"  data-bitem="{{item}}"
+          catchtap="onTapItem" border="{{false}}">
+            <view class="value_solt">
+              <van-icon wx:if="{{item.stat=='0'}}" style="margin-left: 40rpx;" slot="right-icon" name="success"
+            color="#22ac38" size="28rpx" />
+            <block  wx:else >
+              <van-loading wx:if="{{item.loading}}" size="40rpx" color="#169aff"></van-loading>
+              <text class="cell-value_dev">{{item.value}}</text>
+
+            </block>
+        </view>
+        </van-cell>
+        </view>
+        <view style="height: 30rpx;"></view>
+      </view>
+    </block>
+    <view class="active_row">
+    <van-button type="primary" round="true" loading="{{acLoading}}" loading-text="激活中" catchtap="onTapActive"
+          disabled="{{activing}}">{{actBtnText}}</van-button>
+      </view>
+  </block>
+  <block wx:elif="{{currentDev.STAT=='N'}}">
+    <view class="fun-card">
+      <view style="height: 20rpx;"></view>
+      <van-cell title="{{currentDev.ACDEVNAME==''?'设备名称未设置':currentDev.ACDEVNAME}}" title-width="80%"
+        title-style="font-size: 16px;font-weight: 500;color: #363f4d;" border="{{false}}"></van-cell>
+      <van-cell title="设备序列号" title-style="font-size: 14px;font-weight: 400;color: #999999;"
+        value-class="cell-value_dev" value="{{currentDev.DEVSN}}" border="{{false}}"></van-cell>
+      <van-cell title="连接设备" title-style="font-size: 14px;font-weight: 400;color: #999999;"
+         border="{{false}}" catchtap="onTapConnect">
+        <view class="value_solt">
+          <van-loading wx:if="{{conectStat=='1'}}" color="#1989fa" size="24rpx"/>
+          <view class="{{conectStat=='3'?'cell-value_fail':'cell-value'}}"  >
+            {{tools.getConnStatName(conectStat)}}
+          </view> 
+        </view>
+        <!-- <image slot="right-icon" wx:if="{{conectStat=='1'}}" class="mts-loading" mode="scaleToFill"
+          src="/assets/icons/empty/loading.gif"></image> -->
+      </van-cell>
+      <van-cell wx:if="{{currentDev.ACDEVDESC}}" title-width="20%" title="设备描述" title-style="font-size: 14px;font-weight: 400;color: #999999;" border="{{false}}" >
+        <view class="label_text" >
+        <text style="text-align: left;">{{currentDev.ACDEVDESC}}</text>
+          
+        </view>
+      </van-cell>
+      <van-cell title="连接时间" title-style="font-size: 14px;font-weight: 400;color: #999999;" value="{{curTime}}"
+        border="{{false}}" value-class="cell-value_dev">
+      </van-cell>
+      <van-cell title="设备时间" title-style="font-size: 14px;font-weight: 400;color: #999999;" value="{{devTime}}"
+        border="{{false}}" value-class="cell-value_dev">
+      </van-cell>
+  
+      <van-cell title="固件版本" title-style="font-size: 14px;font-weight: 400;color: #999999;"
+         border="{{false}}" catchtap="onTapConnect">
+        <view class="value_solt">
+          
+          <view class="cell-value" wx:if="{{!devUpdata}}" >
+          v{{currentDev.DEVVER?currentDev.DEVVER:'0.0'}}
+          </view> 
+          <van-button wx:else plain type="default" size="mini" color="#169aff">更新</van-button>
+        </view>
+        <!-- <image slot="right-icon" wx:if="{{conectStat=='1'}}" class="mts-loading" mode="scaleToFill"
+          src="/assets/icons/empty/loading.gif"></image> -->
+      </van-cell>
+      <view style="height: 20rpx;"></view>
+    </view>
+
+    <view class="fun-card">
+      <van-cell title="出入记录导出" border="false" is-link catchtap="onTapRecordList"></van-cell>
+    </view>
+    <view class="fun-card">
+
+      <block wx:for="{{upDateData}}" wx:key="name">
+        <van-cell title="{{item.name}}"  
+         >
+            <view class="value_solt">
+              <van-icon wx:if="{{item.stat=='0'}}" style="margin-left: 40rpx;" slot="right-icon" name="success"
+            color="#22ac38" size="28rpx" />
+            <block  wx:else >
+              <van-loading wx:if="{{item.loading}}" size="40rpx" color="#169aff"></van-loading>
+              <van-button wx:else plain type="default" size="mini" color="#169aff" disabled="{{interruptPro}}" bind:click="onTapItem" data-bitem="{{item}}">更新</van-button>
+
+            </block>
+        </view>
+        </van-cell>
+      </block>
+      <view class="active_row">
+        <van-button type="primary" round="true" bind:click="onTapUpdata" disabled="{{!needUpdata}}">一键更新</van-button>
+      </view>
+<view style="height: 40rpx;"></view>
+    </view>
+  </block>
+  <block wx:elif="{{currentDev.STAT=='C'}}">
+    <view class="fun-card">
+      <view style="height: 20rpx;"></view>
+      <van-cell title="{{currentDev.ACDEVNAME==''?'设备名称未设置':currentDev.ACDEVNAME}}" title-width="80%"
+        title-style="font-size: 16px;font-weight: 500;color: #363f4d;" border="{{false}}"></van-cell>
+      <van-cell title="设备序列号" title-style="font-size: 14px;font-weight: 400;color: #999999;"
+        value-class="cell-value_dev" value="{{currentDev.DEVSN}}" border="{{false}}"></van-cell>
+
+      <van-cell title-width="20vw" title="设备描述" title-style="font-size: 14px;font-weight: 400;color: #999999;" border="{{false}}" >
+        <view class="cell-value_dev" style="background-color: turquoise;" >
+          {{currentDev.ACDEVDESC}}
+        </view>
+      </van-cell>
+      <view style="height: 20rpx;"></view>
+    </view>
+  </block>
+  <view style="height: 90rpx;"></view>
+</view>
+</scroll-view>

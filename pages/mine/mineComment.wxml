@@ -1,0 +1,22 @@
+<!--pages/mine/mineComment.wxml-->
+<view>
+  <van-cell-group title=" " border="{{true}}">
+    <van-cell title="姓名：" value="{{userInfo.PONAME}}" />
+    <van-cell title="所属部门：" value="{{userInfo.DEPTNAME}}" />
+  </van-cell-group>
+
+  <van-cell-group title=" " border="{{true}}">
+    <van-cell title="我的得分：" value="{{ score }}分" />
+    <van-cell title="" border="{{false}}">
+      <view  slot="">
+        <van-rate
+          value="{{ score }}"
+          readonly
+          allow-half
+          gutter = "1"
+          void-icon="star"
+        />
+      </view>
+    </van-cell>
+  </van-cell-group>
+</view>

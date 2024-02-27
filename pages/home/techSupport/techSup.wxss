@@ -1,0 +1,32 @@
+/* pages/home/techSupport/techSup.wxss */
+.root-page{
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.logo-view{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin-top: 200rpx;
+}
+.info-view{
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-left: 40rpx;
+  align-items: center;
+}
+.text-label{
+  font-size: 28rpx;
+  color: #323233;
+}
+.text-blue{
+  font-size: 28rpx;
+  color: #169aff;
+  padding-bottom: 20rpx;
+}

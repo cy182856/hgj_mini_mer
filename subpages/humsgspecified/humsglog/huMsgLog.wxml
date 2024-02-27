@@ -1,0 +1,86 @@
+<!-- subpages/humsgspecified/humsglog/huMsgLog.wxml -->
+<import src="../../../component/empty/empty.wxml"></import>
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+
+<view class="page-container">
+  <view class="msgDetails-view">
+    <text class="msgDetails-text">通知详情</text>
+  </view>
+  <view class="huMsgLogC">
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        通知标题
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.msgTitle}}
+      </van-col>
+    </van-row>
+    <van-row class="msgBodyC">
+      <van-col span="6">
+        通知内容
+      </van-col>
+      <van-col wx:if="{{huMsgLogDto.signName==''||huMsgLogDto.signName==null}}" span="18" style="color:#ababab;">
+        {{huMsgLogDto.msgBody}}
+      </van-col>
+      <van-col wx:else span="18" style="color:#ababab;">
+        {{huMsgLogDto.msgBody+'【'+huMsgLogDto.signName+'】'}}
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="msgDetails-view">
+    <text class="msgDetails-text">通知结果</text>
+  </view>
+  <view class="huMsgLogC">
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        通知发送人
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.poName}}
+      </van-col>
+    </van-row>
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        通知时间
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.msgDateTimeDesc}}
+      </van-col>
+    </van-row>
+
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        通知范围
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.sendAreaNames}}
+      </van-col>
+    </van-row>
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        通知对象
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.huRoleDescs}}
+      </van-col>
+    </van-row>
+    <van-row class="msgTitleC">
+      <van-col span="6">
+        发送条数
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.totalCnt}}
+      </van-col>
+    </van-row>
+    <van-row class="msgSuccCntC">
+      <van-col span="6">
+        成功条数
+      </van-col>
+      <van-col span="18" style="color:#ababab;">
+        {{huMsgLogDto.succCnt}}
+      </van-col>
+    </van-row>
+  </view>
+</view>

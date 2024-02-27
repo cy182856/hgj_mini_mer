@@ -1,0 +1,63 @@
+/* pages/mine/accountDetailInfo.wxss */
+.van-cell__title {
+  color: #646566 !important;
+}
+
+.rateContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40rpx;
+}
+.van-rate {
+  margin-top: 2px !important;
+}
+
+/* .van-field__input {
+  color: #969799 !important;
+} */
+
+.placeholderClass {
+  color: #969799;
+}
+.inputField_modify {
+  color: #646566;
+}
+
+.inputField_noModify {
+  color: #969799;
+}
+
+.switchContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40rpx;
+}
+
+.van-switch {
+  margin-top: 4px !important;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 80rpx;
+  justify-content: space-evenly;
+}
+
+.button {
+  width: 120rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 12rpx;
+  color: white;
+  background-color: #169aff;
+  text-align: center;
+  font-size: 14px;
+}
+.postName-list-view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}

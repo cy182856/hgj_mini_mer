@@ -1,0 +1,46 @@
+<import src="../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+  <view class="weui-loading"></view>
+  <view class="weui-loadmore__tips">正在刷新</view>
+</view>
+<block wx:if="{{heoPraiseListDtos && heoPraiseListDtos.length > 0}}">
+  <view class="heo-praise-list" style="padding-bottom:{{iphoneX? 34:0}}rpx;">
+    <block wx:for="{{heoPraiseListDtos}}" wx:for-item="item">
+      <view class="praise-user-info">
+        <image bindtap='previewImage'
+            class="heo-praiser-img" 
+            src="{{item.headImgUrl}}"
+            mode="aspectFill"
+        />
+        <view class="praise-user-name ">
+          <text class="ellipsis_view">{{item.nickName}}</text> 
+        </view>
+        <view class="praise-time-view">
+          {{item.heoPraiseTimeDesc}}
+        </view>
+      </view>
+    </block>
+    <view wx:if='{{!isRefreshing}}' class="weui-loadmore">
+      <view wx:if='{{isLoadingMoreData}}'>
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore-tips">正在加载更多...</view>
+      </view>
+      <block wx:elif='{{hasMoreData}}'>
+      </block>
+      <view wx:else>
+        <view class="weui-loadmore-tips">没有更多数据啦</view>
+      </view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view style="height:40rpx"></view>
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+  <van-skeleton title avatar row="1" />
+</block>

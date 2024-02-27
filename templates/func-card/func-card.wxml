@@ -1,0 +1,22 @@
+<template name="func-card">
+  <view class="fun-card" wx:if="{{item.isShow}}">
+    <view class="fun-topic">{{item.topic}}</view>
+      <van-row gutter="2" class="fun-grid">
+        <van-col
+          wx:for="{{ item.funs }}"
+          wx:for-item="funItem"
+          wx:key="id"
+          span="6">       
+          <!-- -->
+        <view class="img-container" catchtap="onItemClick" data-func="{{funItem}}"  wx:if="{{funItem.hasAuth}}" >
+          <van-image  
+            fit="contain"
+            width='80rpx'
+            height='80rpx'
+            src="{{ funItem.imgsrc }}" />        
+          <view class="fun-text">{{ funItem.name }}</view>
+        </view>       
+      </van-col>
+    </van-row>
+  </view>
+</template>

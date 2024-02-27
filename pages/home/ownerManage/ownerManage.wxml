@@ -1,0 +1,195 @@
+<!--pages/home/ownerManage/ownerManage.wxml-->
+<import src="/component/empty/empty.wxml"></import>
+
+<wxs module='tools'>
+	function getShowName(houseInfo) {
+		var areaName = ""
+		if (houseInfo.areaId != "000") {
+			areaName = houseInfo.areaName
+		}
+		return (areaName != "" ? areaName + "-" : "") + houseInfo.buildingName + "-" + houseInfo.houseNo
+	}
+
+	function getShowStat(houseInfo) {
+		if (houseInfo.stat == "I") {
+			return "未认领"
+		} else if (houseInfo.stat == "P") {
+			return "已认领"
+		} else if (houseInfo.stat == "N") {
+			return "已入住"
+		}
+	}
+	function getTextColor(stat) {
+		if (stat == "未认领") {
+			return "#fe8f18"
+		} else if (stat == "已认领") {
+			return "#169aff"
+		} else if (stat == "已入住") {
+			return "#22ac38"
+		} else if (stat == "已关闭") {
+			return "#ababab"
+		}
+	}
+
+	module.exports = {
+		getShowName: getShowName,
+		getShowStat: getShowStat,
+		getTextColor:getTextColor,
+	}
+</wxs>
+
+<van-popup
+  show="{{ showPopup }}"
+  position="top"
+  custom-style="height: 100%;margin-top:88rpx"
+  bind:close="onClose"
+	overlay="{{false}}"
+>
+		<view class="cellRow0" wx:if="{{showArea}}">
+				<text>区域</text>
+				<view class="right-container">
+					<van-dropdown-menu style="display:{{showArea ? 'block' : 'none'}}; ">
+						<van-dropdown-item id="area" title="{{selectArea.areaName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change='' >
+							<van-cell-group>
+								<block wx:for='{{areaList}}' wx:key='areaId'>
+									<van-cell title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+										<van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>
+			</view>
+			<view class="cellRow0">
+				<text>楼号</text>
+	<van-dropdown-menu>
+						<van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+							<van-cell-group>
+								<block wx:for='{{buildingList}}' wx:key='buildingId'>
+									<van-cell title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+										<van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>	
+			<view class="cellRow0">
+				<text>室号</text>
+				<view class="right-container">
+						<van-dropdown-menu>
+						<van-dropdown-item id="room" title="{{selectRoom.houseNo}}" bind:open='onDropMenuOpen' bind:close='onDropMenuClose' bind:change=''>
+							<van-cell-group>
+								<block wx:for='{{roomList}}' wx:key='houseSeqId'>
+									<van-cell title-class="{{item.houseNo == selectRoom.houseNo ? 'cell_titleClass_s' : 'cell_titleClass'}}" title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+										<van-icon wx:if="{{item.houseNo == selectRoom.houseNo}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+									</van-cell>
+								</block>
+							</van-cell-group>
+						</van-dropdown-item>
+					</van-dropdown-menu>
+				</view>
+			</view>
+				<view class="cellRow0">
+					<text>状态</text>
+					<view class="right-container">
+						<view wx:for="{{statList}}" wx:key="text" class="stat-row">
+							<view class='{{item.checked?"checked_button":"normal_button"}}' data-bindex='{{index}}' bindtap="ontapStatChange"> {{item.text}}</view>
+						</view>
+					</view>
+				</view>
+				<view class="cellRow0">
+					<text>是否跟进</text>
+					<view class="right-container">
+						<view wx:for="{{followUpList}}" wx:key="text" class="stat-row">
+							<view class='{{item.checked?"checked_button":"normal_button"}}' data-bindex='{{index}}' bindtap="ontapFollowUpChange"> {{item.text}}</view>
+						</view>
+					</view>
+				</view>
+				<view class="cellRow0">
+					<text>是否测试</text>
+					<view class="right-container">
+						<view wx:for="{{isTestRoomList}}" wx:key="text" class="stat-row">
+							<view class='{{item.checked?"checked_button":"normal_button"}}' data-bindex='{{index}}' bindtap="ontapTestRoomChange"> {{item.text}}</view>
+						</view>
+					</view>
+				</view>
+			<view class="line"></view>
+			<view class="cellRow2">
+				<button class="queryButton"  bindtap="onQueryHouseInfo" disabled="{{isLoading}}">查询</button>
+			</view>
+
+</van-popup>
+<view class="line"></view>
+<view  bindtap="closedPopup">
+	<!-- <view class="topfixed">
+			<van-cell value="{{queryConid}} " catchtap='ontapShowPopup' value-class="topValue-text" border="{{false}}">
+					<van-icon  slot="right-icon" name="{{showPopup?'arrow-down':'arrow-up'}}" color='gray' size="32rpx" /> 非全日制计算机硕士
+			</van-cell> -->
+
+			<view catchtap="ontapShowPopup">
+    <van-cell center border="{{defaultFalse}}" class="check-condition-cell">
+      <van-row>
+        <van-col class="ellipsis_view"  span="21">
+          <view class="topValue-text">{{queryConid}}</view>
+        </van-col>
+        <van-col span="2" offset="1">
+					<!-- <van-icon  slot="right-icon" name="{{showPopup?'iconfont  jia-zhankai':'iconfont  jia-shouqi'}}" color='gray' size="32rpx" /> -->
+          <text class="iconfont {{showPopup?'jia-zhankai':'jia-shouqi'}}"></text>
+        </van-col>
+      </van-row>
+    </van-cell>
+
+
+
+<view wx:if="{{houseList.length < 1}}" style="z-index:1">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无记录'}}"></template>
+</view> 
+
+
+	<view class="fun-card" wx:if="{{houseList.length > 0 && dropMenuShow == false}}">
+		
+		<view class="titleFixed">
+			<!-- <van-cell wx:if="{{houseList.length > 0}}" title="房屋信息" border="{{false}}">
+				<view slot="">
+					<text class="cellHouseInfo" >房屋状态</text>
+				</view>
+			</van-cell> -->
+			<view class="title-view">
+				<view class="title-layout">
+					<text class="text-title">房屋信息</text>
+					<text class="text-title" >房屋状态</text>
+				</view>
+    	</view>
+		</view>
+		<scroll-view class="scroll-height" scroll-y='true'>
+			<block wx:for="{{houseList}}" wx:key="houseSeqId">
+				<van-cell title-width="65vw" data-index="{{index}}" catchtap="onClickHouse">
+				  <view slot="title" class="title-cell">
+    			<view class="van-cell-text">{{ tools.getShowName(item) }}</view>
+    			<van-tag wx:if="{{item.isForTest=='Y'}}" type="primary" style="margin-left:10rpx" round>测试</van-tag>
+					<van-tag wx:if="{{item.isNeedFollow=='Y'}}" type="primary" color="#fe8f18" style="margin-left:10rpx" round>跟进</van-tag>
+  			</view>
+				
+					<view slot="" class="cell-value">
+						<text style="color:{{tools.getTextColor(item.statDesc)}};margin-right:10rpx">{{ item.statDesc }}</text>
+						<van-icon  name="arrow" size="32rpx" color="{{item.stat!='C'?'#777777':'white'}}"></van-icon>
+					</view>
+				</van-cell>
+			</block>
+			<!-- 点击加载更多 tools.getShowStat(item)-->
+			<block wx:if="{{more}}">
+				<view wx:if="{{loading}}" class="loading-container">
+					<van-loading type="spinner" size="26rpx" text-size="22rpx">加载中...</van-loading>
+				</view>
+				<view wx:else class="loading-container" catchtap="onLoadMore">点击加载更多...</view>
+			</block>
+			<block wx:else>
+				<view class="loading-container" catchtap="">暂无更多记录</view>
+			</block>
+			<view wx:if="{{iphoneX}}" style="height:68rpx"> </view>
+
+		</scroll-view>
+</view>
+</view>	</view>

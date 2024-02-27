@@ -1,0 +1,2 @@
+<import src="../../../component/empty/empty.wxml"></import>
+<template is="empty" data="{{src:src,width:232,text: errMsg}}"></template>

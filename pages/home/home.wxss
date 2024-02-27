@@ -1,0 +1,123 @@
+/* pages/home/home.wxss */
+.content-position{
+  padding-bottom: 20rpx;
+}
+
+.tabbar-position{
+  margin-top:120rpx;
+}
+
+.vanRow {
+  background-color: white;
+  margin: 30rpx;
+  margin-bottom: 0rpx;
+  border-radius: .5em;
+  padding: 40rpx 10rpx;
+}
+.avatar {
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 50%;
+  overflow:hidden;
+  text-align: center;
+  background-color: white;
+  margin-top:6rpx
+}
+.van-cell{
+  line-height: var(--cell-line-height,44px) !important;
+}
+.van-cell__title,.van-cell__value{
+  padding-left: 22rpx;
+}
+.van-cell__left-icon-wrap,.van-cell__right-icon-wrap {
+  height: var(--cell-line-height,44px) !important;
+}
+.van-cell-text{
+  display: flex;
+  width: auto;
+  border-radius: 13px;
+  font-size: 28rpx;
+  font-family: Microsoft YaHei Regular, Microsoft YaHei Regular-Regular;
+  font-weight: 400;
+  text-align: left;
+  color: #908f8f;
+  width: 400rpx;
+}
+.van-cell-text-name{
+  font-size: 40rpx;
+  font-family: Microsoft YaHei Regular, Microsoft YaHei Regular-Regular;
+  font-weight: bold;
+  text-align: left;
+  color: #3c3c3c;
+  width: 400rpx;
+}
+.user-info{
+  background-color: turquoise;
+}
+
+.user-title{
+  background-color: tomato;
+  margin-left: 20rpx;
+}
+
+.van-grid-item-view{
+}
+
+.heo-popup-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 36rpx;
+  font-size: 32rpx;
+  padding-top: 26rpx;
+}
+
+.van-cell-group-class{
+  margin: 0px 20rpx !important;
+  border: none !important;
+}
+
+.van-grid-hide-text{
+  color: #fff !important;
+}
+
+.logo-desc-view{
+  padding: 0rpx !important;
+}
+
+.me_font{
+  margin: 0rpx 30rpx;
+  border-radius: .5em;
+  padding: 20rpx 0rpx 20rpx 20rpx;
+  background-color: #fff;
+}
+
+.van-grid-item__icon+.van-grid-item__text{
+  margin-top: 32rpx !important;
+}
+
+.touxiang{
+  background-color: #FFF;
+  border:0;
+  -webkit-tap-highlight-color: transparent;
+  height:auto;
+  border-radius: 0;
+  padding:0rpx;
+  margin:0rpx;
+  line-height: 1;
+  font-size: 14px;
+  color: rgb(59, 56, 56);
+  height: 100%; 
+  width: 100%;
+  margin-top: 0px;
+}
+
+.user_name{
+  font-size: 16px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:1;
+  margin-left: 5px;
+  margin-top: 10px;
+}

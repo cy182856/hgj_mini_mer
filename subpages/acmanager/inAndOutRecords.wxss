@@ -1,0 +1,2 @@
+/* subpages/acmanager/inAndOutRecords.wxss */
+@import "acDevList.wxss";

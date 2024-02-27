@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "van-tree-select": "@vant/weapp/tree-select/index"
+  },
+  "navigationBarTitleText": "远程开门"
+}

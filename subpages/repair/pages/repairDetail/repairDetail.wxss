@@ -1,0 +1,196 @@
+.view_detail{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width: 94%;
+  margin: 16rpx 3% 3%;
+  font-size: 28rpx;
+}
+.view_title_desc{
+  color: #474747;
+}
+.view_time{
+  color: #ABABAB !important;
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+
+.view_pay{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+
+.view_repiar{
+  color: #1B1B1B;
+}
+.view_img{
+  padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px);
+}
+.pay{
+  padding: var(--cell-vertical-padding,10px);
+}
+
+.xunzhang{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+  color: #FA9A0B !important;
+}
+
+
+.view_repairman{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width: 94%;
+  margin: 16rpx 3% 3%;
+  font-size: 28rpx;
+}
+.change_man{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+
+.wuxing{
+  padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px) !important;
+}
+.pingjia{
+  padding: var(--cell-vertical-padding,11px) var(--cell-horizontal-padding,16px) !important;
+}
+.view_lianxi{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+  padding-top: 7px !important;
+}
+.view_score{
+  text-align: left !important;
+}
+.view_msg{
+  background-color: #ffffff;
+}
+.dispatch_btn{
+  text-align: center;
+  padding-top: 25rpx;
+  background-color: #ffffff;
+  height: 90rpx;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+}
+.view_btn_size{
+  width: 90%;
+  margin-left: 5%;
+}
+.view_btn{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,0px) !important;
+  padding-top: 7px !important;
+}
+
+.guding{
+  height: 128rpx !important;
+}
+/* .van-button--large {
+  width: 90% !important;
+} */
+
+
+.view_jiangli{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width: 94%;
+  margin: 16rpx 3% 3%;
+  font-size: 28rpx;
+  /* height: 186rpx; */
+}
+
+.view_chose_jiangli{
+  width: 90%;
+  padding-left: 5%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.fankui{
+  width: 90%;
+  text-align: right;
+  padding: 15rpx 0rpx 15rpx 5%;
+
+}
+
+.redio_pd{
+  padding-top: 20rpx;
+}
+
+.daochang{
+  padding: 15rpx;
+  background-color: #ffffff;
+  width: 88%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  padding-left: 30rpx;
+  padding-top: 30rpx;
+  border: 0rpx solid #ffffff;
+  border-radius: 20rpx;
+  margin-left: 3%;
+}
+
+
+ /* .sk-mask{
+   z-index: 99999999999999999999 !important;
+ }
+ .van-dialog__message{
+  z-index: 99999999999999999999 !important;
+ }
+ .van-dialog__footer {
+  z-index: 99999999999999999999 !important;
+ } */
+
+ .detail_title{
+  padding-right: 0rpx !important;
+ }
+ .detail_value{
+  padding-left: 0rpx !important;
+  padding-right: 0rpx !important;
+ }
+ .pay_value{
+   text-align: left !important;
+   color: #ff0000 !important;
+   padding-right: 70rpx !important;
+ }
+ .pay_title{
+  text-align: right !important;
+ }
+
+ /* vant dialog弹窗的确定按钮统一改为 */
+ .dialog-index--van-dialog__confirm{
+  color: #189AFE !important;
+}
+/* popup的确定 */
+.van-picker__confirm {
+  color: #189AFE !important;
+}
+
+.pd{
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+}
+
+.cf{
+  font-size: 28rpx !important;
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+
+/* 自动换行 */
+.txt{
+  text-overflow:ellipsis;
+  /* z-index: -1; */
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 20;
+  overflow: hidden;
+ }
+
+ .view_upd_item{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px);
+}
+
+.sureView{
+  padding-top: 50rpx;
+
+}

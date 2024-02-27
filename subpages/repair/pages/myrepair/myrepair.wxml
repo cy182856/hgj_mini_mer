@@ -1,0 +1,92 @@
+<!-- empty -->
+<import src="../../../../component/empty/empty.wxml"></import>
+<!-- loading -->
+<import src="../../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+
+
+<view wx:if="{{repairLogList.length < 1}}">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无报修记录'}}"></template>
+ </view> 
+<view wx:else>
+  <!-- 根据UI，距离顶端始终保持14rpx，14+9 -->
+  <view style="height:14rpx;"></view>
+  <!-- 查询的报修记录列表 -->
+  <view class="view_bg" wx:for="{{repairLogList}}">
+    <van-cell wx:if="{{item.procStat=='03'}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="yijiedan" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="待维修" url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" 
+          />
+    <van-cell wx:elif="{{item.procStat=='05'}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="yijiedan" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="维修中" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />  
+    <van-cell wx:elif="{{item.procStat=='07'}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="yijiedan" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="维修完成" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />   
+    <van-cell wx:elif="{{item.procStat=='07' && item.ordAmt > 0}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="yijiedan" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="待付款" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />                 
+    <van-cell wx:elif="{{item.procStat=='09'}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="daipinglun" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="确认维修完成" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />
+    <van-cell wx:elif="{{item.procStat=='09' && item.ordAmt > 0}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="daipinglun" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="已付款" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />    
+    <van-cell wx:elif="{{item.procStat=='11'}}" 
+          custom-class="vb" 
+          title-class="vcell_title txt" 
+          value-class="yijieshu" 
+          title="{{item.repairDescAbbr}}" 
+          is-link value="已完成" 
+          url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />
+    <van-cell wx:elif="{{item.procStat == 19}}" custom-class="vb"
+        title-class="vcell_title txt" 
+        value-class="yijieshu" 
+        title="{{item.repairDescAbbr}}" 
+        is-link value="用户已取消" 
+        url="../repairDetail/repairDetail?repairDate={{item.repairDate}}&repairSeqId={{item.repairSeqId}}" />
+
+    <view class="view_desc">
+        <view class="view_light">
+          <text class="text_right">报修地址</text><text>{{item.houseDesc}}</text>
+        </view>
+        <view class="view_light">
+          <text class="text_right">报修时间</text><text>{{item.repairTimeDesc}}</text>
+        </view>
+        <view class="view_light">
+          <text class="text_right">报修类型</text><text>{{item.repairTypeDesc}}</text>
+        </view>
+    </view>
+  </view>
+    
+  <view wx:if="{{repairLogList.length > 0 && pageNum < pages}}" 
+        class="last_font" bindtap="loadMore" data-pageNum="{{pageNum}}" data-pageSize="{{pageSize}}">点击加载更多</view>
+  <view wx:elif="{{repairLogList.length > 0 && pageNum == pages}}" class="last_font">已经到底了</view> 
+  <view wx:else class="last_font">暂无记录</view>
+  <view style="height:20rpx;"></view>
+</view>

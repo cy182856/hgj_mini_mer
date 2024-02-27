@@ -1,0 +1,33 @@
+<!--subpages/acmanager/acFirmware.wxml-->
+<view>
+<view class="title-view"> 
+  <text class="title-notice"> 注意：两种更新方式，仍选一种均可</text>
+</view>
+ 
+  <view class="fun-card">
+    <view class="title-view">
+      <text class="title-text"> 方式一：wifi热点更新
+      </text>
+    </view>
+    <van-cell-group>
+      <van-field value="{{ username }}" label="热点名称" placeholder="请输入您手机热点名称" />
+      <van-field value="{{ phone }}" label="热点密码" placeholder="请输入您手机热点密码" border="{{ false }}" />
+   
+    </van-cell-group>
+    <view class="btn-view">
+        <van-button type="primary" round="true" bind:click="onTapUpdata">点击更新</van-button>
+      </view>
+  </view>
+
+  <view class="fun-card">
+    <view class="title-view">
+      <text class="title-text"> 方式二：蓝牙直接更新
+      </text>
+    </view>
+
+    <view class="btn-view">
+      <van-button type="primary" round="true" bind:click="onTapUpdata">点击更新</van-button>
+    </view>
+
+  </view>
+</view>

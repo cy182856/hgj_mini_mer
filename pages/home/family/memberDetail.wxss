@@ -1,0 +1,77 @@
+
+.rootpage{
+	height: 100%;
+}
+.text_title{
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-bottom: 10rpx;
+  font-weight: 600;
+  text-align: left;
+}
+.switch-view{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40rpx;
+  margin-top: 2px;
+}
+.modify_view{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 32rpx;
+  background: white;
+  margin-top: 2rpx;
+  height: 88rpx;
+}
+.gridItem{
+  height: 88rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.bottom_margin{
+  margin-top: 40rpx;
+  margin-bottom:40rpx;
+}
+.title-view {
+  padding-top: 16rpx;
+  padding-left: 30rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+  border-top-left-radius:10rpx;
+  border-top-right-radius: 10rpx;
+}
+.title-view-noradius {
+  padding-top: 16rpx;
+  padding-left: 30rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+}
+.text-title{
+  height: 30rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: left;
+  color: #3c3c3c;
+}
+.notice-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  height: 30rpx;
+}
+.notice-text{
+  color: #999999;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 30rpx;
+}

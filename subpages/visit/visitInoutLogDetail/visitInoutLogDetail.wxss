@@ -1,0 +1,89 @@
+.root {
+  width: 100%;
+  position: relative;
+}
+
+.card-body{
+  position: relative;
+}
+
+.fun-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background: white;
+  margin: 20rpx;
+  margin-bottom: 0;
+  border-radius:.25em;
+}
+
+.visit-info-view{
+  padding: 20rpx 0rpx 40rpx 30rpx;
+}
+
+.title-view-noradius {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.text-title{
+  color: #363F4D;
+}
+
+.van-cell-class{
+  padding-bottom: 0rpx !important;
+  padding-left:0rpx !important;
+  padding-right: 40rpx !important;
+  font-size: 28rpx !important;
+}
+
+.item-list-view{
+  display: flex;
+  padding: 10rpx 0rpx;
+  font-size: 28rpx;
+  color: #363F4D;
+}
+
+.item-flex-left{
+  flex:left;
+  width:50%;
+  text-align:left;
+}
+
+.item-flex-center{
+  width:30%;
+  text-align:center;
+}
+
+.item-flex-right{
+  flex:right;
+  width:20%;
+  text-align:right;
+}
+
+.van-collapse-class{
+  border-radius: .5em !important;
+  margin: 20rpx;
+}
+
+.border-round-class{
+  border-radius: .25em !important;
+}
+
+.van-collapse-item__title{
+  font-weight: bold !important;
+}
+
+.van-collapse-content-class{
+  padding:10rpx 36rpx 20rpx 30rpx !important;
+  border-radius: 0em 0em .5em .5em !important;
+}
+
+.collapse-item-index--van-cell{
+  padding-left: 30rpx !important;
+  padding-right: 40rpx !important;
+  border-radius: .5em .5em 0em 0em !important;
+}
+
+.van-cell--borderless{
+  border-radius: .5em !important;
+}

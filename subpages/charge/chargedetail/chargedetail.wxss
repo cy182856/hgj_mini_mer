@@ -1,0 +1,178 @@
+.house-info-view{
+  display: flex;
+}
+
+.house-left-view{
+  width: 70%;
+}
+
+.house-right-view{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:20rpx;
+}
+
+.house-name-view{
+  font-size: 32rpx;
+  margin: 54rpx 10rpx 0rpx 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.img-view{
+  /**height: 280rpx;**/
+  height: 460rpx;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  z-index: -1;
+  background-color: white;
+}
+.head-img{
+  height: 100%;
+  width: 100%;
+}
+.head-text-view{
+  margin-left: 30rpx;
+  color:white;
+  height: 128rpx;  
+}
+.head-text{
+  line-height: 50rpx;
+}
+.house-no-info{
+  font-size: 28rpx;
+  margin: 16rpx 10rpx 20rpx 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.charge-view,.charge-rule,.charge-acct{
+  margin: 0rpx 30rpx 20rpx 30rpx;
+  background:rgba(255,255,255,1);
+  border-radius: 0.4em;
+  box-shadow:rgba(0,0,0,0.07) 2rpx 2rpx 2rpx 2rpx ;
+}
+.van-cell {
+  border-radius: 0.4em;
+}
+.van-cell-item{
+  padding: 20rpx 0rpx;
+}
+.van-cell-item-line{
+  padding: var(--cell-vertical-padding,1px) var(--cell-horizontal-padding,16px) !important;
+}
+.van-cell__title{
+  flex: 2 !important;
+  color: #999999 !important;
+  font-size: 28rpx !important;
+}
+.van-cell__value{
+  flex: 4 !important;
+  color: #363F4D !important;
+  font-size: 28rpx !important;
+  text-align: left !important;
+}
+.charge-dtl-title{
+  font-size: 32rpx !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+  color: #363f4d !important;
+}
+.label-class{
+  font-size: 24rpx !important;
+  font-weight: 400;
+  color: #999999;
+  line-height: 32rpx !important;
+}
+.copy-btn-class{
+  font-size: 24rpx;
+  font-weight: 400;
+  text-decoration: underline;
+  text-align: left;
+  color: #179afd;
+  padding-left: 20rpx;
+}
+.charge-acct .van-cell__title{
+  width: 70% !important;
+}
+.charge-acct .van-cell__value{
+  width: 30% !important;
+}
+.acct-bal-class{
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #ef5250;
+  padding-left: 40rpx;
+}
+.acct-btn-view{
+  text-align: right;
+}
+.acct-btn-class{
+  height: 56rpx !important;
+  border-radius: 1.5em !important;
+  font-size: 28rpx !important;
+}
+.acct-btn-view{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.charge-btn-view-class{
+  width: 92%;
+}
+.charge-btn-class{
+  height: 88rpx !important;
+  border-radius: 1.5em !important;
+  font-size: 32rpx !important;
+}
+.charge-btn-tips{
+  font-size: 28rpx !important;
+}
+
+.charge-btn{
+  position: fixed;
+  bottom: 0px;
+  height: 140rpx;
+  width: 100%;
+  z-index:66;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  box-shadow:rgba(0,0,0,0.07) 2rpx 2rpx 2rpx 2rpx ;
+}
+.sub_popup_class{
+  height:700rpx!important;
+}
+.charge-sub-view{
+  background-color: #fff;
+  margin: 30rpx 20rpx 30rpx 20rpx;
+  border-radius:.5em;
+  color: #999999;
+  font-size: 30rpx;
+}
+.popup-sub-tips{
+  padding: 30rpx 20rpx;
+  font-size: 24rpx;
+}
+.popup-line{
+  padding: 10rpx 20rpx 10rpx 20rpx;
+}
+.popup_sub_cell_value{
+  text-align: right !important;
+}
+.charge-center{
+  text-align: center;
+}
+.charge-rule-tips-class{
+  font-size: 24rpx !important;
+  font-weight: 400;
+  color: #999999;
+  line-height: 32rpx !important;
+  padding: 5rpx 38rpx;
+}

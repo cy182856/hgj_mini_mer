@@ -1,0 +1,46 @@
+/* subpages/acmanager/acConnect.wxss */
+page {
+  height: 100%;
+}
+.func-title{
+  font-size: 28rpx;
+  color: #323232;
+  margin: 40rpx;
+}
+.cell-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  
+}
+.top-img-view{
+  position: fixed;
+  width: 100%;
+}
+.dev_list-content{
+  position: fixed;
+  top:206rpx;
+  width: 100%;
+  
+}
+.cell-value_col{
+  
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  height: 100% !important;
+  width: 120rpx !important;
+ text-align: right !important;
+}
+.connectButton {
+
+  border-radius: 28rpx;
+  height: 56rpx;
+  width: 120rpx;
+  color: white;
+  background-color: #169aff;
+  text-align: center;
+  line-height:  56rpx;
+  font-size: 24rpx;
+}

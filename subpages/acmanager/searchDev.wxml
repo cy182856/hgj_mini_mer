@@ -1,0 +1,19 @@
+<!--subpages/acmanager/searchDev.wxml-->
+<view  class="fun-card">
+
+<van-row>
+<van-col span="8">
+<view class="fun-icon" catchtap="onTapConnDev">
+
+  <van-image src="/images/home/113001.png" width="50" height="50" ></van-image>
+  <text class="func-title">连接设备</text>
+</view>
+</van-col>
+<van-col span="8">
+  <view class="fun-icon" catchtap="onTapQueryDev">
+  <van-image src="/images/home/113002.png" width="50" height="50" ></van-image>
+  <text  class="func-title">设备查询</text>
+</view>
+</van-col>
+</van-row>
+</view>

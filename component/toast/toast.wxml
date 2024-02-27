@@ -1,0 +1,11 @@
+<!--component/toast/toast.wxml-->
+<text>component/toast/toast.wxml</text>
+<template name="toast">
+    <view class="toast-content-box" wx:if="{{is_hide}}">
+        <view class="toast-content {{className}}" style="{{style}}">
+            <text class="iconfont {{name}} toast-icon" wx:if="{{!!name}}"></text>
+            <view class="toast-content-text">{{content}}</view>
+        </view>
+    </view>
+</template>
+<import src="../icons/icons.wxml"></import>

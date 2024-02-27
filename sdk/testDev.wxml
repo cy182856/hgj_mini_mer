@@ -1,0 +1,29 @@
+<!--sdk/testDev.wxml-->
+<scroll-view scroll-y="true" style="height: 95vh;">
+      <view class="fun-card" style="padding: 20rpx;">
+      
+        <van-row gutter="20">
+  <van-col span="6"><van-button  type="info" size="mini" bind:click="onCLickINQ"> 设备信息</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" bind:click="onCLickINIT">初始化</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" bind:click="onCLickKEY" disabled="{{false}}">更新密钥</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" disabled="{{false}}" bind:click="onCLickRecord"> 开门记录</van-button></van-col>
+</van-row>
+<van-row gutter="20" style="margin-top: 10px;">
+  <van-col span="6"><van-button  type="info" size="mini" disabled="{{false}}" bind:click="onCLickCLOCK"> 时钟同步</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" disabled="{{false}}" bind:click="onCLickBuild">楼号</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" disabled="{{false}}" bind:click="onCLickLOSS">挂失</van-button></van-col>
+  <van-col span="6"><van-button  type="info" size="mini" disabled="{{false}}" bind:click="onCLickFIND">解挂</van-button></van-col>
+</van-row>
+      <view style="height: 20rpx;"></view>
+    <text style="font-size: 13;color: aqua;">返回码：{{writeRet.errCode}}</text>
+   <text style="font-size: 13;color: aqua;">结果信息： {{writeRet.errMsg}}</text>
+   <view style="font-size: 13;color: gray; word-break:break-all">数据原文：{{writeData}}  --len：{{writeData.length}}</view>
+   <view style="font-size: 13;color: aqua; word-break:break-all">写入的数据：{{writeRet.oriData}}</view>
+   <view style="font-size: 13;color: green; word-break:break-all">接收的数据：{{writeRet.receiveData}}</view>
+   <view style="font-size: 13;color: green; word-break:break-all">数据原文：{{decodeData.decodeData}}</view>
+   <view style="font-size: 13;color: green; word-break:break-all">解析结果：{{decodeData.code}}  --- {{decodeData.msg}}</view>
+   <!-- <view style="font-size: 13;color: green; word-break:break-all">封装结果：{{decodeData.content}}</view> -->
+    <view style="height: 20rpx;"></view>
+  </view>
+</scroll-view>
+ 

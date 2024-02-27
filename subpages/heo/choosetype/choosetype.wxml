@@ -1,0 +1,8 @@
+<view class="heo-choose-type-view">
+  <view class="heo-post-view">
+    <van-button custom-class = "heo-post-btn" bindtap="navigateToPost">发布</van-button>
+  </view>
+  <view class="heo-audit-view">
+    <van-button custom-class = "heo-audit-btn" bindtap="navigateToAudit">审核</van-button>
+  </view>
+</view>

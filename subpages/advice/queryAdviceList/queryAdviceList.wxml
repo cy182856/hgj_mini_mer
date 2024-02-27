@@ -1,0 +1,68 @@
+<!-- 引用 -->
+<import src="../../../component/empty/empty.wxml"></import>
+<import src="../../../component/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog"/>
+
+<!-- title选择项 -->
+<van-dropdown-menu active-color="#189AFE">
+  <van-dropdown-item value="{{ adviceType }}" options="{{ adviceTypes }}" bind:change="changeAdviceType"/>
+  <!-- 受理反馈展示 -->
+  <van-dropdown-item wx:if="{{source == '113002'}}" value="{{ assignee }}" options="{{ assignees }}"  bind:change="changeAssignee"/>
+  <!-- 反馈查询展示 -->
+  <van-dropdown-item  wx:if="{{source == '113001'}}" value="{{ procStat }}" options="{{ procStats }}"  bind:change="changeProcStat"/>
+</van-dropdown-menu>
+<!-- list -->
+<view wx:if="{{objList == null || objList.length == 0}}">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无反馈记录'}}"></template>
+</view>
+<view wx:else class="body">
+    <block wx:for="{{objList}}" wx:key="*this">
+      <view class="contain" bindtap="toDetailPage" 
+                            data-date="{{item.adviceDate}}" 
+                            data-seq="{{item.adviceSeqId}}"
+                            data-type="{{item.adviceType}}"
+                            data-po="{{item.poSeqId}}"
+                            data-stat="{{item.procStat}}"
+                            >
+        <van-row>
+          <van-col span="3">
+            <van-icon name="/images/niming/{{item.iconName}}" size="64rpx;" />
+          </van-col>
+          <van-col span="17">
+            <view class="list_title txt">
+              <van-tag plain type="primary" wx:if="{{item.wxOpenId}}">匿名</van-tag>
+            {{item.adviceDesc}}
+            </view>
+            <view class="list_desc">
+              <van-row>
+                <van-col span="5">
+                  反馈时间 
+                </van-col>
+                <van-col span="10">
+                  {{item.dateTimeDesc}}
+                </van-col>
+                <van-col span="4">受理人</van-col>
+                <van-col span="5" wx:if="{{item.poName}}">
+                  <!-- {{item.poName}} -->
+                  <ww-open-data corpid="{{comObj.corpId}}" openid="{{item.poName}}" type="userName"/>
+                </van-col>
+                <van-col span="5" wx:else>
+                  暂未受理
+                </van-col>
+              </van-row>
+            </view>
+          </van-col>
+          <van-col span="4">
+            <view class="proc_stat_desc proc_stat_desc_color_{{item.procStat}}">{{item.procStatDesc}}</view>
+          </van-col>
+        </van-row>
+      </view>
+      <view wx:if="{{index < (objList.length-1)}}" class="divider"></view>
+    </block>
+</view>
+<view wx:if="{{!(objList == null || objList.length == 0) && totalNum > (pageNum * pageSize)}}" class="loadMore" bindtap="loadMore">点击/上拉加载更多</view>
+
+
+

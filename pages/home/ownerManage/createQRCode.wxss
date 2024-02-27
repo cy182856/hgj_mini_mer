@@ -1,0 +1,42 @@
+/* pages/family/members/createQRCode.wxss */
+.rootpage{
+	height: 100%;
+}
+
+.qr_content{
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.qr-text{
+  margin-top: 40rpx;
+  font-size: 28rpx;
+}
+.house-container{
+  background: white;
+  padding: 10rpx 40rpx 10rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-start;
+}
+.ext_margin_bottom{
+  padding-bottom: 50rpx;
+}
+.text-label{
+  margin-right: 40rpx;
+  text-align: right;
+  width: 250rpx;
+}
+
+.text_title{
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-bottom: 10rpx;
+  font-weight: 600;
+  text-align: left;
+}

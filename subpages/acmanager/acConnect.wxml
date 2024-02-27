@@ -1,0 +1,71 @@
+<!--subpages/acmanager/acConnect.wxml-->
+<import src="/component/empty/empty.wxml"></import>
+
+<view >
+  <view class="top-img-view">
+    <van-image src="/images/icon_condev_top.png" width="100vw" fit="widthFix"></van-image>
+  </view>
+  <block wx:if="{{blutoothDevList.length==0}}">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'未找到可用设备'}}"></template>
+</block>
+<block wx:else>
+<view class="dev_list-content">
+  <view class="fun-card" >
+
+    <text  class="func-title">选择门禁设备</text>
+    <view  style="height: 1px;width: 90%;background-color: #f2f2f2;margin-left: 5%;margin-right: 5%"></view>
+<view style="height: 10rpx;"></view>
+<scroll-view scroll-y="true" style="height: 65vh;">
+<block wx:for="{{blutoothDevList}}" wx:key="DEVSN">
+<van-cell value="" title-width="65vw" data-Bindex="{{index}}" catchtap="onTapConnectDev" border="{{false}}" use-label-slot>
+<view slot="title" class="cell-title">
+  <text>{{item.DEVSN}} </text>
+
+  
+</view>
+<view slot=""  class ="cell-value_col"  > 
+<button class="connectButton"> 连接</button>
+</view>
+<view slot="label" > {{item.ACDEVNAME}}
+</view>
+</van-cell>
+</block>
+</scroll-view>
+<view style="height: 10rpx;"></view>
+</view>
+</view>
+</block>
+
+</view>
+<!--
+<block wx:if="{{blutoothDevList.length==0}}">
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'未找到可用设备'}}"></template>
+</block>
+<view   wx:else>
+<view style="margin-top: 40rpx;">
+  <text  class="func-title">选择门禁设备：</text>
+</view>
+
+<scroll-view  >
+
+<view class="fun-card" >
+<view style="height: 10rpx;"></view>
+<block wx:for="{{blutoothDevList}}" wx:key="DEVSN">
+<van-cell value="" title-width="65vw" is-link data-Bindex="{{index}}" catchtap="onTapConnectDev" border="{{index!=blutoothDevList.length-1}}" use-label-slot>
+<view slot="title" class="cell-title">
+  <text>{{item.DEVSN}} </text>
+  <!-- <view style="margin-left: 40rpx;width: 60%;text-align: center">{{item.location}} 
+  <!-- </view> 
+  
+</view>
+<view slot="" style="color:green;">  连接
+</view>
+<view slot="label" > {{item.location}}
+</view>
+</van-cell>
+</block>
+<view style="height: 10rpx;"></view>
+</view>
+</scroll-view>
+</view>
+-->

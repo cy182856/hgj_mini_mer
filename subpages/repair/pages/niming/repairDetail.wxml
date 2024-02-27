@@ -1,0 +1,193 @@
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog"/>
+<!-- 报修详情模块 -->
+<view class="view_detail">
+  <!-- 报修详情 -->
+  <view class="view_title_desc" style="padding-top:13rpx;">
+    <van-cell title-class="txt"  title="{{obj.repairDesc}}" border="{{false}}"/>
+  </view>
+  <van-divider dashed 
+        customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;"/>
+  <!-- 图片 -->
+  <view wx:if="{{fileList.length > 0}}" class="view_img">
+    <van-uploader   file-list="{{ fileList }}" 
+                    max-count="{{maxCount}}" 
+                    upload-text="图片加载中"
+                    deletable="{{false}}"/>
+  </view>
+  <view style="padding-button:10rpx;">
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time"  title="报修人" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  border="{{false}}">
+          <view slot="title">
+            <view class="van-cell-text">
+              {{obj.nickName}}
+            </view>
+          </view>
+        </van-cell>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time detail_title" title="报修类型" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  title="共建家园" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time detail_title" title="报修时间" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  title="{{obj.repairTimeDesc}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time"  title="报修单号" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  title="{{obj.repairSeqId}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.poName}}">
+      <van-col span="8">
+        <van-cell custom-class="view_time"  title="维修人员" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  title="{{obj.poName}}" value-class="avg" value="{{obj.avgPoScore}}分" border="{{false}}"/>
+      </van-col>
+    </van-row>
+    <van-row wx:if="{{obj.poMp && obj.isInfoPub == 'Y'}}">
+      <van-col span="8">
+        <van-cell custom-class="view_time"  title="联系电话" border="{{false}}"/>
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time"  title="{{obj.poMp}}" border="{{false}}"/>
+      </van-col>
+    </van-row>
+  </view>
+  <!-- 支付勋章 -->
+  <van-cell wx:if="{{obj.huScore > 0}}" custom-class="xunzhang" title="+1 家园勋章" border="{{false}}">
+      <view slot="icon">
+        <van-icon name="/images/mine/xunzhang.png"  size="2em"/>
+      </view>
+    </van-cell>
+
+    <van-row>
+        <van-col span="12">
+          <van-rate
+            wx:if="{{obj.procStat != '09' && obj.procStat != '11'}}"
+            custom-class="wuxing1"
+            value="{{ rateScore }}"
+            size="{{ 25 }}"
+            void-icon="star"
+            disabled
+          />
+        <van-rate
+          wx:if="{{obj.procStat == '09' || (obj.procStat == '11' && obj.repairType == 'P' && obj.rateScore < 1)}}"
+          custom-class="wuxing1"
+          value="{{ obj.rateScore }}"
+          size="{{ 25 }}"
+          void-icon="star"
+          bind:change="changeScore"
+        />
+        <van-rate
+          wx:if="{{obj.procStat == '11' && obj.rateScore > 0}}"
+          custom-class="wuxing1"
+          value="{{ obj.rateScore }}"
+          size="{{ 25 }}"
+          void-icon="star"
+          readonly
+        />
+        </van-col>
+        <van-col span="12">
+          <view class="pingjia1" style="text-align:right;">
+              <van-button wx:if="{{obj.procStat != '11' && obj.procStat != '09'}}" type="info" size="small" disabled>立即评价</van-button>
+              <van-button wx:if="{{obj.procStat == '09' || (obj.procStat == '11' && obj.repairType == 'P' && obj.rateScore < 1)}}" type="info" size="small"  bind:click="pingjia">立即评价</van-button>
+            </view>
+        </van-col>
+      </van-row>
+</view>
+
+  <!-- 留言 -->
+<van-collapse accordion value="{{ activeNames }}" bind:change="onChange" bind:open="onOpen">
+    <van-collapse-item title="维修过程" name="1">
+      <view wx:for="{{msgList}}" wx:key="*this">
+        <van-row>
+          <van-col span="2">
+            <van-icon wx:if="{{item.msgSource == 'H'}}" 
+                            name="/subpages/repair/images/yezhu.png" size="2em" custom-style="padding-top:22rpx;"/>
+            <van-icon wx:elif="{{item.msgSource == 'P'}}" 
+                           name="/subpages/repair/images/wuye.png"  size="2em" custom-style="padding-top:22rpx;"/>
+            <van-icon wx:else 
+                            name="/subpages/repair/images/jiqi.png"  size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <van-cell wx:if="{{item.imgCnt > 0}}"
+                      title="{{item.msgBody}}"  
+                      border="{{false}}"/> 
+            <van-cell wx:else title="{{item.msgBody}}"  
+                  label="{{item.dtlDateTimeDesc}}"
+                  border="{{false}}"/>
+                 
+          </van-col>
+        </van-row>           
+        <view wx:if="{{item.imgCnt > 0 && item.dtlId == msgDtlId }}" class="view_img">
+            <van-col span="2">
+              <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+            </van-col>
+            <van-col span="22">
+              <van-uploader   file-list="{{ msgImgList }}" 
+                            max-count="{{msgImgCnt}}" 
+                            disabled="{{true}}"
+                            upload-text="图片加载中"
+                            deletable="{{false}}"/>
+            </van-col>
+        </view>
+        <view wx:if="{{item.imgCnt > 0 && item.dtlId == msgFinishDtlId }}" class="view_img">
+            <van-col span="2">
+              <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+            </van-col>
+            <van-col span="22">
+              <van-uploader   file-list="{{ msgfinishImgList }}" 
+                          max-count="{{msgfinishImgCnt}}"
+                          disabled="{{true}}"
+                          upload-text="图片加载中"
+                          deletable="{{false}}"/>
+            </van-col>
+        </view>
+        <van-row wx:if="{{item.imgCnt > 0}}">
+          <van-col span="2">
+            <van-icon name="" size="2em" custom-style="padding-top:22rpx;"/>
+          </van-col>
+          <van-col span="22">
+            <van-cell title=""  
+                  label="{{item.dtlDateTimeDesc}}"
+                  border="{{false}}"/>
+          </van-col>
+        </van-row>
+      </view>
+    </van-collapse-item>
+</van-collapse>
+
+<view class="view_cancel">
+  <view wx:if="{{obj.procStat == '01' || obj.procStat == '03'}}" class="cancel_btn">
+        <van-button plain  type="info"   bind:click="cancel" custom-style="width:85%;border: 1px solid #1989fa;">取消报修</van-button>
+      </view>
+  <view style="height:100rpx;"></view>
+</view>
+
+<!-- 其他，时间弹窗 -->
+  <!-- picker -->
+  <van-popup show="{{ show }}" bind:close="onClose"  position="bottom">
+    <van-picker columns="{{ columns }}" bind:cancel="onClose" bind:confirm="changeTime" show-toolbar="{{true}}"/>
+  </van-popup>
+
+

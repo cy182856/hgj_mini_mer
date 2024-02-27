@@ -1,0 +1,18 @@
+
+<view class="rootpage">
+<view class="qr_content">
+  <view class="text_title">绑定二维码</view>
+  <van-image width="200" height="200" src="{{imgUrl}}" />
+  <view class="qr-text">微信扫描关注</view>
+</view>
+<view class="house-container">
+  <text class="text-label">房屋：</text>
+  <text>{{commanyShortName}}
+   {{areaName}}
+  </text>
+</view>
+<view class="house-container ext_margin_bottom">
+  <text class="text-label">二维码有效期：</text>
+  <text>{{qrExpTime}}</text>
+</view>
+</view>

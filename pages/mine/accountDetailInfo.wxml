@@ -1,0 +1,59 @@
+<!--pages/mine/accountDetailInfo.wxml-->
+<view>
+  <van-cell-group title=" " border="{{true}}">
+    <van-cell title="姓名：" value="{{userInfo.PONAME}}" />
+    <van-cell title="所属部门：" value="{{userInfo.DEPTNAME}}" />
+    <van-cell title="角色："  wx:if="{{postNames!=''&&postNames.length>0}}">
+    <view slot=''>
+        <view class="postName-list-view" wx:for="{{postNames}}" wx:key="POSTID" >
+          <view>{{item.POSTNAME}}</view>
+        </view>
+        </view>
+    </van-cell>
+  </van-cell-group>
+
+  <van-cell-group title=" " border="{{true}}" border="{{false}}">
+    <van-cell title="手机号码：" >
+      <view class="rateContainer" slot="">
+        <input 
+          class="{{canModify ? 'inputField_modify' : 'inputField_noModify'}}"
+          placeholder-class="placeholderClass"
+          value="{{newPhone}}"
+          placeholder="请输入手机号"
+          disabled="{{!canModify}}"
+          type="number"
+          confirm-type="done"
+          bindinput="onInputPhoneNum"
+        />
+      </view>
+    </van-cell>
+    <van-cell title="微信ID：" >
+      <view class="rateContainer" slot="">
+        <input 
+          class="{{canModify ? 'inputField_modify' : 'inputField_noModify'}}"
+          placeholder-class="placeholderClass"
+          value="{{newWxId}}"
+          placeholder="请输入微信ID"
+          disabled="{{!canModify}}"
+          confirm-type="done"
+          bindinput="onInputWxId"
+        />
+      </view>
+    </van-cell>
+    <van-cell title="信息是否公开：">
+      <view class="switchContainer" slot="">
+        <text class="{{canModify ? 'inputField_modify' : 'inputField_noModify'}}" style="font-size:24rpx; margin-right:6rpx;">{{swichStat ? "公开" : "保密"}}</text>
+        <van-switch checked="{{ newSwitchStat == 'Y' }}" disabled="{{!canModify}}" size="32rpx" bind:change="onSwitchChange" />
+      </view>
+    </van-cell>
+    <view class="buttonContainer" style="justify-content:{{canModify ? 'space-evenly' : 'center'}}">
+      <block wx:if="{{!canModify}}">
+        <button class="button" bindtap="onModify">修改</button>
+      </block>
+      <block wx:else>
+        <button class="button" bindtap="onCancel">取消</button>
+        <button class="button" bindtap="onSave" disabled="{{isLoading}}">保存</button>
+      </block>
+    </view>
+  </van-cell-group>
+</view>

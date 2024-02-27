@@ -1,0 +1,76 @@
+<import src ="../../../templates/heoinfo-template/heoinfo-item-template.wxml"/>
+<import src="../../../component/loading/loading.wxml"></import>
+<import src="../../../component/empty/empty.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<van-tabs active="{{ active }}" sticky  offset-top ="0" color="#189AFE" bind:change="onChange">
+  <van-tab title="我的发布">
+    <view class="heoinfo-view" wx:if="{{heoInfos && heoInfos.length>0}}" style="padding-bottom:{{padding_bottom}}rpx;">
+      <template is="heoInfoItem" data="{{isTopHeoInfos,heoInfos,hasMoreData,isLoadingMoreData,isRefreshing,showStat,showClose,queryType,poSeqId}}" />
+    </view>
+    <view class="empty-view" style="height:{{windowH}}px"  wx:else>
+      <block wx:if="{{queryFinish}}">
+        <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'您还没有发布任何信息'}}"></template>
+      </block>
+      <block wx:else>
+        <view style="height: 80rpx;"></view>
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+      </block>
+    </view>
+  </van-tab>
+  <van-tab title="我的参与">
+    <view class="heoinfo-view" wx:if="{{heoInfos && heoInfos.length>0}}" style="padding-bottom:{{padding_bottom}}rpx;">
+      <template is="heoInfoItem" data="{{isTopHeoInfos,heoInfos,hasMoreData,isLoadingMoreData,isRefreshing,queryType,poSeqId}}" />
+    </view>
+    <view class="empty-view" style="height:{{windowH}}px" wx:else>
+      <block wx:if="{{queryFinish}}">
+        <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'您还没有参与任何信息'}}"></template>
+      </block>
+      <block wx:else>
+        <view style="height: 80rpx;"></view>
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+        <van-skeleton title avatar row="3" />
+      </block>
+    </view>   
+  </van-tab>
+</van-tabs>
+<block wx:if="{{heoTypeList && heoTypeList.length >0}}">
+  <movable-area class="movable-area">
+    <movable-view  x="{{x}}" y="{{y}}" animation="{{false}}" class="movable-view" direction='all' bindtouchend="moveEnd" catchtap="release">
+      <van-icon
+          slot="icon"
+          name="/images/heo/release.png" 
+          size="50"
+      />
+    </movable-view>
+  </movable-area>
+</block>
+<van-popup
+  show="{{ showHeoTypeClass }}"
+  position="bottom"
+  round
+  bind:click-overlay="closeCheckHeoType">
+  <view style="margin-top:20rpx;" catchtouchmove='preventTouchMove'>
+    <van-grid column-num="3" border="{{false}}" custom-class="margin-top:20rpx !important">
+      <block wx:for="{{ownerHeoThemes}}" wx:for-item="item" wx:for-index="index">
+          <van-grid-item  text="{{item.themeDesc}}" text-class="van-grid-item-text" link-type="navigateTo" url="{{'/subpages/heo/heorelease/heorelease?theme='+item.theme}}">
+            <van-icon
+                slot="icon"
+                name="/images/heo/{{item.theme}}.png" 
+                size="50"
+            />
+          </van-grid-item>
+      </block>
+    </van-grid>
+  </view>
+  <view class="close-view">  
+    <view class="close-icon" bindtap="closeCheckHeoType">
+     <text class="iconfont jia-guanbi"></text>
+    </view>
+  </view>
+</van-popup>
+<van-dialog id="van-dialog"  overlay-style ="z-index:6666 !important;"  confirm-button-color ="#189AFE" />

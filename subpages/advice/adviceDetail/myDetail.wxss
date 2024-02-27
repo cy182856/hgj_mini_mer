@@ -1,0 +1,96 @@
+.view_detail{
+  background-color: #ffffff;
+  border: 0rpx solid #B5B5B5;
+  border-radius: 20rpx;
+  width:690rpx;
+  margin: 16rpx 30rpx 30rpx 30rpx;
+  font-size: 28rpx;
+}
+.view_title_desc{
+  color: #474747;
+  padding-top: 10rpx;
+}
+.view_time{
+  color: #ABABAB !important;
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px) !important;
+}
+.view_repiar{
+  color: #1B1B1B;
+}
+.view_img{
+  padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px);
+}
+.wuxing{
+  padding: var(--cell-vertical-padding,0px) var(--cell-horizontal-padding,16px) !important;
+}
+.pingjia{
+  padding-right: 20rpx;
+}
+
+/* vant dialog弹窗的确定按钮统一改为 */
+.dialog-index--van-dialog__confirm{
+  color: #189AFE !important;
+}
+.detail_title{
+  padding-right: 0rpx !important;
+ }
+ .detail_value{
+  padding-left: 0rpx !important;
+  padding-right: 0rpx !important;
+ }
+
+ .txt{
+  text-overflow:ellipsis;
+  /* z-index: -1; */
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 20;
+  overflow: hidden;
+ }
+
+ .view_do_btn{
+  text-align: center;
+  padding: 30rpx 0rpx;
+  position: fixed;
+  bottom: 0rpx;
+  background-color: #FFFFFF;
+  width: 100%;
+}
+
+.do_btn{
+  width: 630rpx;
+}
+
+.do_btn_two{
+  width: 315rpx;
+}
+
+.view_finish_btn{
+  text-align: center;
+  width: 100% ;
+  padding: 15rpx 0rpx 25rpx 0rpx;
+}
+.finish_btn{
+  width: 250rpx;
+  color: #FFFFFF;
+  background-color: #189AFE;
+  border-radius: 10rpx;
+  padding: 11rpx 20rpx;
+  margin-left: 200rpx;
+}
+
+.view_chose_type{
+  padding-bottom: 15rpx;
+}
+
+.view_upd_item{
+  padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,16px);
+}
+
+.view_po_name{
+  padding-left: 32rpx;
+  color: #ABABAB;
+  line-height: 68rpx;
+  font-size: var(--cell-font-size,14px);
+}

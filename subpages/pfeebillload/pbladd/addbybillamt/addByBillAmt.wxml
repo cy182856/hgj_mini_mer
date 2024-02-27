@@ -1,0 +1,268 @@
+<!-- subpages/humsgspecified/masssendhumsg/massSendHuMsg.wxml -->
+<view style="border:2rpx solid #FFFFFF; border-radius:8rpx;">
+  <!-- <van-cell title="选择区域" center border="{{ false }}">
+    <van-dropdown-menu >
+      <van-dropdown-item id="area" title="{{selectArea.areaName}}" >
+        <van-cell-group>
+          <block wx:for='{{areaList}}' wx:key='areaId'>
+            <van-cell  title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+              <van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+            </van-cell>
+          </block>
+        </van-cell-group>
+      </van-dropdown-item>
+    </van-dropdown-menu>
+  </van-cell> -->
+  <view class="cellRow1" style="display:{{showArea ? 'block' : 'none'}};">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>选择区域</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <van-dropdown-menu >
+            <van-dropdown-item id="area" title="{{selectArea.areaName}}" >
+              <van-cell-group>
+                <block wx:for='{{areaList}}' wx:key='areaId'>
+                  <van-cell  title-class="{{item.areaName == selectArea.areaName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.areaName}}" data-index='{{index}}' bindtap='onAreaChange'>
+                    <van-icon wx:if="{{item.areaName == selectArea.areaName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                  </van-cell>
+                </block>
+              </van-cell-group>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1" >
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>选择楼号</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <van-dropdown-menu>
+            <van-dropdown-item id="building" title="{{selectBuilding.buildingName}}" >
+              <van-cell-group>
+                <block wx:for='{{buildingList}}' wx:key='buildingId'>
+                  <van-cell  title-class="{{item.buildingName == selectBuilding.buildingName ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.buildingName}}" data-index='{{index}}' bindtap='onBuildingChange'>
+                    <van-icon wx:if="{{item.buildingName == selectBuilding.buildingName}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                  </van-cell>
+                </block>
+              </van-cell-group>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </van-col>
+    </van-row>
+  </view>  
+
+  <view class="cellRow1" >
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>选择室号</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <van-dropdown-menu>
+            <van-dropdown-item id="room" title="{{selectRoom.houseNo}}" >
+              <van-cell-group>
+                <block wx:for='{{roomList}}' wx:key='houseSeqId'>
+                  <van-cell  title-class="{{item.houseNo == selectRoom.houseNo ? 'cell_titleClass_s' : 'cell_titleClass'}}"  title="{{item.houseNo}}" data-index='{{index}}' bindtap='onRoomChange'>
+                    <van-icon wx:if="{{item.houseNo == selectRoom.houseNo}}" slot="right-icon" name="success" color='#1798dc' size="40rpx" />
+                  </van-cell>
+                </block>
+              </van-cell-group>
+            </van-dropdown-item>
+          </van-dropdown-menu>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>已缴清月份</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right; color:#ABABAB;">
+          <text>{{ pfeePayMonDesc }}</text>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>账单开始月份</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right; color:#ABABAB;">
+          <text>{{beginBillMonDesc}}</text>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1" ontap="onShowEndBillMonPicker">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>账单结束日期</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <text>{{endBillMonDesc}}</text>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>付款方式</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <van-dropdown-menu>
+            <van-dropdown-item value="{{ payChnl }}" options="{{ payChnls }}" bind:change="onChangePayChnl" />
+          </van-dropdown-menu>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1" ontap="onShowOrdDatePicker">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>订单日期</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <text>{{ordDateDesc}}</text>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>订单流水号</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          <van-field
+            value="{{ ordSeqId }}"
+            placeholder="选填，请输入订单流水号"
+            input-align="right"
+            custom-style="padding-right:0px;"
+            maxlength="8"
+            border="{{ false }}"
+            bind:change="onChangeOrdSeqId"
+          />
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class="cellRow1">
+    <van-row>
+      <van-col span="8">
+        <view style="color:#ABABAB; "><text>备注</text></view>
+      </van-col>
+      <van-col span="16">
+        <view class="" style="float:right;">
+          
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view>
+    <van-row>
+      <van-col span="24">
+        <van-field
+          value="{{ billRemark }}"
+          placeholder="选填，请输入账单备注"
+          maxlength="60"
+          show-word-limit="{{ true }}"
+          border="{{ false }}"
+          bind:change="onChangeBillRemark"
+        />
+      </van-col>
+    </van-row>
+  </view>
+</view>
+
+<view style="margin-top:24rpx; border:2rpx solid #FFFFFF; border-radius:8rpx;">
+  <van-cell title="账单明细">
+    <text style="color:#58ABFF;">总金额：{{ billAmtTotal }}</text>
+  </van-cell>
+  <view wx:if="{{pfeeMonBillDtos && pfeeMonBillDtos.length > 0}}">
+    <van-row class="billDetails">
+      <van-col span="8" style="color: #ababab; text-align:left;">
+        账单月份
+      </van-col>
+      <van-col span="8" style="color: #ababab; text-align:right;">
+        金额
+      </van-col>
+      <van-col span="8" style="color: #ababab; text-align:right;">
+        状态
+      </van-col>
+    </van-row>
+    <view wx:for="{{pfeeMonBillDtos}}" wx:for-index="index" wx:for-item="item" wx:key="billMon" >
+      <van-row data-msgdate="{{item.msgDate}}" data-msgseqid="{{item.msgSeqId}}" bindtap="onTapWatchDetail" class="billDetails">
+        <van-col span="8" style="color: #ababab; text-align:left;">
+          {{item.billMonDesc}}
+        </van-col>
+        <van-col span="8" style="color: #ababab; text-align:right;">
+          {{item.billAmtDesc}}
+        </van-col>
+        <van-col span="8" style="color: #ababab; text-align:right;">
+          {{item.statDesc}}
+        </van-col>
+      </van-row>
+    </view>
+  </view>
+  <view wx:else>
+    <van-row class="billDetails2" >
+        <van-col span="24" style="color: #ababab; text-align:center;">
+          请先选择账单结束日期
+        </van-col>
+    </van-row>
+  </view>
+</view>
+
+<view style="width:100%;">
+  <view class="queryButton" bindtap="onSubmitAudit">提交审核</view>
+</view>
+
+<van-popup show="{{ showEndBillMonPicker }}" 
+  position="bottom"
+  custom-style="height: 50%; width:100%;"
+  bind:close="onCloseEndBillMonPicker">
+  <van-datetime-picker
+          type="year-month"
+          value="{{ currentDate }}"
+          min-date="{{ minDate }}"
+          bind:confirm="onConfirmEndBillMon"
+          bind:cancel="onCancelEndBillMon"
+        />
+</van-popup>
+
+<van-popup show="{{ showOrdDatePicker }}" 
+  position="bottom"
+  custom-style="height: 50%; width:100%;"
+  bind:close="onCloseOrdDatePicker">
+  <van-datetime-picker
+          type="date"
+          value="{{ currentOrdDate }}"
+          bind:confirm="onConfirmOrdDate"
+          bind:cancel="onCancelOrdDate"
+        />
+</van-popup>

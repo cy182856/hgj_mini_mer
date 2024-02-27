@@ -1,0 +1,170 @@
+<block wx:if="{{!showResult}}">
+  <view style="height:100%;background-color:#fff;">
+
+  </view>
+</block>
+<block wx:else>
+  <view class="rootpage" > 
+    <view class="root" style="padding-bottom:40rpx;">
+      <view class="check-result-view">
+        <view class="check-icon-view">
+          <block wx:if="{{checkSuccess}}">
+            <image class="check-result-image" src="/images/home/pass.png">
+            </image>
+          </block>
+          <block wx:else>
+            <image class="check-result-image" src="/images/home/forbid.png">
+            </image>
+          </block>
+        </view>
+        <view class="check-desc-view">
+            {{errDesc}}
+        </view>
+      </view>
+      <view class="card-body">
+        <view class="fun-card">
+          <view wx:if="{{visitPass.houseName != null}}" class="area-info-view">
+            <!-- <view class="estate-name-view">
+              {{estateName}}
+            </view> -->
+            <view  class="house-name-view">
+              {{visitPass.houseName}}
+            </view>
+          </view>
+          <!-- <block wx:if="{{visitInfo && visitInfo!= null}}"> -->
+            <block>
+              <van-divider />
+              <view class="visit-info-view">
+                <view class="title-view-noradius"> 
+                  <text class="text-title">访客信息</text>
+                </view>
+                <van-cell-group custom-class ="van-cell-group-class" border="{{ false }}">
+                  <!-- <block wx:if="{{visitInfo.visitType == 'V'}}"> -->
+                    <block>
+                    <van-cell custom-class="van-cell-class" title="访客姓名" value="{{visitPass.visitName}}" border="{{ false }}" />
+                    <van-cell custom-class="van-cell-class" title="车牌号" value="{{visitPass.carNum && visitPass.carNum != '' ? visitPass.carNum : '无'}}" border="{{ false }}"/>
+                    <van-cell custom-class="van-cell-class" title="剩余可用次数" value="{{visitPass.resNum == -1 ? '无限制' : visitPass.resNum}}" border="{{ false }}" />
+                  </block>
+                  <!-- <van-cell custom-class="van-cell-class" title="失效时间" value="{{visitPass.expDate}}" border="{{false}}" /> -->
+                  <van-cell custom-class="van-cell-class" title="生效时间" value="{{visitPass.effectuateDate}}" border="{{false}}" />
+
+                </van-cell-group>
+              </view>
+          </block>
+        </view>
+        <block wx:if="{{visitInoutLogDtos.length > 0}}">
+          <van-collapse border="{{ false }}" custom-class="van-collapse-class" value="{{ activeNames }}" bind:change="onChange">
+            <van-collapse-item  custom-class = "" content-class ="van-collapse-content-class" title="出入记录" name="1">
+              <van-cell-group border="{{ false }}" custom-class="border-round-class">
+                <block wx:for="{{visitInoutLogDtos}}" wx:for-item="item" >
+                  <view class="item-list-view">
+                    <view class="item-flex-left">
+                      {{item.actTimeDesc}}
+                    </view>
+                    <view class="item-flex-right">
+                      {{item.visitType == 'I' ? '入场' : '离场'}}
+                    </view>
+                  </view>
+                </block>
+              </van-cell-group>
+            </van-collapse-item>
+          </van-collapse>
+        </block>
+      </view>
+      <!-- <view class="btn-row bottom_margin" >
+        <view class ="btn-container">
+          <block wx:if="{{passFlag == 1}}">
+            <van-button type ="info"  bindtap="passVisit" custom-class ="pass-button-class">仍要放行</van-button>
+          </block>
+          <block wx:else>
+            <van-button type ="info"  bindtap="backToPrePage" custom-class ="back-button-class">返回</van-button>
+          </block>
+        </view>
+      </view> -->
+
+      <view class="btn-row bottom_margin" >
+        <view class ="btn-container">
+          <block>
+            <van-button type ="info"  bindtap="backToPrePage" custom-class ="back-button-class">返回</van-button>
+          </block>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</block>
+
+<view class="popup-view" wx:if="{{showQucikCodeInput}}" catchtouchmove='preventTouchMove'>
+    <image class='popup-bg'  src='/images/home-bak.png'></image>
+    <view class="choose-type-view" style="top:{{propTop}};min-height:0rpx;width:80%;" catchtap="notHide"  catchtouchmove='preventTouchMove'>
+      <view style="position:absolute;top:10rpx;right:20rpx;font-size:38rpx;" bindtap="onClickHide">
+        <van-icon name="close" />
+      </view>
+      <view style='text-align:center;padding:40rpx;'>
+        <view class="checkcode-input-title">请输入六位通行码</view>
+        <checkInput 
+          bindfinishInput="finishInput" 
+          bindinputFocus = "inputFocus"
+          bindinputBlur = "inputBlur"
+          input_value="{{inputData.input_value}}" 
+          value_length="{{inputData.value_length}}" 
+          isNext="{{inputData.isNext}}" 
+          get_focus="{{inputData.get_focus}}" 
+          focus_class="{{inputData.focus_class}}" 
+          value_num="{{inputData.value_num}}"
+          height="{{inputData.height}}" 
+          width="{{inputData.width}}" 
+          see="{{inputData.see}}" 
+          interval="{{inputData.interval}}">
+        </checkInput>
+        <view class="check-code-btn-view" wx:if="{{showCheckBtn}}">
+          <van-button type ="info"  bindtap="checkQuickCode" custom-class ="checkcode-button-class">验证</van-button>
+        </view>
+      </view>
+    </view>
+</view>
+<van-dialog id="van-dialog" confirm-button-color ="#189AFE"/>
+
+<van-dialog
+  use-slot
+  use-title-slot
+  show-cancel-button = "{{true}}"
+  show="{{ showTip }}"
+  bind:confirm = "confirmTip"
+  bind:close = "closeTip"
+  confirmButtonColor="#189AFE"
+  custom-style=""	
+>
+    <view slot="title" style="font-size:32rpx;color:#666666;margin-left:30rpx;">
+        <view class="minx"><van-icon name="close" bind:click="closeTip"/></view>
+            提示
+    </view>
+    <view  class="gg" style="">
+        <view style="text-align:left;">
+          1、请联系受访人确认是否放行；
+        </view>
+        <view style="text-align:left;padding-top:20rpx;padding-bottom:30rpx;">
+          2、确认放行后系统会记录访客的出入信息及放行操作。
+        </view>
+    </view> 
+</van-dialog> 
+
+<van-dialog
+  use-slot
+  use-title-slot
+  show="{{ showPost }}"
+  bind:confirm = "initData"
+  bind:close = "initData"
+  confirm-button-color ="#189AFE"
+  custom-style=""	
+>
+    <view slot="title" style="font-size:32rpx;color:#666666;">
+        <view class="minx"><van-icon name="close" bind:click="onClickHide"/></view>
+        提示
+    </view>
+    <view  class="gg" style="">
+        <view style="text-align:left;padding:20rpx 0rpx;">
+            {{errDesc}}
+        </view>
+    </view> 
+</van-dialog> 

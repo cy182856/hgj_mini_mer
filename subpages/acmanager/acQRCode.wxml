@@ -1,0 +1,24 @@
+
+<view class="rootpage">
+  <view class="qr-root">
+  <image class='qr-background-image' src='../../../images/home/back-img.png' mode="aspectFill"></image>
+  <view class="qr-content-root">
+    
+  <view class="qr_content">
+  
+  <van-image width="180" height="180" src="{{imgUrl}}" />
+
+  </view>
+  <van-cell title="姓名" value="王武" border="{{false}}"></van-cell>
+  <van-cell title="地址" value="宜山路666号6号102"></van-cell>
+<view style="height:20rpx"></view>
+
+<view class="house-container">
+
+  <text class="text-house-name">注意：
+1. 请将二维码对准门禁设备的摄像头，扫码后请等待开门；
+2. 如反复尝试后仍不能打开，请使用门禁卡</text>
+</view>
+ </view>
+  </view>
+</view>

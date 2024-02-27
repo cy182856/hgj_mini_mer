@@ -1,0 +1,14 @@
+.global-empty {
+  padding-top: 380rpx;
+}
+
+.global-empty-img {
+  display: block;
+  margin: 0 auto;
+}
+
+.global-empty-text {
+  font-size: 24rpx;
+  color: #C0C0C0;
+  text-align: center;
+}

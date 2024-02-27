@@ -1,0 +1,18 @@
+<!--pages/picupload.wxml-->
+<!-- 根据已选择的图片临时路径数组展示图片-->
+    <view class="panel-title">{{title}}</view>
+    <view class="{{uploaderList.length === 0 ? 'ui-uploader-cell':'ui-uploader-cell-other'}}">
+          <!-- 根据已选择的图片临时路径数组展示图片-->
+        <view class='ui-uploader-item'   wx:for="{{uploaderList}}" wx:key="index">
+          <!-- 删除-->
+          <icon class='ui-uploader-item-icon' bindtap='clearImg' data-index="{{index}}" type="clear" size="20" color="#666666" />
+          <!-- 图片-->
+          <image class='preimg' bindtap='showImg' mode='aspectFit' data-index="{{index}}" src='{{item}}'></image>
+        </view>
+          <!-- 上传按钮+框 -->
+        <view class='ui-uploader' bindtap='upload' wx:if="{{showUpload}}">
+          <image class="preimg" src="https://backup-1253855106.cos.ap-shanghai.myqcloud.com/web/qwork_uppic.svg" ></image>
+        </view>
+</view>
+<view wx:if="{{uploaderList.length < piccount}}" class="title2">{{desc}}</view>
+<canvas id="photo_canvas" type="2d" style="width:{{cwidth}}rpx;height:{{cheight}}rpx;position: absolute;left:-1000rpx;top:-1000rpx;"></canvas>

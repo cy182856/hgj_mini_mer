@@ -1,0 +1,192 @@
+<import src="../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<van-dialog id="van-dialog" />
+<view style="height:calc(100% - 0rpx - {{padding_bottom}}rpx)">
+  <scroll-view scroll-y="{{true}}" style="height:100%;">
+    <view class="house-info-view">
+      <view  class="img-view">
+        <image class="head-img" src="../images/background.png"/>
+      </view>
+      <view class="house-left-view">
+        <view class="head-text-view">
+          <view class="house-name-view">
+            <text>{{userInfo.SHORTNAME}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="charge-view">
+      <van-cell data-item="{{chargeOrdLog}}" bind:click="checkDetail" border="{{true}}">
+        <view slot="title">
+          <text class="charge-dtl-title">{{chargeDetail.chargeAreaName}} - {{chargeDetail.deviceName}}</text>
+        </view>  
+      </van-cell>
+      <view class="van-cell-item">
+      <van-cell border="{{ false }}" custom-class="van-cell-item-line">
+        <view slot="title">
+          <view>充电桩序列号</view>
+        </view>  
+        <view slot="">
+          <view style="word-wrap:break-word;">
+            {{chargeDetail.deviceSn}}
+            <text data-item="{{chargeDetail.deviceSn}}" bindtap="copyDeviceSn" class="copy-btn-class">复制</text>
+          </view>
+        </view>
+      </van-cell>
+      <block wx:if="{{chargeDetail.deviceDesc && chargeDetail.deviceDesc != ''}}">
+      <van-cell title="设备说明" value="{{chargeDetail.deviceDesc}}" border="{{ false }}" custom-class="van-cell-item-line"/>
+      </block>
+      </view>
+    </view>
+
+    <view class="charge-rule">
+      <van-cell border="{{true}}" use-label-slot="{{true}}">
+        <view slot="title">
+          <view class="charge-dtl-title">计费规则</view>
+        </view>  
+        <view slot="label">
+          <view class="label-class">充电费用包含：基础电价及服务费</view>
+        </view>  
+      </van-cell>
+      
+      <view class="van-cell-item">
+        <van-cell title="单价" value="{{chargeRule.quantityAmt}}元/度" border="{{ false }}" custom-class="van-cell-item-line"/>
+        <block wx:if="{{chargeRule.discountInterval && chargeRule.discountInterval != ''}}">
+        <van-cell title="优惠时段费用" border="{{false}}" custom-class="van-cell-item-line"> 
+          <view slot="">
+          <van-row>
+            <text>{{chargeRule.discountAmt}}元/度</text>
+            <text style="padding-left:10rpx;">（{{chargeRule.discountInterval}}）</text>
+            <image src="../../charge/images/preferential.png" style="width:30rpx;height:30rpx;position: absolute;padding-top: 10rpx;"/>
+          </van-row>
+          <van-row>
+            <view class="label-class"></view>
+          </van-row>  
+          </view>
+        </van-cell>
+        </block>      
+        <block wx:if="{{chargeRule.minAmt != '' && chargeRule.minAmt > 0}}">
+        <van-cell title="订单最低金额" border="{{ false }}" custom-class="van-cell-item-line">
+          <view slot="">
+          <van-row>
+            {{chargeRule.minAmt}}元
+          </van-row>
+          <van-row>
+            <view class="label-class"></view>
+          </van-row>  
+          </view>
+        </van-cell>
+        </block>
+      <view style="height:10rpx;"></view>
+      <van-row>
+        <block wx:if="{{chargeRule.discountInterval && chargeRule.discountInterval != ''}}">
+        <view class="charge-rule-tips-class">● 订单发起后在“优惠时段”区间内产生的电量，将按照优惠金额计算。非“优惠时段”区间内的按照正常单价计算。</view>
+        </block>
+        <block wx:if="{{chargeRule.minAmt != '' && chargeRule.minAmt > 0}}">
+        <view class="charge-rule-tips-class">● 如充电金额小于订单最低金额，将按照“订单最低金额”收取。</view>
+        </block>
+      </van-row> 
+      </view>
+    </view>
+    <block wx:if="{{chargeDetail.isCharge!='Y'}}">
+      <view class="charge-view">
+        <van-cell border="{{true}}">
+          <view slot="title">
+            <text class="charge-dtl-title">充电中业主</text>
+          </view>  
+        </van-cell>
+        <view style="height:20rpx;"></view>
+        <van-cell title="业主昵称" value="{{chargeDetail.nickName}}" border="{{ false }}" custom-class="van-cell-item-line"/>
+        <van-cell title="地址" value="{{chargeDetail.houseAddr}}" border="{{ false }}" custom-class="van-cell-item-line"/>
+        <view style="height:20rpx;"></view>
+      </view>
+    </block>
+
+    <view style="height:20rpx;"></view>
+  </scroll-view>
+</view>
+  <!--订阅弹窗-->
+<van-popup
+  show="{{ sub_popup_show }}"
+  position="bottom"
+  custom-style="height: 20%;"
+  bind:close="onCloseSubPopup"
+  custom-class="sub_popup_class"
+  closeable="true"
+  round="true"
+  >
+  <view style="height:60rpx;"></view>  
+  <view class="charge-sub-view">
+  <form> 
+      <van-cell title="充电桩名称" 
+        value="{{popupSub.deviceName}}" 
+        border="{{ false }}" 
+        value-class ="popup_sub_cell_value"
+      />
+      <van-cell title="开始通知日期" 
+        value="{{subDate}}" 
+        bind:click="onDisplaySubDate" 
+        border="{{ false }}" 
+        value-class ="popup_sub_cell_value"
+        is-link
+      />
+      <van-calendar 
+        show="{{ sub_date_show }}" 
+        default-date="{{newSubDate}}"
+        max-date="{{ maxSubDate }}"
+        bind:close="onCloseSubDate" 
+        bind:confirm="onConfirmSubDate" 
+        show-confirm="{{ false }}"
+        color="#07c160"
+      />
+      <van-cell title="开始通知时间" 
+        value="{{subStartTime}}" 
+        catchtap="onShowTimePopup" 
+        data-item="{{subStartTime}}"
+        border="{{ false }}"  
+        value-class ="popup_sub_cell_value"
+        is-link/>
+      <van-row custom-class="popup-sub-tips">
+        <van-col>1. 通知时间段从开始时间至当天24时，每小时通知一次。</van-col>
+        <van-col>2. 如您不再需要充电桩空闲通知可取消订阅。</van-col>
+      </van-row>
+      <van-row custom-class="popup-line">
+        <van-col span="12" custom-class="charge-center">
+          <van-button bind:click="onCloseSubPopup" round >
+            <text decode="{{true}}">&emsp;取消&emsp;</text> 
+          </van-button>
+        </van-col>
+        <van-col span="12" custom-class="charge-center">
+          <van-button 
+            disabled="{{popupSub.areaSubLog.subStat =='N' ? sub_btn_disabled : false}}" 
+            data-deviceid="{{popupSub.deviceId}}" 
+            data-devicename="{{popupSub.deviceName}}" 
+            bind:click="doChargeDevSub" 
+            round type="primary"
+            form-type="submit">
+            <text>确认订阅</text> 
+          </van-button>
+        </van-col>
+      </van-row>
+  </form>   
+  </view>
+</van-popup>
+
+  <!--订阅时间弹窗-->
+  <van-popup
+  show="{{ time_popup_show }}"
+  position="bottom"
+  bind:close="onCloseTimePopup"
+  custom-class="time_popup_class"
+  round="true"
+  >
+  <van-datetime-picker
+    type="time"
+    value="{{ newSubTime }}"
+    min-hour="{{ minSubTimeHour }}"
+    filter="{{ filter }}"
+    title="选择时间"
+    bind:confirm="onConfirmSubTime"
+    bind:cancel="onCancelSubTime"
+  />
+  </van-popup>

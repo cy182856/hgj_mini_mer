@@ -1,0 +1,160 @@
+<!-- 引用 -->
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+
+
+<view class="contant">
+  <!-- 报修类型行 -->
+  <view class="view_jilu view_jilu_height">
+    <van-row>
+      <van-col span="15"><text class="leixing">报修类型</text></van-col>
+      <van-col span="1">
+        <view style="padding-top:4rpx;">
+          <van-image width="28rpx" height="36rpx" src="/subpages/repair/images/jilu.png" />
+        </view>
+      </van-col>
+      <van-col span="8">
+        <view style="padding-left:5rpx;" bindtap="toListPage">
+          <text class="jilu">报修记录</text>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+
+  
+  <!-- 选择 -->
+  <view  class="view_jilu view_chose">
+    <van-radio-group value="{{ repairType }}" bind:change="choseType">
+      <van-row>
+        <van-col span="8">
+          <van-radio wx:if="{{obj.propType == 'R'}}" name="S">个人住宅</van-radio>
+          <van-radio wx:else name="S">客户区域报修</van-radio>
+        </van-col>
+        <van-col span="12">
+          <van-radio name="P">公共区域报修</van-radio>
+        </van-col>
+      </van-row>
+      <!-- <view wx:if="{{ repairType == 'S' && obj.propType == 'R'}}" class="chose_desc">个人房屋内的报修</view>
+      <view wx:elif="{{ repairType == 'S' && obj.propType == 'B'}}" class="chose_desc">房屋内的报修</view> -->
+      <!-- <view wx:else class="chose_desc">公共设施报修,共建家园有机会获得家园勋章</view> -->
+      <view wx:if="{{ repairType == 'X' }}" style="margin-top: 15px;">
+        <van-col span="15">房屋选择</van-col>
+        <view style="position:relative;top:20rpx;">
+          <!-- 选中之后的数据展示 -->
+          <view class="inputPlaceholder" wx:if='{{value}}' bindtap="changejiantou">
+            <text style="color:black;">{{value}}</text>
+            <view class="jiantou1" wx:if='{{isjiantou}}'><i class="iconfont icon-jiantou"></i></view>
+            <view class="jiantou1" wx:else='{{isjiantou}}'><i class="iconfont icon-jiantou1"></i></view>
+          </view>
+          <!-- 未选择时的Placeholder展示 -->
+          <view class="inputPlaceholder" wx:else bindtap="changejiantou">
+            <text>请选择房屋</text>
+            <view class="jiantou1" wx:if='{{isjiantou}}'><i class="iconfont icon-jiantou"></i></view>
+            <view class="jiantou1" wx:else='{{isjiantou}}'><i class="iconfont icon-jiantou1"></i></view>
+          </view>
+          <!-- 下拉展开后的可选择内容 -->
+          <view class="content" wx:if='{{!isjiantou}}'>
+            <view class="{{item.id==valueid ? 'active':''}}" wx:for="{{selectcontent}}" wx:key="index" bindtap="changecontent" data-datavalue="{{item}}">
+              {{item.resName}}
+            </view>
+          </view>
+        </view>
+      </view>
+      
+    </van-radio-group>
+  </view>
+
+  <view class="view_jilu view_jilu_height">
+    <van-row>
+      <van-col span="15"><text class="leixing">房屋选择</text></van-col>
+      <view style="position:relative;top:20rpx;">
+          <!-- 未选择时的Placeholder展示 -->
+          <van-row>
+            <van-col span="19">
+              <view class="inputPlaceholder">
+                {{grpName}}  {{budName}}  {{selectedHouseName}}
+              </view>
+            </van-col>
+            <van-col span="1" style="margin-left: 30px;">
+              <button bindtap="repairHouse" style="width: 50px; height: 32px; background-color: white; line-height: 1px;">
+                <image style="width: 20px; height: 20px; margin-top: 5px;" src="/images/icon-dw.jpg" ></image>
+              </button>
+            </van-col>
+          </van-row>
+        </view>
+    </van-row>
+  </view>
+
+  <!-- text -->
+  <view class="text_area" style="margin-top: 30px;">
+    <van-row>
+      <van-col span="21">
+        <view class="text_area1">
+          <van-cell-group>
+            <van-field value="{{ repairDesc }}" type="textarea" placeholder="请简要描述一下您遇到的问题，以便我们更好的处理" autosize="{{textArea}}" border="{{ false }}" custom-style="padding: var(--cell-vertical-padding,5px) var(--cell-horizontal-padding,2px);" bind:input="repairDesc" maxlength="140" show-word-limit="{{true}}" />
+          </van-cell-group>
+        </view>
+      </van-col>
+      <!-- <van-col span="3">
+        <view bind:tap="choseDesc" style="padding-top:19rpx;">
+          <van-icon name="/subpages/repair/images/quick.png" custom-style="width:64rpx;height:70rpx;" />
+        </view>
+      </van-col> -->
+    </van-row>
+  </view>
+
+  <view style="margin-left: 20px;">
+    <picupload style="margin-top:50rpx" bind:getUploaderList="getUploaderList"></picupload>
+  </view>
+  <!-- <view class="upload">
+    <van-uploader   file-list="{{ fileList }}" 
+                    image-fit="aspectFill"
+                    bind:after-read="afterRead"
+                    bind:delete="delete"
+                    sizeType="{{sizeType}}"
+                    multiple="{{true}}"
+                    max-count="{{imgUse}}"
+                    upload-text="{{imgCnt}}/{{imgUse}}"
+                    />
+  </view>-->
+  <!-- 期望上门时间 -->
+  <view wx:if="{{repairType == 'S' && obj.isRepairTime === 'Y'}}" class="exp_time">
+    <van-row>
+      <van-col span="7">
+        <van-cell custom-class="view_time time_font" title="期望上门时间:" border="{{false}}" />
+      </van-col>
+      <van-col span="14">
+        <view class="border bd">
+          <van-cell custom-class="view_time view_time_value time_font" title="{{date}} {{time}}" arrow-direction="down" is-link border="{{false}}" bind:click="showPopup" />
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+  <!-- 联系 -->
+  <!-- <view class="service_desc">
+    <view>在线服务时间为{{repairWorkTime}}</view>
+    <view wx:if="{{tel != ''}}">如遇到紧急情况，请致电{{tel}}服务热线。</view>
+  </view> -->
+  <!-- picker -->
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom">
+    <van-picker columns="{{ columns }}" bind:cancel="onClose" bind:confirm="changeTime" show-toolbar="{{true}}" />
+  </van-popup>
+  <!-- submit -->
+  <view class="sub">
+    <van-button wx:if="{{repair_button_disabled == false}}" type="info" custom-class="btn" bindtap="submitInfo">提交</van-button>
+  </view>
+</view>
+
+<!--快捷回复-->
+<van-popup show="{{ showQuickDesc }}" bind:close="closeQuick" position="bottom" close-on-click-overlay="true" custom-style="height: 50%;">
+  <van-picker show-toolbar="true" bind:confirm="sureQuick" bind:cancel="closeQuick" columns="{{ quickDesc }}" />
+</van-popup>
+
+<canvas canvas-id="canvas0" style="width:{{cWidth}}px;height:{{cHeight}}px;position: absolute;left:-18000px;top:-18000px;">
+</canvas>
+<canvas canvas-id="canvas1" style="width:{{cWidth1}}px;height:{{cHeight1}}px;position: absolute;left:-20000px;top:-20000px;">
+</canvas>
+<canvas canvas-id="canvas2" style="width:{{cWidth2}}px;height:{{cHeight2}}px;position: absolute;left:-22000px;top:-22000px;">
+</canvas>

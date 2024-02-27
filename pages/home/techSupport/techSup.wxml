@@ -1,0 +1,28 @@
+<view class='root-page'>
+
+  <view class="logo-view"> 
+    <van-image
+    round
+    width="10rem"
+    height="10rem"
+    fit="contain"
+    src="/images/hgj_logo.png"
+    />
+  </view>
+  <view>
+  <view class="info-view">
+    <text class="text-label">官网：</text>
+    <text class="text-label">www.huiguan.com</text>
+  </view>
+  <view class="info-view">
+    <text class="text-label">邮箱：</text>
+    <text class="text-label">marketing@huiguan.com </text>
+  </view>
+  <view style="height:50rpx"></view>
+  <view class="info-view">
+     <text class="text-blue">本产品由 慧管(上海)信息科技有限公司 提供技术支持</text> 
+  </view>
+  <view style="height:400rpx"></view>
+</view>
+
+</view>

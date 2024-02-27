@@ -1,0 +1,51 @@
+page{
+  height: 100%;
+  background-color: #fff;
+}
+
+.heo-choose-type-view{
+  display: flex;
+  position: fixed;
+  top: 30%;
+  height: 30%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.heo-post-view{
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.heo-audit-view{
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.heo-post-btn{
+  width: 200rpx !important;
+  height: 200rpx !important;
+  line-height: 200rpx !important;
+  margin: 0 auto !important;
+  border: none !important;
+  background: #1798dc !important;
+  color: #fff !important;
+  border-radius: 100em !important;
+  font-size: 42rpx !important;
+}
+
+.heo-audit-btn{
+  width: 200rpx !important;
+  height: 200rpx !important;
+  line-height: 200rpx !important;
+  margin: 0 auto !important;
+  border: none !important;
+  background: #f37b1d !important;
+  color: #fff !important;
+  border-radius: 100em !important;
+  font-size: 42rpx !important;
+}

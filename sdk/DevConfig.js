@@ -1,0 +1,20 @@
+
+var PHead="0506" //报文头部
+var packetLen = 197//蓝牙传输 MTU 默认 20 字节 197
+var dev_XM={
+  ScanUUIDs:["FEF5","5CB8"],notifyChartic:'878b',writeChartic:'878c',ServiceUUIDS:"0886b765"
+}
+//0506 31303437 3039 333034383030303036302020 303334 30393936 445444554456445744584459445a446144624463446444654466446744684469446a446b
+//0506 30303835 3039 333034383030303131332020 303031 30303334 3031 3032 3033 3034 3035 3036 3037 3038 3039 3041 3042 3043 3044 3045 3653 444e 4450323032323032313831303436313564343661373532356436663164366439
+
+// ScanUUIDs:蓝牙扫描，过滤设备，notifyChartic writeChartic 读 写数据特征值，ServiceUUIDS：蓝牙服务UUID
+module.exports = {
+  PHead: PHead,
+  PLen:packetLen,
+  devConfig: function(coopid) {
+    switch(coopid){
+      case 'XIMO':
+      return  dev_XM
+    }
+  }
+};

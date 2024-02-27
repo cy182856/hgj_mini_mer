@@ -1,0 +1,66 @@
+/* pages/home/family/memberList.wxss */
+
+.van-cell__value {
+  text-align: center !important;
+}
+
+.cancelAccount {
+  background-color: #169aff ;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  width: 200rpx;
+  border-radius: 12rpx;
+  color: white;
+}
+
+.title-view {
+  padding-top: 16rpx;
+  padding-left: 30rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+  border-top-left-radius:10rpx;
+  border-top-right-radius: 10rpx;
+}
+.title-view-noradius {
+  padding-top: 16rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.text-title{
+
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: left;
+  color: #3c3c3c;
+}
+.button-row{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.field-text{
+  color: #969799 !important; 
+  font-size: 24rpx !important;
+}
+.modify-row{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}

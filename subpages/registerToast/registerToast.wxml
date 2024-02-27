@@ -1,0 +1,25 @@
+<scroll-view scroll-y="true" class="scroll-view" style="padding-bottom: {{padding_bottom + 160}}rpx;">
+  <view class="register-toast-view">
+    <view class="line-view">
+      <text>智慧管家是服务于社区、商业物业的智慧物业管理平台。</text>
+    </view>
+    <view class="line-view">
+      <text>智慧管家结合实际生活场景，让业主足不出户就可以享受更好的物业服务。同时让物业公司实现智能化办公，为物业提供一系列智慧社区升级与增值服务解决方案。</text>
+    </view>
+    <view class="line-view">
+      <text>智慧管家主要功能包括：门禁管理、物业费缴纳、车辆管理、文件公示、汽车充电、社区公告、公共报修、问卷和投票等。</text>
+    </view>
+  </view>
+  <view class="customer-view">
+    <view class="line-view">
+      <text>如您需要继续了解智慧管家业务，请添加智慧管家客服企业微信。</text>
+    </view>
+    <view class="refund_contact_Img">
+      <image src="./images/refund_contact.png" style="width:400rpx;height:400rpx;"></image>
+    </view>
+    <view class="refund_contact_instru">企业微信客服</view>
+  </view>
+</scroll-view>
+<view class="exist-btn-view" style="padding-bottom: {{padding_bottom}}rpx;">
+  <navigator class="navigator-btn" open-type="exit" target="miniProgram">关闭小程序</navigator>
+</view>

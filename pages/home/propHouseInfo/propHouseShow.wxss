@@ -1,0 +1,139 @@
+Page{
+   background-color: #F2F2F2;
+}
+.propHouseShow_title{
+  box-shadow: 0 2px 12px rgb(100 101 102 / 12%);
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+}
+.condition_col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30rpx;
+  margin-top: 40rpx;
+}
+.condition_display{
+  margin: 0px 40rpx;
+}
+.condition_detail{
+  width: 110rpx;
+  padding: 5rpx;
+  border: 1px solid #f2f2f2;
+  text-align: center;
+  color:#363F4D;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+}
+.condition_detail_zw{
+  width: 110rpx;
+  padding: 5rpx;
+  text-align: center;
+  color:#363F4D;
+  font-size: 26rpx;
+  border-radius: 10rpx;
+}
+.van-dropdown-menu{
+  height: 120rpx !important;
+}
+.van-dropdown-menu__title{
+  font-size: 28rpx !important;
+  color: #363F4D !important;
+}
+.van-cell__title{
+  font-size: 26rpx !important;
+  color: #363F4D !important;
+}
+.deadline{
+  border-bottom: 3rpx solid #f2f2f2;
+}
+.propHouseShow_content{
+  padding-bottom: 30rpx;
+  padding-top: 120rpx;
+}
+.propHouseShow_content_detail{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  display: flex;
+  padding: 20rpx 20rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+.house_show_right{
+  font-size: 26rpx;
+  margin-left: 20rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.house_show_img{
+  height: 250rpx;
+  width: 279rpx;
+  display: flex;
+}
+.house_show_title{
+  font-size:28rpx;
+  color:#363F4D;
+  margin-right: 70rpx;
+}
+.house_show_releaseDateTime{
+  margin-top: 10rpx;
+  color: #868686;
+}
+.house_show_addr{
+  margin-top: 10rpx;
+  color: #868686;
+}
+.house_show_price{
+  margin-top: 10rpx;
+  color: #868686;
+}
+.record_none{
+  color: #363F4D;
+  text-align: center;
+  font-size: 36rpx;
+  /* padding-top: 10px; */
+  background-color: white;
+}
+.record_more{
+  color: #999999;
+  text-align: center;
+  font-size: 30rpx;
+  padding-bottom: 20rpx;
+}
+.house_show_instru{
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120rpx;
+   box-shadow:0px -1px 5px #e6e1e1;
+   z-index: 999;
+}
+.house_show_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx;
+}
+.house_show_instru_text{
+  font-size: 32rpx;
+  color: #363F4D;
+  margin-left: 20rpx;
+}
+.house_show_instru_desc{
+  display:flex;
+}
+.house_show_icon{
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -25rpx;
+  right: 40rpx;
+}
