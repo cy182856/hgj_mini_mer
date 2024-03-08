@@ -5,7 +5,7 @@
     "include": []
   },
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "es6": false,
     "enhance": true,
     "postcss": true,
@@ -43,7 +43,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.19.1",
-  "appid": "wx68f12959e564a1df",
+  "appid": "wx9c0c8ef7c60aad9e",
   "projectname": "huiguanjia_trunk",
   "simulatorType": "qywx_simulator_plugin",
   "simulatorPluginLibVersion": {

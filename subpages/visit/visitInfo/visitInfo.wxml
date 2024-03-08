@@ -44,6 +44,9 @@
                 <view wx:if="{{visitLog.visitName != null}}" class="visit-log-name">
                   {{visitLog.visitName}}
                 </view>
+                <view wx:if="{{visitLog.visitName== null}}" class="visit-log-name">
+                  临时访客
+                </view>
                 <!-- <block wx:if="{{visitLog.stat == 'I'}}">
                   <view class="visit-log-stat" data-visitlog = "{{visitLog}}" bindtap="checkVisitInoutLog">
                     <text class="blue_color">未到访</text>
@@ -68,23 +71,32 @@
               </view>
               <view style="padding-bottom:10rpx;">
                 <van-cell-group border = "{{ false }}">
+                  <block wx:if="{{visitLog.randNum != null}}">
+                    <van-cell custom-class="van-cell-class" title="访问类型" value="快速通行码" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.cstName != null}}">
+                    <van-cell custom-class="van-cell-class"  title="被访客户" value="{{visitLog.cstName}}" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.randNum == null}}">
+                    <van-cell custom-class="van-cell-class" title="访问类型" value="访客二维码" border="{{ false }}" />  
+                  </block>
                   <block wx:if="{{visitLog.houseName != null}}">
                     <van-cell custom-class="van-cell-class" title="访问地址" value="{{visitLog.houseName}}" border="{{ false }}" />  
                   </block>
-                  <block wx:if="{{visitLog.carNum != null}}">
-                    <van-cell custom-class="van-cell-class" title="车牌号" value="{{visitLog.carNum}}" border="{{ false }}" />  
-                  </block>
                   <block wx:if="{{visitLog.effectuateDate != null}}">
-                    <van-cell title-class="vant-cell-title-class" title="生效日期" value="{{visitLog.effectuateDate}}" border="{{ false }}" />
+                    <van-cell custom-class="van-cell-class" title="生效日期" value="{{visitLog.effectuateDate}}" border="{{ false }}" />
                   </block>
                   <block wx:if="{{visitLog.createTime != ''}}">
-                    <van-cell title-class="vant-cell-title-class" title="通行时间" value="{{visitLog.createTime}}" border="{{ false }}" />
+                    <van-cell custom-class="van-cell-class" title="通行时间" value="{{visitLog.createTime}}" border="{{ false }}" />
                   </block>
                   <block wx:if="{{visitLog.passUrl != null}}">
-                    <van-cell title-class="vant-cell-title-class"  title="访客码" value="{{visitLog.passUrl}}" border="{{ false }}" />  
+                    <van-cell custom-class="van-cell-class"  title="访客码" value="{{visitLog.passUrl}}" border="{{ false }}" />  
                   </block>
                   <block wx:if="{{visitLog.randNum != null}}">
-                    <van-cell title-class="vant-cell-title-class"  title="快速通行码" value="{{visitLog.randNum}}" border="{{ false }}" />  
+                    <van-cell custom-class="van-cell-class"  title="快速通行码" value="{{visitLog.randNum}}" border="{{ false }}" />  
+                  </block>
+                  <block wx:if="{{visitLog.carNum != null && visitLog.carNum != ''}}">
+                    <van-cell custom-class="van-cell-class" title="车牌号" value="{{visitLog.carNum}}" border="{{ false }}" />  
                   </block>
                 </van-cell-group>
               </view>

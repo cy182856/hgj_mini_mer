@@ -47,8 +47,13 @@ doLogin = function() {
   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : null,
   i = (0, util.getCurrentPage)();
-  // var suite_id = 'wwaf0bc97996187867';
-  var suite_id = 'wx68f12959e564a1df';
+
+  // 东方渔人码头企业号
+   var suite_id = 'wwaf0bc97996187867';
+  // appid wx9c0c8ef7c60aad9e
+  // 凡享资产企业号
+  // var suite_id = 'wp2U43agAA5zYxOldvud9BfjBng3oPeQ';
+  // appid wx68f12959e564a1df
   // if(api.env == 'prod'){
   //   suite_id = 'wx68f12959e564a1df';
   // }
