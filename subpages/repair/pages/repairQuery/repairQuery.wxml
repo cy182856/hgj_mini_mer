@@ -113,6 +113,10 @@
           <van-col span="8"><text class="text_right" decode="{{true}}" >报修位置</text></van-col>
           <van-col span="16"> {{item.workPos}}</van-col>
         </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >报修描述</text></van-col>
+          <van-col span="16"> {{item.elements}}</van-col>
+        </van-row>
 
         <view style="display: flex;" class="view_light" wx:if="{{(item.repairStatus=='WOSta_Finish' || item.repairStatus=='WOSta_Visit') && item.labourCost + item.materialCost > 0}}">
             <text class="text_cost">本单费用</text><text>{{item.labourCost + item.materialCost}}</text>
