@@ -1,0 +1,63 @@
+<!-- 引用 -->
+<import src="../../../../template/empty/empty.wxml"></import>
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog"/>
+<!-- 根据UI，距离顶端始终保持14rpx，14+9 -->
+<view style="height:0rpx;"></view>
+
+<!-- tab切换 -->
+<!-- <view class="hd">
+  <block wx:for="{{navList}}" wx:key="navList">
+    <view class="hd_flex {{nav_type == index ? 'hd_flex_on' : ''}}" catchtap="changeType" data-index="{{index}}">{{item}}</view>
+  </block>
+</view> -->
+
+<view class="weui-loadmore" wx:if="{{isRefreshing}}" style="margin-top: 50px;">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips">正在刷新...</view>
+</view>
+
+<!-- 查询的报修记录列表 -->
+<view wx:if="{{feedbackList == null || feedbackList.length == 0}}" >
+  <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无我的报修记录'}}"></template>
+</view>
+
+<view style="margin-top: 0px;" wx:else>
+  <view style="height: auto;" class="view_bg" wx:for="{{feedbackList}}" wx:key="*this">
+	<van-cell  
+           custom-class="vb" 
+           title-class="vcell_title txt" 
+           value-class="daishouli" 
+           title="投诉信息" 
+           is-link value="详情" url="../detail/detail?id={{item.id}}" />
+    <view class="view_desc">
+       
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >投诉人</text></van-col>
+          <van-col span="16"> {{item.cstName}} </van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >电话</text></van-col>
+          <van-col span="16"> {{item.cstPhone}} </van-col>
+        </van-row>
+        <van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >时间</text></van-col>
+          <van-col span="16"> {{item.createTime}}</van-col>
+        </van-row>
+		<van-row>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >描述</text></van-col>
+          <van-col span="13"><text class="repair_desc">{{item.feedbackDesc}}</text></van-col>
+        </van-row>
+    </view>
+
+  </view>
+
+  <view wx:if="{{feedbackList.length > 0 && pageNum < pages}}" 
+        class="last_font" bindtap="loadMore" data-pageNum="{{pageNum}}" data-pageSize="{{pageSize}}">点击加载更多</view>
+  <view wx:elif="{{feedbackList.length > 0 && pageNum == pages}}" class="last_font">已经到底了</view> 
+  <view wx:else class="last_font">暂无记录</view>
+  <view style="height:20rpx;"></view>
+</view>
+

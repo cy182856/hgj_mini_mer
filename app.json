@@ -58,6 +58,14 @@
       ]
     },
     {
+      "root": "subpages/feedback",
+      "name": "feedback",
+      "pages": [
+        "query/query",
+        "detail/detail"
+      ]
+    },
+    {
       "root": "subpages/repair",
       "name": "repair",
       "pages": [

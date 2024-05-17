@@ -1,0 +1,58 @@
+<import src="../../../../template/loading/loading.wxml"></import>
+<template is="loading" data="{{..._loading_}}"></template>
+<!-- 弹窗 -->
+<van-dialog id="van-dialog" />
+<!-- 投诉详情模块 -->
+<view class="view_detail">
+  <!-- 投诉详情 -->
+  <view class="view_title_desc" style="padding-top:13rpx;">
+    <van-cell title-class="txt" title="{{obj.feedbackDesc}}" border="{{false}}" />
+  </view>
+  <van-divider dashed customStyle="color: #1989fa; border-color: #B5B5B5; font-size: 18px; width:90%;padding-left:5%;margin: 3rpx 0rpx;" />
+  <!-- 图片 -->
+
+  <view style="padding-button:10rpx;">
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time" title="投诉人" border="{{false}}" />
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time" border="{{false}}">
+          <view slot="title">
+            <view class="van-cell-text">
+              {{obj.cstName}}
+            </view>
+          </view>
+        </van-cell>
+      </van-col>
+    </van-row>
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time" title="电话" border="{{false}}" />
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time" title="{{obj.cstPhone}}" border="{{false}}" />
+      </van-col>
+    </van-row>  
+    <van-row>
+      <van-col span="8">
+        <van-cell custom-class="view_time detail_title" title="时间" border="{{false}}" />
+      </van-col>
+      <van-col span="16">
+        <van-cell custom-class="view_time" title="{{obj.createTime}}" border="{{false}}" />
+      </van-col>
+    </van-row>
+    
+    <!--投诉图片-->
+    <view>
+      <view wx:for="{{fileList}}" wx:for-index="idx" wx:for-item="image">
+        <van-col span="8">
+          <image style="display: block; box-sizing: border-box; height: 140px; width: 115px; margin:0; margin-top: 15px; border:2px;" src="data:image/png;base64,{{image}}"></image>
+        </van-col>
+      </view>
+    </view>
+  </view>
+
+  <view class="clear"></view>
+ 
+</view>

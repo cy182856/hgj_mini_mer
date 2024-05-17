@@ -69,6 +69,10 @@ Page({
           { id: '21',name: "访客管理", hasAuth: false, imgsrc: '/images/110001.png', url: '/subpages/visit/visitInfo/visitInfo'},
         ]},
 
+        {topic:"问题反馈",isShow:false,id:'39',funs:[
+          { id: '40',name: "投诉记录", hasAuth: false, imgsrc: '/images/113001.png', url: '/subpages/feedback/query/query'},
+        ]},
+
         // {topic: "其他功能", id: '4', authId:['103000','107000','110000','112000','113000','117000','118000'], isShow: false, funs: [{ id: '1',authId:'103004', name: "预约查询", hasAuth: false, imgsrc: '/images/103004.png', url: '/subpages/appt/appt_timeDtl_query' },
         //   ,{ id: '2', authId:'110001', name: "访客管理", hasAuth: false, imgsrc: '/images/110001.png', url: '/subpages/visit/visitInfo/visitInfo'}  
         //   ,{ id: '3', authId:'107001', name: "邻里圈", hasAuth: false, imgsrc: '/images/107001.png', url: '/subpages/heo/heoaudit/heoinfo'}

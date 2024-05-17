@@ -1,0 +1,144 @@
+.bg{
+	background-color: #EDEFEF;
+  }
+  .vcell_title{
+	color: #474747;
+  }
+  .view_bg{
+	background-color: #ffffff;
+	width: 92%;
+	height: 290rpx;
+	margin-left: 3%;
+	margin-top: 30rpx;
+	border-radius: 10rpx;
+	font-size: 28rpx;
+	/*  */
+  }
+  .view_light{
+	line-height: 50rpx;
+  }
+  .text_right{
+	padding-right: 80rpx;
+  }
+  .view_desc{
+	color:#ABABAB;
+	padding: var(--cell-vertical-padding,10px) var(--cell-horizontal-padding,16px);
+  }
+  
+  .last_font{
+	margin-top: 50rpx;
+	font-size: 24rpx;
+	color: #C6C6C6;
+	line-height: 42rpx;
+	text-align: center;
+  }
+  
+  .yijiedan{
+	color: #189AFE !important;
+  }
+  .daipingjia{
+	color: #FE8F18 !important;
+  }
+  .yijieshu{
+	color: #ABABAB !important;
+  }
+  .daishouli{
+	color: #14D164 !important;
+  }
+  .daifukuan{
+	color:#F73809 !important;
+  }
+  
+  /* 默认属性变更 */
+  .van-cell::after {
+	border-bottom: 2rpx dashed #D5D5D5 !important;
+  }
+  .vb{
+	border-radius: 10rpx;
+  }
+  
+  /* vant dialog弹窗的确定按钮统一改为 */
+  .dialog-index--van-dialog__confirm{
+	color: #189AFE !important;
+  }
+  
+  .txt{
+	text-overflow:ellipsis;
+	/* z-index: -1; */
+	display: -webkit-box;
+	word-break: break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+   }
+  
+   
+   .hd {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 92%;
+	margin-left: 3%;
+	margin-top: 0px;
+	height: 88rpx;
+	line-height: 88rpx;
+	display: flex;
+	background: #fff;
+	z-index: 100;
+  }
+  
+  .hd_flex {
+	flex: 1;
+	text-align: center;
+	font-size: 28rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #333333;
+  }
+  
+  .hd_flex_on {
+	font-size: 30rpx;
+	color: #FA871E;
+	position: relative;
+  }
+  
+  .hd_flex_on::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	width: 40%;
+	height: 6rpx;
+	background: #FA871E;
+	border-radius: 3rpx;
+	left: 50%;
+	transform: translateX(-50%);
+  }
+  
+  .buttonView{
+	width: 100%;
+	margin-right: 20rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	background: #fff;
+	color: #ABABAB !important;
+	font-size: 28rpx;
+	padding-right:0rpx;
+	text-align: center;
+  }
+  
+  .costDetail{
+	margin-left: 5%; 
+	display: flex;
+	text-decoration:underline;
+	color: rgb(137, 146, 160);
+  }
+  
+  .repair_desc{
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp:1;
+  }
+  
+  
+  
