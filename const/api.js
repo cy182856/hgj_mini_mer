@@ -4,9 +4,10 @@
 
 //const TechApiRootUrl = 'https://zhgj.shofw.com/qw/';
 //const TechApiRootUrl = 'http://192.168.79.5:84/qw/';
-  const TechApiRootUrl = 'http://192.168.23.108:84/qw/';
+//const TechApiRootUrl = 'http://192.168.23.108:84/qw/';
 //const TechApiRootUrl = 'http://zhgjtest.shofw.com:84/qw/';
-//const TechApiRootUrl = 'https://zhgjtest.xhguanjia.com/qw/';
+//const TechApiRootUrl = 'https://zhgjtest.xhguanjia.cn/qw/';
+const TechApiRootUrl = 'https://zhgj.xhguanjia.cn/qw/';
 
 // const TechApiRootUrl = 'https://jia-test.huiguan.com/jiamsv/';
 const env = "tech";
@@ -131,6 +132,9 @@ module.exports = {
   ,updAdviceItem:ApiRootUrl+ 'advice/updItem' //修改反馈归属项
   ,getAdviceItem:ApiRootUrl + 'advice/getItem' //获取反馈项
   ,addMsgBody:ApiRootUrl + 'advice/addMsgBody' //新增留言反馈
+
+  ,feedbackQuery:ApiRootUrl + 'feedbackQuery.do'//反馈查询
+
 
   /**** 充电桩 *****/
   ,queryChargeList : ApiRootUrl + '/charge/queryChargeList'

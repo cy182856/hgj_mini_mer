@@ -2,7 +2,6 @@
 
 import storage from "../utils/storageUtils";
 
-
 var api = require("../const/api"),
 network = require("../utils/network"),
 p = require("../const/path"),
@@ -49,10 +48,13 @@ doLogin = function() {
   i = (0, util.getCurrentPage)();
 
   // 东方渔人码头企业号
-   var suite_id = 'wwaf0bc97996187867';
+  // var suite_id = 'wwaf0bc97996187867';
   // appid wx9c0c8ef7c60aad9e
   // 凡享资产企业号
   // var suite_id = 'wp2U43agAA5zYxOldvud9BfjBng3oPeQ';
+   var suite_id = getApp().storage.getCorpId();
+   console.log("------------------suite_id---" + suite_id + "---------------------");
+
   // appid wx68f12959e564a1df
   // if(api.env == 'prod'){
   //   suite_id = 'wx68f12959e564a1df';

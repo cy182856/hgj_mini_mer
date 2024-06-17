@@ -16,6 +16,7 @@ const _ = {
     TOKEN_KEY:'TOKEN_KEY',
     USER_AVATAR_URL:'USER_AVATAR_URL',
     USER_NAME:'USER_NAME',
+    CORP_ID:'CORP_ID',
 }
 /**
  * 缓存处理类
@@ -139,7 +140,12 @@ class storage {
     getCstCode(){
         return wx.getStorageSync(_.CST_CODE);
     }
-
+    setCorpId(value){
+        wx.setStorageSync(_.CORP_ID, value);
+    }
+    getCorpId(){
+        return wx.getStorageSync(_.CORP_ID);
+    }
     setProNum(value){
         wx.setStorageSync(_.PRO_NUM, value);
     }

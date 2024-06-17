@@ -16,6 +16,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    corp_id:'',
     tablist: [{
       "text": "工作台",     
       "iconPath": '/images/home.png',
@@ -96,6 +97,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var corpId = options['corp_id'];
+    app.storage.setCorpId(corpId);
     var that = this;
     new app.userInfo(),app.toastComponent(),app.loading(),this.showLoading(!1);
     this.hgjWyModuleId= options && options.hgjWyModuleId ? options.hgjWyModuleId : '';//需要跳转页面时使用

@@ -4,5 +4,25 @@
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "OFW进入",
+          "pathName": "pages/home/home",
+          "query": "corp_id=wp2U43agAADAs8JoZ2FiTOES9yMBNWmw",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "凡享进入",
+          "pathName": "pages/home/home",
+          "query": "corp_id=wp2U43agAA5zYxOldvud9BfjBng3oPeQ",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
   }
 }
