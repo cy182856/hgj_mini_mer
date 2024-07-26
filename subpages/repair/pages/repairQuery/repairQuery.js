@@ -17,7 +17,7 @@ Page({
       cstCode:'',
       proNum:'',
       wxOpenId:'',
-      navList: ['全部', '已提交', '处理中', '已完工'],
+      navList: ['全部', '已提交', '处理中', '已完工', '已回访'],
       nav_type: 0
   },
 
