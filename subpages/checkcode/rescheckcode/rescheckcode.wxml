@@ -1,0 +1,49 @@
+<block wx:if="{{!showResult}}">
+  <view style="height:100%;background-color:#fff;">
+  </view>
+</block>
+
+<block wx:else>
+  <view class="rootpage" > 
+    <view class="root" style="padding-bottom:40rpx;">
+      <view class="check-result-view">
+        <view class="check-icon-view">
+          <block wx:if="{{checkSuccess}}">
+            <image class="check-result-image" src="/images/home/pass.png">
+            </image>
+          </block>
+          <block wx:else>
+            <image class="check-result-image" src="/images/home/forbid.png">
+            </image>
+          </block>
+        </view>
+        <view class="check-desc-view">
+            {{errDesc}}
+        </view>
+      </view>
+      <view  wx:if="{{checkSuccess}}" class="card-body">
+            <block>
+              <view class="visit-info-view">       
+                <van-cell-group custom-class ="van-cell-group-class" border="{{ false }}">
+                    <block>
+                    <van-cell custom-class="van-cell-class" title="项目" value="{{proName}}" border="{{ false }}" />
+                    <van-cell custom-class="van-cell-class" title="客户" value="{{cstName}}" border="{{ false }}"/>
+                  </block>             
+                </van-cell-group>			
+              </view>
+          </block>
+      </view>
+
+      <view class="btn-row bottom_margin" >
+        <view class ="btn-container">
+          <block>
+            <van-button type ="info"  bindtap="backToPrePage" custom-class ="back-button-class">返回</van-button>
+          </block>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</block>
+
+

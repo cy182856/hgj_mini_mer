@@ -64,6 +64,7 @@ Page({
         {topic:"出入认证",isShow:false,id:'17',funs:[
           {id:'18',name:"访客码入场",hasAuth:false,imgsrc:'/images/home/visit-code-in.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=S&visitType=I&codeType=V&title=访客码入场'},
           {id:'19',name:"快速码入场",hasAuth:false,imgsrc:'/images/home/visit-quick-in.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=Q&visitType=I&codeType=V&title=快速码入场'},
+          {id:'59',name:"住户码验证",hasAuth:false,imgsrc:'/images/home/visit-code-in.png',url: '/subpages/checkcode/rescheckcode/rescheckcode?checkType=R&title=住户码验证'},
         ]},
 
         {topic:"其他功能",isShow:false,id:'20',funs:[

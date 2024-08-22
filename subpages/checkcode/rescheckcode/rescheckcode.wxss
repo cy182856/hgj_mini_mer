@@ -1,0 +1,284 @@
+@import "../../../component/checkinput/checkinput.wxss";
+
+page{
+  height: 100%;
+}
+
+.rootpage {
+  height: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.root {
+  width: 100%;
+  position: relative;
+}
+
+.check-result-view{
+  background-color: #fff; 
+  padding: 20rpx;
+  padding-top: 40rpx;
+}
+
+.area-info-view{
+  padding: 40rpx 40rpx 10rpx 40rpx;
+}
+
+.visit-info-view{
+  padding: 10rpx 40rpx 40rpx 40rpx;
+}
+
+.estate-name-view{
+  font-size: 32rpx;
+  color: #363F4D;
+  font-weight: 600;
+}
+
+.house-name-view{
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  color: #363F4D;
+}
+
+.display-flex-view{
+  display:flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.background-image {
+  width: 100%;
+  position: absolute;
+  height: 320rpx;
+  left: 0px;
+  top: 0px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.card-body{
+  position: relative;
+}
+
+.fun-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background: white;
+  margin: 20rpx;
+  border-radius:.25em;
+}
+
+.title-view {
+  padding-top: 16rpx;
+  padding-left: 38rpx;
+  height: 62rpx;
+  text-align: left;
+  font-size: 30rpx;
+  background-color: #eeeeee;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+}
+
+.title-view-noradius {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.text-title{
+  color: #363F4D;
+}
+
+.check-desc-view{
+  margin: 0rpx 30rpx;
+  margin-bottom: 20rpx;
+  font-size: 36rpx;
+}
+
+.house-info-view{
+  margin:0rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.van-cell-class{
+  padding-bottom: 0rpx !important;
+  padding-left:0rpx !important;
+  font-size: 28rpx !important;
+}
+
+.foot-class{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-container {
+  width: 100%;
+  height: 88rpx;
+   margin-top: 10rpx;
+   margin-left: 40rpx;
+   margin-right: 40rpx;
+ }
+
+.pass-button-class{
+  width: auto;
+  border-radius: 20rpx !important;
+  font-size: 36rpx !important;
+  padding: 0rpx 20rpx !important;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #eeeeee !important;
+  border: 1px solid #eeeeee !important;
+	color: #989898 !important;
+}
+
+.back-button-class{
+  width: auto;
+  border-radius: 20rpx !important;
+  font-size: 36rpx !important;
+  padding: 0rpx 20rpx !important;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #1798dc !important;
+  border: 1px solid #1798dc !important;
+	color: #fff !important;
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 40rpx;
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+}
+
+.btn-margin {
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+}
+
+.check-result-image{
+  width: 80rpx;
+  height: 80rpx;
+  margin-left: 30rpx;
+}
+
+.check-icon-view{  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.check-desc-view{
+  margin-top: 20rpx;
+  width:100%;    
+  display: flex;
+  font-size: 32rpx;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-list-view{
+  display: flex;
+  padding: 10rpx 0rpx;
+  font-size: 28rpx;
+  color: #363F4D;
+}
+
+.item-flex-left{
+  flex:left;
+  width:50%;
+  text-align:left;
+}
+
+.item-flex-right{
+  flex:right;
+  width:50%;
+  text-align:right;
+}
+
+.van-collapse-class{
+  border-radius: .5em !important;
+  margin: 20rpx;
+}
+
+.border-round-class{
+  border-radius: .25em !important;
+}
+
+.van-collapse-item__title{
+  font-weight: bold !important;
+}
+
+.van-collapse-content-class{
+  padding:10rpx 64rpx 20rpx 40rpx !important;
+  border-radius: 0em 0em .5em .5em !important;
+}
+
+.collapse-item-index--van-cell{
+  padding-left: 40rpx !important;
+  padding-right: 64rpx !important;
+  border-radius: .5em .5em 0em 0em !important;
+}
+
+.checkcode-input-title{
+  padding-bottom:40rpx ;
+  padding-top:10rpx;
+}
+
+.van-cell--borderless{
+  border-radius: .5em !important;
+}
+
+.check-code-btn-view{
+  padding-top: 40rpx;
+}
+
+.checkcode-button-class{
+  width: 190rpx;
+  border-radius: 20rpx !important;
+  font-size: 32rpx !important;
+  padding: 0rpx 20rpx !important;
+  height: 60rpx !important;
+  line-height: 60rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  background-color: #1798dc !important;
+  border: 1px solid #1798dc !important;
+	color: #fff !important;
+}
+
+.gg{
+  padding: 0rpx 40rpx;
+  height: 80%;
+  color: #666666;
+  font-size: 28rpx;
+}
+
+.minx{
+  float:right  ;
+  height: 70rpx;
+  width: 70rpx;
+}
+
+.van-dialog__header {
+  padding: 20rpx 0rpx !important;
+}

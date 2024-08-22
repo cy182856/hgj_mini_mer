@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "checkInput":"/component/checkinput/checkinput"
+  }
+}

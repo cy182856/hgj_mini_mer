@@ -120,7 +120,8 @@
     {
       "root": "subpages/checkcode",
       "pages": [
-        "checkcode/checkcode"
+        "checkcode/checkcode",
+        "rescheckcode/rescheckcode"
       ]
     },
     {
