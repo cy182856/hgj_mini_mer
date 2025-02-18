@@ -2,9 +2,9 @@
 <template is="loading" data="{{..._loading_}}"></template>
 <!-- 弹窗 -->
 <van-dialog id="van-dialog" />
-<!-- 投诉详情模块 -->
+<!-- 详情模块 -->
 <view class="view_detail">
-  <!-- 投诉详情 -->
+  <!-- 详情 -->
   <view class="view_title_desc" style="padding-top:13rpx;">
     <van-cell title-class="txt" title="{{obj.feedbackDesc}}" border="{{false}}" />
   </view>
@@ -14,7 +14,7 @@
   <view style="padding-button:10rpx;">
     <van-row>
       <van-col span="8">
-        <van-cell custom-class="view_time" title="投诉人" border="{{false}}" />
+        <van-cell custom-class="view_time" title="姓名" border="{{false}}" />
       </van-col>
       <van-col span="16">
         <van-cell custom-class="view_time" border="{{false}}">
@@ -26,7 +26,7 @@
         </van-cell>
       </van-col>
     </van-row>
-    <van-row>
+    <van-row wx:if="{{obj.cstPhone !=null && obj.cstPhone != ''}}">
       <van-col span="8">
         <van-cell custom-class="view_time" title="电话" border="{{false}}" />
       </van-col>
@@ -43,7 +43,7 @@
       </van-col>
     </van-row>
     
-    <!--投诉图片-->
+    <!--图片-->
     <view>
       <view wx:for="{{fileList}}" wx:for-index="idx" wx:for-item="image">
         <van-col span="8">

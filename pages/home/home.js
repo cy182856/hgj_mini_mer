@@ -62,17 +62,17 @@ Page({
         ]},
 
         {topic:"出入认证",isShow:false,id:'17',funs:[
-          {id:'18',name:"访客码入场",hasAuth:false,imgsrc:'/images/home/visit-code-in.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=S&visitType=I&codeType=V&title=访客码入场'},
-          {id:'19',name:"快速码入场",hasAuth:false,imgsrc:'/images/home/visit-quick-in.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=Q&visitType=I&codeType=V&title=快速码入场'},
-          {id:'59',name:"住户码验证",hasAuth:false,imgsrc:'/images/home/visit-code-in.png',url: '/subpages/checkcode/rescheckcode/rescheckcode?checkType=R&title=住户码验证'},
+          {id:'18',name:"访客码验证",hasAuth:false,imgsrc:'/images/home/visit1.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=S&visitType=I&codeType=V&title=访客码入场'},
+          {id:'19',name:"快速码验证",hasAuth:false,imgsrc:'/images/home/visit15.png',url: '/subpages/checkcode/checkcode/checkcode?checkType=Q&visitType=I&codeType=V&title=快速码入场'},
+          {id:'59',name:"住户码验证",hasAuth:false,imgsrc:'/images/home/visit12.png',url: '/subpages/checkcode/rescheckcode/rescheckcode?checkType=R&title=住户码验证'},
         ]},
 
         {topic:"其他功能",isShow:false,id:'20',funs:[
-          { id: '21',name: "访客管理", hasAuth: false, imgsrc: '/images/110001.png', url: '/subpages/visit/visitInfo/visitInfo'},
+          { id: '21',name: "访客记录", hasAuth: false, imgsrc: '/images/home/visit13.png', url: '/subpages/visit/visitInfo/visitInfo'},
         ]},
 
         {topic:"问题反馈",isShow:false,id:'39',funs:[
-          { id: '40',name: "投诉记录", hasAuth: false, imgsrc: '/images/113001.png', url: '/subpages/feedback/query/query'},
+          { id: '40',name: "反馈记录", hasAuth: false, imgsrc: '/images/home/feedback.png', url: '/subpages/feedback/query/query'},
         ]},
 
         // {topic: "其他功能", id: '4', authId:['103000','107000','110000','112000','113000','117000','118000'], isShow: false, funs: [{ id: '1',authId:'103004', name: "预约查询", hasAuth: false, imgsrc: '/images/103004.png', url: '/subpages/appt/appt_timeDtl_query' },

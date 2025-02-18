@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText":"投诉记录",
+  "navigationBarTitleText":"反馈记录",
   "enablePullDownRefresh": true
 
 }

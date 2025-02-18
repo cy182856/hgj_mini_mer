@@ -19,7 +19,7 @@
     <view class="weui-loadmore-tips">正在刷新...</view>
 </view>
 
-<!-- 查询的报修记录列表 -->
+<!-- 查询列表 -->
 <view wx:if="{{feedbackList == null || feedbackList.length == 0}}" >
   <template is="empty" data="{{src:'/assets/icons/empty/no-data.png',width:232,text:'暂无我的报修记录'}}"></template>
 </view>
@@ -30,15 +30,15 @@
            custom-class="vb" 
            title-class="vcell_title txt" 
            value-class="daishouli" 
-           title="投诉信息" 
+           title="反馈信息" 
            is-link value="详情" url="../detail/detail?id={{item.id}}" />
     <view class="view_desc">
        
         <van-row>
-          <van-col span="8"><text class="text_right" decode="{{true}}" >投诉人</text></van-col>
+          <van-col span="8"><text class="text_right" decode="{{true}}" >姓名</text></van-col>
           <van-col span="16"> {{item.cstName}} </van-col>
         </van-row>
-        <van-row>
+        <van-row wx:if="{{item.cstPhone !=null && item.cstPhone !=''}}">
           <van-col span="8"><text class="text_right" decode="{{true}}" >电话</text></van-col>
           <van-col span="16"> {{item.cstPhone}} </van-col>
         </van-row>
